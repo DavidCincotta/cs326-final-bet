@@ -10,10 +10,12 @@
     margin-bottom: 3px;
     margin-top:3px;
     display:block;
-    border-right:5px solid;
-    font-weight:bold;
 
+    font-weight:bold;
 } 
+.tabContent{
+    display:none;
+}
 .sideButton:hover{
     background-color: rgb(148, 4, 4);
 }
@@ -23,7 +25,10 @@
 }
 .content{
     border-left: 20px;
-    border:solid;
-    border-color: rgb(252, 141, 141);
     width:100%;
+    margin-top: 3px;
+}
+.topTabs{
+    color: white;
+    background-color: rgb(248, 93, 93);
 }
