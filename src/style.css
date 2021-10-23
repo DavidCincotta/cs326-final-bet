@@ -43,7 +43,6 @@ h2{
 .sidebar.active {
     margin-left: 0px;
 }
-
 .item{
     padding: 10px;
     font-size: 1.1em;
@@ -56,11 +55,19 @@ h2{
     background: white;
     transition: all 0.5s;
 }
-
+.item.selected{
+    color: black;
+    background: white;
+}
 .content{
-    text-align:center;#prelim
     width: 100%;
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+}
+
+.class-table{
+    #margin:auto;
+    width:500px;
+    border: 2px solid black;
 }
