@@ -41,7 +41,7 @@ h2{
 .sidebar.active {
     margin-left: 0px;
 }
-.card{
+.logincard{
     border: 5px solid black;
     background-color: #fad3d3;
 }
@@ -59,14 +59,15 @@ h2{
 }
 
 .content{
-    text-align:center;#prelim
+    display: flex;
     width: 100%;
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }
 .login{
-    align-items: center;
+    align-self:center;
+    text-align:center;
     justify-content: center;
     display:flex;
     width: 100%;
@@ -84,9 +85,12 @@ h2{
 }
 .login-size2{
     width: 20rem; 
-    height:17rem;
+    height:19rem;
 }
 .settings-size{
     width: 30rem; 
     height:18rem
+}
+.borderthicc{
+    border-style: 5px solid black;
 }
