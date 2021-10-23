@@ -9,17 +9,27 @@
   <title>FrontPage</title>
 </head>
 <body>
+
   <div class="container tabs">
+
     <div class="sideBar ">
-      <button class="sideButton" onclick="">Courses</button>
-      <button class="sideButton" onclick="">Directory</button>
-      <button class="sideButton" onclick="">Search  </button>
+      <button class="sideButton" id = "coursesButton"> Courses</button>
+      <button class="sideButton" id = "directoryButton"> Directory</button>
+      <button class="sideButton" id = "searchButton"> Search  </button>
     </div>
+
     <div class="content container" id="mainWin">
+        <h>PLACEHOLDER, CLICK ON TABS TO CHANGE, ONLY CLICK ONCE OR IT WILL GLITCH, WILL FIX LATER</h>
+         <h>USED AS TEST FOR TABS</h>
+    </div>
+
+  </div>
+
+  <div class="tabContent" id="courses">
     <div class="container">
       <div class="row">
         <div class="col topTabs">
-          Course
+          Current Courses
         </div>
         <div class="col topTabs">
           Description 
@@ -28,14 +38,14 @@
           Activity
         </div>
       </div>
-  </div>
     </div>
   </div>
-  <div class="tabContent" id="Courses">
+
+  <div class="tabContent" id="directory">
     <div class="container">
       <div class="row">
         <div class="col topTabs">
-          Course
+          Courses
         </div>
         <div class="col topTabs">
           Description 
@@ -44,14 +54,35 @@
           Activity
         </div>
       </div>
+    </div>
   </div>
-</div>
+  <div class="tabContent" id="search">
+    <form>
+      <div class="d-flex justify-content-between">
+        <input type="text" id="keyWords" class="form-control" placeholder="Course to find">
+        <input type="Number" id="classNum" class="form-control" placeholder="Course Number">
+        <select id="inputCollege" class="form-control">
+          <option selected>CICS</option>
+          <option>Chemistry</option>
+          <option>Memes</option>
+        </select>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+      </div>
+    </form>
   </div>
-  <div class="tabContent" id="Directory">
-    <p>hello there</p>
-  </div>
-  <div class="tabContent" id="Search">
-  </div>
-  
 </body>
+<script>
+  function changeTab(id){
+    const mainWin = document.getElementById("mainWin");
+    while (mainWin.firstChild) {
+        mainWin.removeChild(mainWin.firstChild);
+    }
+    const toAdd = document.getElementById(id);
+    toAdd.style.display='block'
+    mainWin.appendChild(toAdd);
+  }
+document.getElementById("coursesButton").addEventListener("click", ()=> changeTab("courses"));
+document.getElementById("directoryButton").addEventListener("click", ()=>changeTab("directory"));
+document.getElementById("searchButton").addEventListener("click", ()=>changeTab("search"));
+</script>
 </html>
