@@ -5,11 +5,27 @@
     padding: 25px;
     display:flex;
 }
+
+.subheader{
+    background:blue;
+    color:white;
+    border-bottom:2px solid black;
+    padding: 25px;
+    align-content: center;
+}
+
 h2{
     font-family:cursive;
     font-weight:bold;
     padding-left:40px;
 }
+
+h3{
+    font-family:cursive;
+    font-weight:bold;
+    text-align: center;
+}
+
 .chevron{
     background:green;
     color:white;
@@ -27,7 +43,7 @@ h2{
     padding-right:0px;
     padding-left:0px;
     margin-left:0px;
-    margin-right:0px;
+    margin-right:0px;    
 }
 
 .sidebar {
@@ -58,9 +74,30 @@ h2{
 }
 
 .content{
-    text-align:center;#prelim
+    text-align:center;
     width: 100%;
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+}
+
+.forumButton{
+    background:#821010;
+    color:white;
+    margin-bottom: 50px;
+}
+
+.forumButton:hover{
+    border-color: #821010;
+    /* width: 100%; */
+    background:white;
+    color:#821010;
+}
+
+.row{
+    border: 0px solid black;
+}
+
+.col{
+    border: solid black;
 }
