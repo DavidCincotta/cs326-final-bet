@@ -101,3 +101,22 @@ h3{
 .col{
     border: solid black;
 }
+
+#forum-post{
+    color: white;
+    background-color: #821010;
+}
+
+#forum-response{
+    margin-top: 10px;
+    padding-left: 50px;
+    text-align: right;
+    color: white;
+    background-color: #821010;
+}
+
+#forum-response-text{
+    /* text-align: right; */
+    color: black;
+    background-color: lightgray;
+}
