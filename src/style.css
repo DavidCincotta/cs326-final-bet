@@ -19,9 +19,9 @@ h2{
     color:green;
 }
 .container {
-    display: flex;
+    display:flex;
     width: 100%;
-    align-items: stretch;
+    #align-items: stretch;
     padding-right:0px;
     padding-left:0px;
     margin-left:0px;
@@ -51,15 +51,16 @@ h2{
     display: block;
     border-bottom: 2px solid black;
 }
-
 .item:hover {
     color: black;
     background: white;
     transition: all 0.5s;
 }
-
+.item.selected{
+    color: black;
+    background: white;
+}
 .content{
-    display: flex;
     width: 100%;
     padding: 20px;
     min-height: 100vh;
@@ -93,4 +94,9 @@ h2{
 }
 .borderthicc{
     border-style: 5px solid black;
+}
+.class-table{
+    #margin:auto;
+    width:500px;
+    border: 2px solid black;
 }
