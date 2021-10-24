@@ -169,3 +169,6 @@ h4{
     height: 20%;
     margin-bottom: 20px;
 }
+.alert-success{
+    text-align: center;
+}

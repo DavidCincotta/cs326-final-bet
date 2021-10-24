@@ -41,12 +41,31 @@ After selecting a course, the user is faced with a different menu; the tabs now 
 3. The Forum tab will provide the ability to make a post to ask questions or provide random bits of wisdom, and all posts will allow users to reply and carry out conversations about their experience in the course.  
 
 ## Sitemap
-![Alt text](https://github.com/DavidCincotta/cs326-final-bet/blob/main/docs/sitemap.png?raw=true "sitemap")
+![Site map](/docs/sitemap.png "sitemap")
 
 ## Wireframe
-![Alt text](https://github.com/DavidCincotta/cs326-final-bet/blob/main/docs/wireframe.png?raw=true "wireframe")
+![Wireframe](/docs/wireframe.png "wireframe")
 
 # HTML Screenshots
+
+## Login
+![Login](/screenshots/login.JPG "login")
+
+## Courses
+![courses](/screenshots/courses.JPG "courses")
+
+## Search
+![search](/screenshots/search.JPG "search")
+
+## Create Course
+![createCourse](/screenshots/createCourse.JPG "createCourse")
+
+## Course Page
+![coursePage](/screenshots/coursePage.JPG "coursePage")
+
+## Forum Post
+![forumPost](/screenshots/forumPost.JPG "forumPost")
+
 
 # Teamwork Makes the Dream Work
 The breakdown of our efforts was very equal as we all spent SEVERAL hours together on Zoom putting this milestone together.  We split the workload up based on the different pages we needed to create.  This allowed each of us to add some CSS as well as HTML to the mix.  David handled the physical creation of the wireframe and sitemap on Zoom with Ilya and Tom present for collaboration on the appearance and functionality.  In terms of coding, Ilya handled the login/account creation pages and interactions, and the tab switching functionality. David created the Javascript routines to load the pages, dynamically create grids, and handled the search pages.  Tom focused on the course information, resources, and forum tabs, as well as the pages used to create and edit course information.  
