@@ -29,7 +29,7 @@ function afterLoad(){
                 ['statistics','240','inactive'],
                 ['underwater basket weaving','400','recent']
                 ], 
-                ['name','course number', 'activity']);
+                ['Course','Course Number', 'Activity']);
             break;
         case 'directory.html':
             createTable('table-placement','new-table',[
@@ -37,7 +37,7 @@ function afterLoad(){
                 ['statistics','240','inactive'],
                 ['underwater basket weaving','400','recent']
                 ], 
-                ['name','course number', 'activity']);
+                ['Name','Course Number', 'Activity']);
             break;
         case 'search.html':
             document.getElementById('search-button').addEventListener('click',()=>{
@@ -46,7 +46,7 @@ function afterLoad(){
                     ['<a href=\'./link\'>web programming</a>','326','recent'],
                     ['statistics','240','inactive'],
                     ['underwater basket weaving','400','recent']
-                ], ['name','course number', 'activity']);
+                ], ['Name','Course Number', 'Activity']);
 
             });
         case 'notifications.html':
