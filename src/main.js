@@ -59,6 +59,23 @@ function afterLoad(){
                 ], 
                 ['Recency','Course','Activity']);
             break;
+        case 'resources.html':
+            console.log('notifications');
+            createTable('table-placement','new-table',[
+                ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
+                ['<a href=\'./link\'>Resource 2</a>','Good pseudocode','Yesterday'],
+                ['<a href=\'./link\'>Resource 3</a>','Funny meme','Last week']
+                ], 
+                ['Resource','Description','Date']);
+            break;
+            case 'forum.html':
+                console.log('notifications');
+                createTable('table-placement','new-table',[
+                    ['<a href=\'./forumPost.html\'>Midterm</a>','I thought that was easy!','Today'],
+                    ['<a href=\'./link\'>Homework</a>','We get way too much in this class','Yesterday'],
+                    ], 
+                    ['Post Title','Number of Replies','Date Added']);
+                break;
         default:
             break;
     }
