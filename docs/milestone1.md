@@ -44,6 +44,7 @@ After selecting a course, the user is faced with a different menu; the tabs now 
 ![Site map](/docs/sitemap.png "sitemap")
 
 ## Wireframe
+Over the course of creating our pages, we changed a few things about our page design. So our wireframes are slightly outdated, but served as a good guidepost.
 ![Wireframe](/docs/wireframe.png "wireframe")
 
 # HTML Screenshots
