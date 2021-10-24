@@ -5,7 +5,7 @@
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='./style.css'>
-        <title>Course Information</title>
+        <title>New Discussion Post</title>
         <script src='./main.js'></script>
     </head>
     <body>
@@ -14,9 +14,9 @@
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
-            <h4>Course: Web Programming</h4>
 
         </div>
+
 
 
         <div class='container'>
@@ -26,18 +26,24 @@
                 <div type='button' class='item'onclick='changeContent'>Forum   </div>
                 <div type='button' class='item'onclick='changeContent'>Polls   </div>
             </nav>
-
             <div class='content'>
-                <h1>CS 326 Web Programming</h1>
-                <h5>Professor: Emery Berger</h5>
-                <h5>History: 2016-2021</h5>
-                <h5>Activity: 20 posts this semester</h5>
-                <h5>Course Description:</h5>
-                <p>Interactive experience course. Focused on learning Javascript and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.</p>
-                <div>
-                    <button class="btn createButton">Edit </button>
+                <div class="alert alert-success" role="alert">
+                    Discussion Post Creation
                 </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Post Title</span>
+                    </div>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" >
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Post Body</span>
+                    </div>
+                    <textarea class="form-control" aria-label="With textarea" ></textarea>
+                  </div>
+                  <button type="button" class="btn createButton">Create Post</button>
             </div>
-        </div>
+        </div>  
     </body>
 </html>

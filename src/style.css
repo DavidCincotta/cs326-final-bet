@@ -6,14 +6,6 @@
     display:flex;
 }
 
-.subheader{
-    background:blue;
-    color:white;
-    border-bottom:2px solid black;
-    padding: 25px;
-    align-content: center;
-}
-
 h2{
     font-family:cursive;
     font-weight:bold;
@@ -24,6 +16,12 @@ h3{
     font-family:cursive;
     font-weight:bold;
     text-align: center;
+}
+
+h4{
+    font-family:cursive;
+    font-weight:bold;
+    margin-left: auto;    
 }
 
 .chevron{
@@ -84,39 +82,63 @@ h3{
 .forumButton{
     background:#821010;
     color:white;
-    margin-bottom: 50px;
 }
 
 .forumButton:hover{
     border-color: #821010;
-    /* width: 100%; */
     background:white;
     color:#821010;
 }
 
-.row{
-    border: 0px solid black;
-}
 
-.col{
-    border: solid black;
+.post-title{
+    color:black;
+    font-family:cursive;
+    font-weight:bold;
+    padding-left:40px;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
 #forum-post{
-    color: white;
-    background-color: #821010;
-}
-
-#forum-response{
-    margin-top: 10px;
-    padding-left: 50px;
-    text-align: right;
-    color: white;
-    background-color: #821010;
+    color: black;
+    background-color: lightskyblue;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    text-align: left;
 }
 
 #forum-response-text{
-    /* text-align: right; */
     color: black;
     background-color: lightgray;
+}
+
+.replyButton{
+    background: lightskyblue;
+    color:black;
+    margin-top: 15px;
+    width: 100%
+}
+.createButton{
+    background: lightgrey;
+    color:black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%
+}
+
+.my-select{
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 20px;
+}
+
+.row{
+    border: 2px solid black;
+}
+
+.col{
+    border: 2px solid black;
 }

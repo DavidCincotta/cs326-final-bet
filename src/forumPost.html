@@ -5,46 +5,51 @@
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='./style.css'>
-        <title>Course Resourses</title>
+        <title>Discussion</title>
         <script src='./main.js'></script>
     </head>
     <body>
-
-
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
+            <h4>Course: Web Programming</h4>
         </div>
-        <div class='subheader'>
-            <h3>Web Programming</h3>
-        </div>
-        <h1> Post Title</h1>
+        <div class='container'>
+            <nav id='sidebar' class='sidebar active'>
+                <div type='button' class='item'onclick='changeContent'>Information  </div>
+                <div type='button' class='item'onclick='changeContent'>Resources</div>
+                <div type='button' class='item'onclick='changeContent'>Forum   </div>
+                <div type='button' class='item'onclick='changeContent'>Polls   </div>
+            </nav>
+         <!-- </div> -->
+         <div class='content'>
+        <div class="post-title"> Post Title</div>
         <div class="card" id="forum-post">
             <div class="card-body">
                 <div class="card-title">
-                    <h6>Post Author</h6>
-                    </div>
+                    <h6>Ronald McDonald 10/21/2021 12:07 PM</h6>
+                </div>
                     <div class="card">
                         <div class="card-body" id="forum-response-text">
-                                <p> This is a post to tell you that the UMass Course Explorer is awesome!</p>
-                        </div>
-                        
+                            <p> This is a post to tell you that the UMass Course Explorer is awesome!</p>
+                        </div>   
                     </div>
                 </div>
             </div>
-        </div>
-            <div class="card" id="forum-response">
+            <div class="card" id="forum-post">
                 <div class="card-body">
                     <div class="card-title">
-                        <h6>My Response</h6>
+                        <h6>Grimace 10/21/2021 3:50 PM</h6>
                         <div class="card">
                             <div class="card-body" id="forum-response-text">
-                                    <p> Dude I totally agree, this CSS is nuts!</p>
+                                <p> Dude I totally agree, this CSS is nuts!</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button type="button" class="btn replyButton">Post a Reply</button>
+        </div>
     </body>
 </html>
     
