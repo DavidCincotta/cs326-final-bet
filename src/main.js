@@ -15,6 +15,10 @@ function afterLoad(){
             window.location.replace('./'+item.innerHTML.toLowerCase()+'.html');
         });    
     }
+
+    document.getElementById('create-page').addEventListener('click', ()=>{
+        window.location.replace('./createCourse.html');
+    });
     
 
     //switch on name of page
