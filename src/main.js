@@ -1,39 +1,4 @@
 import {createTable} from './utilities.js';
-/*
-function createTable(position, id,inputList,headers){
-    let tbl = document.createElement('table');
-    tbl.setAttribute('id',id);
-    tbl.classList.add('table');
-    
-
-    let thd = document.createElement('thead');
-    let headerRow = document.createElement('tr');
-    headers.forEach((h)=>{
-        let headerItem = document.createElement('th');
-        headerItem.setAttribute('scope','col');
-        headerItem.innerHTML = h;
-        headerRow.appendChild(headerItem);
-    });
-    thd.appendChild(headerRow);
-    tbl.appendChild(thd);
-
-    let tbody = document.createElement('tbody');
-    
-    inputList.forEach((row)=>{
-        let trow = document.createElement('tr');
-        row.forEach((col)=>{
-            let tcol = document.createElement('th');
-            tcol.innerHTML = col;
-            trow.appendChild(tcol);
-        });
-        tbody.appendChild(trow);
-    });
-    tbl.appendChild(tbody);
-
-    document.getElementById(position).appendChild(tbl);
-
-}
-*/
 
 function afterLoad(){
 
@@ -52,7 +17,6 @@ function afterLoad(){
     }
     
 
-    console.log(window.location.pathname.split('/').pop());
     //switch on name of page
     switch(window.location.pathname.split('/').pop()){
         case 'courses.html':
@@ -72,7 +36,6 @@ function afterLoad(){
                 ['name','course number', 'activity']);
             break;
         case 'search.html':
-            console.log('search section');
             document.getElementById('search-button').addEventListener('click',()=>{
                 
                 createTable('table-placement','new-table',[
@@ -82,9 +45,16 @@ function afterLoad(){
                 ], ['name','course number', 'activity']);
 
             });
+        case 'notifications.html':
+            createTable('table-placement','new-table',[
+                ['1','326','recent'],
+                ['2','240','inactive'],
+                ['3','400','recent']
+                ], 
+                ['Recency','Course','Activity']);
             break;
         default:
-            console.log('default');
+            break;
     }
 
 }
