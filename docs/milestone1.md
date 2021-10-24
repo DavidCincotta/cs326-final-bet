@@ -26,9 +26,19 @@ The classes in our application will be chosen and added by students themselves. 
 
 # Sitemap and Wireframes
 Our application will first require the user to login, or create an account if they do not already have one.  A UMass email will be required for both.  After logging in, the user 
-is redirected to the front page.  There is a sidebar menu that can be toggled on and off that contains links to the different tabs off the application.  The tabs on the front page are for **Courses**, **Directory**, and **Search**.  The front page acts as a search interface to find the different courses that are available.  The Courses tab allows the user to view the classes they have already added.  The directory tab contains a list of all classes on the site listed alphabetically. The search bar will, you guessed it, allow the user to find a specific course if it exists.  This home page will also be where the user can choose to create a new course page.  They will enter various information such as the course number and name.  There will also be an entry for a character limited description which is displayed in the tables listing the courses, and another entry for a longer description displayed on the course's page.  
+is redirected to the front page.  There is a sidebar menu that can be toggled on and off that contains links to the different tabs off the application.  The tabs on the front page are for **Courses**, **Directory**, **Search**, **Notifications**, and **Settings**.  The front page acts as a search interface to find the different courses that are available.  The functions of the tabs are:
+1. The Courses tab allows the user to view the classes they have already added.  
+2. The Directory tab contains a list of all classes on the site listed alphabetically.
+3. The Search tab will, you guessed it, allow the user to find a specific course if it exists.
+4. The Notifications tab will show the latest activity on course pages followed by the user.
+5. The Settings tab will allow the user to update the username and password information. 
 
-After selecting a course, the user is faced with a different menu; the tabs now read **Information**, **Resources**, and **Forum**.  The Information tab is loaded by default and displays course information, such as who the current instructor is and the years the course has been active.  The Resources tab will keep a running list of all the helpful things students have found over the years.  This information is not deleted, always appended to.  The Forum tab will provide the ability to make a post to ask questions or provide random bits of wisdom, and all posts will allow users to reply and carry out conversations about their experience in the course.  
+The home page is also where the user can choose to create a new course page.  They will enter various information such as the course number and name.  There will also be an entry for a character limited description which is displayed in the tables listing the courses, and another entry for a longer description displayed on the course's page.  
+
+After selecting a course, the user is faced with a different menu; the tabs now read **Information**, **Resources**, and **Forum**.  The functions of these tabs are:
+1. The Information tab is loaded by default and displays course information, such as who the current instructor is and the years the course has been active.
+2. The Resources tab will keep a running list of all the helpful things students have found over the years.  This information is not deleted, always appended to.
+3. The Forum tab will provide the ability to make a post to ask questions or provide random bits of wisdom, and all posts will allow users to reply and carry out conversations about their experience in the course.  
 
 ## Sitemap
 ![Alt text](https://github.com/DavidCincotta/cs326-final-bet/blob/main/docs/sitemap.png?raw=true "sitemap")
