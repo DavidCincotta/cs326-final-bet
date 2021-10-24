@@ -41,7 +41,7 @@ After selecting a course, the user is faced with a different menu; the tabs now 
 3. The Forum tab will provide the ability to make a post to ask questions or provide random bits of wisdom, and all posts will allow users to reply and carry out conversations about their experience in the course.  
 
 ## Sitemap
-![Site map](/docs/sitemap.png "sitemap")
+![Site map](/docs/sitemap1.png "sitemap")
 
 ## Wireframe
 Over the course of creating our pages, we changed a few things about our page design. So our wireframes are slightly outdated, but served as a good guidepost.
