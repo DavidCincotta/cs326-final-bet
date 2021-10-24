@@ -15,27 +15,27 @@ function afterLoad(){
             window.location.replace('./'+item.innerHTML.toLowerCase()+'.html');
         });    
     }
-
-    document.getElementById('create-page').addEventListener('click', ()=>{
-        window.location.replace('./createCourse.html');
-    });
-    
+    try{
+        document.getElementById('create-page').addEventListener('click', ()=>{
+            window.location.replace('./createCourse.html');
+        });
+    }catch(error){}
 
     //switch on name of page
     switch(window.location.pathname.split('/').pop()){
         case 'courses.html':
             createTable('table-placement','new-table',[
                 ['<a href=\'./information.html\'>web programming</a>','326','recent'],
-                ['statistics','240','inactive'],
-                ['underwater basket weaving','400','recent']
+                ['<a href=\'\'>statistics</a>','240','inactive'],
+                ['<a href=\'\'>underwater basket weaving</a>','400','recent']
                 ], 
                 ['name','course number', 'activity']);
             break;
         case 'directory.html':
             createTable('table-placement','new-table',[
                 ['<a href=\'./information.html\'>web programming</a>','326','recent'],
-                ['statistics','240','inactive'],
-                ['underwater basket weaving','400','recent']
+                ['<a href=\'\'>statistics</a>','240','inactive'],
+                ['<a href=\'\'>underwater basket weaving</a>','400','recent']
                 ], 
                 ['name','course number', 'activity']);
             break;
@@ -43,13 +43,15 @@ function afterLoad(){
             document.getElementById('search-button').addEventListener('click',()=>{
                 
                 createTable('table-placement','new-table',[
-                    ['<a href=\'./link\'>web programming</a>','326','recent'],
-                    ['statistics','240','inactive'],
-                    ['underwater basket weaving','400','recent']
+                    ['<a href=\'./information.html\'>web programming</a>','326','recent'],
+                    ['<a href=\'\'>statistics</a>','240','inactive'],
+                    ['<a href=\'\'>underwater basket weaving</a>','400','recent']
                 ], ['name','course number', 'activity']);
 
             });
+            break;
         case 'notifications.html':
+            console.log('notifications');
             createTable('table-placement','new-table',[
                 ['1','326','recent'],
                 ['2','240','inactive'],
