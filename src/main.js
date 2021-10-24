@@ -21,7 +21,7 @@ function afterLoad(){
     switch(window.location.pathname.split('/').pop()){
         case 'courses.html':
             createTable('table-placement','new-table',[
-                ['<a href=\'./link\'>web programming</a>','326','recent'],
+                ['<a href=\'./information.html\'>web programming</a>','326','recent'],
                 ['statistics','240','inactive'],
                 ['underwater basket weaving','400','recent']
                 ], 
@@ -29,7 +29,7 @@ function afterLoad(){
             break;
         case 'directory.html':
             createTable('table-placement','new-table',[
-                ['<a href=\'./link\'>web programming</a>','326','recent'],
+                ['<a href=\'./information.html\'>web programming</a>','326','recent'],
                 ['statistics','240','inactive'],
                 ['underwater basket weaving','400','recent']
                 ], 

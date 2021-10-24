@@ -35,7 +35,7 @@ h4{
 .container {
     display:flex;
     width: 100%;
-    #align-items: stretch;
+    align-items: stretch;
     padding-right:0px;
     padding-left:0px;
     margin-left:0px;
@@ -110,8 +110,9 @@ h4{
     border-style: 5px solid black;
 }
 .class-table{
-    #margin:auto;
+    margin:auto;
     width:500px;
+}
 
 .forumButton{
     background:#821010;
