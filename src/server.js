@@ -1,8 +1,10 @@
 'use strict';
 import * as http from 'http';
 import * as url from 'url';
-//import * as db from './database.js';
 import express from 'express';
+
+
+
 
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
@@ -14,6 +16,8 @@ app.use(express.json()); // lets you handle JSON input
 const port = 3010;
 
 
+
+
 /////////////////////////////////////////////
 //////////// ExpressRouting ////////////////
 /////////////////////////////////////////////
@@ -22,9 +26,14 @@ app.use(express.static('src'));
 
 
 
+
+
+
 /////////////////////////////////////////////
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
+
+
 app.post('/Forum/create', (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
@@ -56,9 +65,14 @@ app.get('/Forum/shortpost/:post_id', (req, res) => {
     res.send({"post_id": post});
 });
 
+
+
+
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
+
+
 app.post('/Courses/getcourse', (req, res) =>{
     const account = req.body['account_id'];
 
