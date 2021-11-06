@@ -13,7 +13,8 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            window.location.replace('./'+item.innerHTML.toLowerCase()+'.html');
+            console.log('bad link');
+            window.location.replace(item.innerHTML.toLowerCase()+'.html');
         });    
     }
     try{
@@ -82,19 +83,19 @@ function afterLoad(){
             break;
         case 'forumPost.html':
             console.log('notifications');
-            const forum = new Forum();
+            const f = new Forum();
             // will eventually get this info from db instead of hardcoded
             // will use getPost instead of createPost
-            forum.createPost("CS 326", "This class rocks!", [{"username": "Ronald McDonald",
+            f.createPost("CS 326", "This class rocks!", [{"username": "Ronald McDonald",
                 "date": "11/5/2021 6:17 pm", "post": "it sure does!"},
                 {"username": "Grimace", "date": "11/5/2021 6:30 pm", "post": "hell yeah I agree"}]);
             const title = document.getElementsByClassName("post-title");
             const forumElement = document.getElementById("forum");
             const heading = document.getElementById("courseTitle");
-            forum.render(title[0], forumElement, heading)
+            f.render(title[0], forumElement, heading)
             document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
                 const response = document.getElementById("response").value;
-                forum.updatePost({"username": "user", "date": "currentDate", "post": response}, title[0], forumElement, heading);
+                f.updatePost({"username": "user", "date": "currentDate", "post": response}, title[0], forumElement, heading);
                 })
         default:
             break;
