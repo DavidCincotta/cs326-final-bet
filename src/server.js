@@ -1,42 +1,12 @@
 'use strict';
 import * as http from 'http';
-import * as url from 'url';
-import * as db from './database.js';
+// import * as url from 'url';
+// import * as db from 'database.js';
 import express from 'express';
-// const express = require('express');
-
-
-// const headerText = JSON.stringify({ "Content-Type": "text/html","Transfer-Encoding": "chunked" });
-
-
-// let server = http.createServer();
-// server.on('request', async (request, response) => {
-    
-//     let status = 200;
-//     let options = await url.parse(request.url, true).query;
-    
-//     response.writeHead(status, headerText);
-//     if (request.url.startsWith("/wordScore")) {
-//         postWordScore(options);
-//         write();
-//     }
-//     else if (request.url.startsWith("/highestWordScores")) {
-//         getHighestWordScores(options,response);
-//     }
-//     else if (request.url.startsWith("/gameScore")) {
-//         postGameScore(options);
-//         write();
-//     }
-//     else if (request.url.startsWith("/highestGameScores")) {
-//         getHighestGameScores(options,response);
-//     }
-//     else {
-//         response.statusCode = 400;
-//     }
-//     response.end();
-// });
-
-
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 /////////////////////////////////////////////
@@ -45,21 +15,29 @@ import express from 'express';
 const app = express();
 // import express from "express"
 
-app.use(express.json()); // lets you handle JSON input
+// const path = require('path')
+app.use(express.json())
+app.use(express.static('src'));
+
+// app.use(express.static('public')) // lets you handle JSON input
 
 const port = 3010;
 app.post('/Forum/create', (req, res) =>{
+    console.log("HERE")
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
     // send info to db
     // return post_id created in db
-    // res.send(JSON.stringify(res.statusCode));
-    res.send({"course": course, "title": title, "posts": posts})
+    res.sendFile("./createCourse.html", { root: __dirname })
+    //(JSON.stringify(res.statusCode));
+    // res.send({"course": course, "title": title, "posts": posts})
 });
 
-app.post('/Forum/update', (req, res) => {
-    const post = req.body['post_id'];
+app.post('/Forum/longpost/:post_id/update', (req, res) => {
+    // const post = req.body['post_id'];
+    const post = req.params.post_id;
+
     const posts = req.body['content_array'];
     // put new info into database WHERE post_id = post_id
     // res.send(JSON.stringify(res.statusCode));
@@ -69,8 +47,8 @@ app.post('/Forum/update', (req, res) => {
 
 app.get('/Forum/longpost/:post_id', (req, res) => {
     const postID = req.params.post_id;
-    // get and return content_array and post_title, course from db
-    res.send({"title": "title", "posts": ["here's a post", "and another"], "course": "web programming"})
+    // get and return content_array, post_title, and course from db
+    res.send({"title": "title", "course": "web programming", "posts": ["here's a post", "and another"]})
 
 })
 
@@ -81,6 +59,10 @@ app.get('/Forum/shortpost/:post_id', (req, res) => {
     // res.send(JSON.stringify(res.statusCode));
     res.send({"post_id": post})
 
+})
+
+app.get('/test', (req, res) =>{
+    res.sendFile('./test.html',  { root : __dirname})
 })
 
 // app.get('*', (req, res) => {
