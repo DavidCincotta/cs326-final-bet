@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.static('src'));
 
 
-const port = 3000;
+const port = 3010;
 app.post('/Forum/create', (req, res) =>{
     console.log("HERE")
     const course = req.body['course_key'];
