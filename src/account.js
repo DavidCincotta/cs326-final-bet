@@ -71,14 +71,14 @@ function afterLoad(){
             const notifCheck = document.getElementById('notifCheck').checked;
 
             let passData = "" //use the one thats stored on Account
-            let data={};
+            const data={};
             if(currPass === passData){
                 const emailUpdate = document.getElementById('emailUpdate').value;
                 if (emailUpdate.length>0&&!(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(emailUpdate))){
                     alert("Email not available");
                 }
                 else if(emailUpdate.length!=0){
-                    data['email']=emailUpdate;
+                    data["email"]=emailUpdate;
                 }
                 if (updatePass !== confirmPass){
                     alert("Passwords do not match");
@@ -87,19 +87,44 @@ function afterLoad(){
                     alert("Password too short");
                 }
                 else if(updatePass.length!==0){
-                    data['password']=updatePass;
+                    data["password"]=updatePass;
                 }
-                data['notification_flag']= notifCheck;
-                console.log(data)
+                data["notification_flag"]=notifCheck;
                 updateAccount(data);
             }
             else{
-                alert("Wrong Password")
+                alert("Wrong Password");
             }
         })
     }
 }
+async function getLogin(body){  
+    const log = await postData('account/login',body);
+    if(log==='account_id'){
+        document.location.href = './courses.html';
+    }
+    else{
+        alert("account does not exist");
+    }
+}
+async function createAccount(body){  
+    const create = await postData('account/register',body);
+    if(create!==null){
+        document.location.href = './courses.html';
+    }
+    else{
+        alert("something went wrong");
+    }
+}
+async function updateAccount(body){
+    const x = await postData('account/update',body);
+    if(x==="okay"){
+        alert("Settings have been updated");
+    }
+}
+
 window.addEventListener('load', afterLoad);
+
 
 
 
