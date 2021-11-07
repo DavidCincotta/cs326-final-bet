@@ -15,7 +15,6 @@ app.use(express.static('src'));
 
 const port = 3010;
 app.post('/Forum/create', (req, res) =>{
-    console.log("HERE")
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
