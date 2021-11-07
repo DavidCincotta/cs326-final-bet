@@ -5,8 +5,9 @@
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='./style.css'>
-        <title>Account</title>
+        <title>Account Settings</title>
         <script type='module'src='./main.js'></script>
+        <script type="module" src='./account.js'></script>
     </head>
     <body>
         <div class='header'>
@@ -27,25 +28,25 @@
                     <form>
                         <h4>Settings</h4>
                         <div class="form-group mt-2" >
-                            <input class='form-control' type="text" id="login" name="login" placeholder="Update Username">
+                            <input class='form-control' type="text" id="emailUpdate" placeholder="Update Email">
                         </div>
                         <div class="form-group mt-2" >
-                            <input class='form-control' type="text" id="login" name="login" placeholder="Current Password">
+                            <input class='form-control' type="password" id="updatePass" name="login" placeholder="Update Password">
                         </div>
                         <div class="form-group mt-2" >
-                            <input class='form-control' type="text" id="login" name="login" placeholder="Update Password">
+                            <input class='form-control' type="password" id="confirmPass" name="login" placeholder="Confirm Password">
                         </div>
                         <div class="form-group mt-1" >
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="notifCheck">
                                 <label class="form-check-label" for="exampleCheck1">Email Notifcations</label>
                         </div>
-                        <div class="form-group mt-3">
-                            <input class='btn btn-outline-primary' type="submit" value="Update">
+                        <div class="input-group mt-3">
+                            <input class='form-control' type="password" id="currPass" name="currPass" placeholder="Current Password">
+                            <input class='btn btn-outline-primary' type="button" id = 'updateBtn' value="Update">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </body>
 </html>

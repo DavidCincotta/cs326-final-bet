@@ -14,43 +14,22 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            window.location.replace(item.innerHTML.toLowerCase()+'.html');
+            document.location.href =item.innerHTML.toLowerCase()+'.html';
         });    
     }
     try{
         document.getElementById('create-page').addEventListener('click', ()=>{
-            window.location.replace('./createCourse.html');
+            document.location.href ='./createCourse.html';
         });
     }catch(error){}
 
     //switch on name of page
     switch(window.location.pathname.split('/').pop()){
         case 'courses.html':
-            createTable('table-placement','new-table',[
-                ['<a href=\'./information.html\'>web programming</a>','326','recent'],
-                ['<a href=\'\'>statistics</a>','240','inactive'],
-                ['<a href=\'\'>underwater basket weaving</a>','400','recent']
-                ], 
-                ['Course','Course Number', 'Activity']);
             break;
         case 'directory.html':
-            createTable('table-placement','new-table',[
-                ['<a href=\'./information.html\'>web programming</a>','326','recent'],
-                ['<a href=\'\'>statistics</a>','240','inactive'],
-                ['<a href=\'\'>underwater basket weaving</a>','400','recent']
-                ], 
-                ['Name','Course Number', 'Activity']);
             break;
         case 'search.html':
-            document.getElementById('search-button').addEventListener('click',()=>{
-                
-                createTable('table-placement','new-table',[
-                    ['<a href=\'./information.html\'>web programming</a>','326','recent'],
-                    ['<a href=\'\'>statistics</a>','240','inactive'],
-                    ['<a href=\'\'>underwater basket weaving</a>','400','recent']
-                ], ['name','course number', 'activity']);
-
-            });
             break;
         case 'notifications.html':
             console.log('notifications');
@@ -69,6 +48,10 @@ function afterLoad(){
                 ['<a href=\'./link\'>Resource 3</a>','Funny meme','Last week']
                 ], 
                 ['Resource','Description','Date']);
+            break;
+        case 'forum.html':
+            break;
+        case 'forumPost.html':
             break;
         default:
             break;

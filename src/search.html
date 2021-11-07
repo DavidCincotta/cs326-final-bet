@@ -6,7 +6,8 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='./style.css'>
         <title>FrontPage</title>
-        <script type='module'src='./main.js'></script>
+        <script type='module'src='main.js'></script>
+        <script type='module'src='courses.js'></script>
     </head>
     <body>
 
@@ -30,15 +31,15 @@
             <div class='content'>
                 <div class='input-group mb-3' id='search-group'>
                     <span class="input-group-text" id="basic-addon1">Search:</span>
-                    <input type="text" class="form-control" placeholder="Keyword or Name" aria-label="name" aria-describedby="basic-addon1">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm">
+                    <input id='keyword' type="text" class="form-control" placeholder="Keyword or Name" aria-label="name" aria-describedby="basic-addon1">
+                    <select id='college-select' class="form-select form-select-sm" aria-label=".form-select-sm">
                         <option selected>Select College</option>
                         <option value="1">CICS</option>
                         <option value="2">MATH</option>
                         <option value="3">ANTHRO</option>
                         <option value="3">ART</option>
                     </select>
-                    <input type="number" class="form-control" placeholder="Course Number" aria-label="number" aria-describedby="basic-addon1">
+                    <input id='course-number' type="number" class="form-control" placeholder="Course Number" aria-label="number" aria-describedby="basic-addon1">
                     <button id='search-button' type='button' class='btn btn-outline-primary'>Go</button>
                 </div>
                 <div id='table-placement'></div>

@@ -1,4 +1,4 @@
-
+'use strict';
 
 export function createTable(position, id,inputList,headers){
     let tbl = document.createElement('table');
@@ -18,7 +18,7 @@ export function createTable(position, id,inputList,headers){
     tbl.appendChild(thd);
 
     let tbody = document.createElement('tbody');
-    
+    console.log(inputList); 
     inputList.forEach((row)=>{
         let trow = document.createElement('tr');
         row.forEach((col)=>{
@@ -32,7 +32,6 @@ export function createTable(position, id,inputList,headers){
 
     document.getElementById(position).appendChild(tbl);
 }
-
 export async function postData(url, data){
     // Default options are marked with *
     const response = await fetch(url, {
