@@ -1,0 +1,3 @@
+## Division of Labor
+
+We were lucky enough to have 3 different objects, each with their own set of endpoints, between the three of us.  We therefore split the labor so that Ilya could handle the accounts, David was in charge of the course directories and Tom handled the forum setup.  We all collaborated on our flowchart decided what endpoints and classes would be necessary to create.  We spend most of our coding time on Zoom together working on individual parts and providing each other with support when needed.  

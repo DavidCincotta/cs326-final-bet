@@ -7,36 +7,27 @@ class Forum {
 
     async createPost(course, title, posts){
         // Send data to server
-        const body = {"course_key": course, "post_title": title, "content_array": posts}
-        /*
-        const response = await fetch("http://localhost:3010/Forum/create", {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'no-cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(body) // body data type must match "Content-Type" header
-        });
-        */
+
+        const body = {"course_key": course, "post_title": title, "content_array": posts};
         const response = await postData("http://localhost:3010/Forum/create", body)
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
+        ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['course']} ${response['title']} ${response["posts"]}`)
         ///// EVENTUALLY... /////
         // this.getPost(postID)
-        this.render(title, posts, course)
+        this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}], "326")
     }
 
-    async updatePost(postID, posts){
+    async updatePost(postID, post){
         // send new forum post info to server
-        const body = {"content_array": posts}
+        const body = {"content_array": post}
         const response = await postData(`http://localhost:3010/Forum/longpost/${postID}/update`) 
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL ACTUALLY JUST RETURN A STATUS CODE //////
+        ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['post']} ${response['posts']}`)
         ///// EVENTUALLY... /////
         // this.getPost(postID)
+        this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}, post], "326")
     }
 
     async getPost(post_id){
@@ -105,6 +96,7 @@ class Forum {
         textArea.className = "form-control";
         textArea.ariaLabel = "With textarea";
         textArea.id = "response"
+        textArea.innerText = ""
         const button = document.createElement("button");
         button.type = "button";
         button.className = "btn replyButton";
@@ -112,6 +104,10 @@ class Forum {
         forum.appendChild(textArea)
         forum.appendChild(button)
         content.appendChild(forum)
+        document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
+            const response = document.getElementById("response").value;
+            this.updatePost(1, {"username": "user", "date": "currentDate", "post": response});
+        })
     }
 
     
@@ -140,13 +136,9 @@ function onLoad(){
             forum.createPost("CS 326", "This class rocks!", [{"username": "Ronald McDonald",
             "date": "11/5/2021 6:17 pm", "post": "it sure does!"},
             {"username": "Grimace", "date": "11/5/2021 6:30 pm", "post": "hell yeah I agree"}]);
-            // const title = document.getElementsByClassName("post-title");
-            // const forumElement = document.getElementById("forum");
-            // const heading = document.getElementById("courseTitle");
-            // forum2.render(title[0], forumElement, heading)
             document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
-                // const response = document.getElementById("response").value;
-                forum.updatePost(1, [{"username": "user", "date": "currentDate", "post": "hello"}]);
+                const response = document.getElementById("response").value;
+                forum.updatePost(1, {"username": "user", "date": "currentDate", "post": response});
             })
             break;
         case 'createPost.html':
@@ -154,11 +146,11 @@ function onLoad(){
             document.getElementById("create-post-btn").addEventListener('click', () => {
                 console.log("Hello there")
                 const title = document.getElementById("title").value;
-                const post = document.getElementById("body").value;
+                const post = [document.getElementById("body").value];
                 const course = "326"
                 // SEND DATA TO SERVER/DATABASE
+                window.location.replace('forumPost.html');  
                 forum.createPost(course, title, post)  
-                // document.location.href='forumPost.html';  
             })
         default:
             break;
