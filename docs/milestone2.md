@@ -1,4 +1,8 @@
 # Milestone 2 Write Up
+## Heroku link
+Here is the link to our Heroku app.  Unfortunately we were not able to get the deployment ready in time :( 
+https://umass-course-explorer.herokuapp.com/
+
 ## Screenshots
 ![Screenshot 1](/screenshots/m2screenshot1.png "screenshot1")
 
