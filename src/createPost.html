@@ -6,7 +6,8 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='./style.css'>
         <title>New Discussion Post</title>
-        <script src='./main.js'></script>
+        <script type="module" src='./main.js'></script>
+        <script type="module" src='./forum.js'></script>
     </head>
     <body>
 
@@ -34,15 +35,15 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon3">Post Title</span>
                     </div>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" >
+                    <input type="text" class="form-control" id="title" aria-describedby="basic-addon3" >
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">Post Body</span>
                     </div>
-                    <textarea class="form-control" aria-label="With textarea" ></textarea>
+                    <textarea class="form-control" aria-label="With textarea" id="body"></textarea>
                   </div>
-                  <button type="button" class="btn createButton">Create Post</button>
+                  <button type="button" class="btn createButton" id="create-post-btn">Create Post</button>
             </div>
         </div>  
     </body>

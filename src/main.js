@@ -1,5 +1,6 @@
+'use strict'
 import {createTable} from './utilities.js';
-import {Forum} from './forum.js';
+
 
 function afterLoad(){
 
@@ -13,7 +14,6 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            console.log('bad link');
             document.location.href =item.innerHTML.toLowerCase()+'.html';
         });    
     }

@@ -1,5 +1,6 @@
 //import * as db from './database.js';
 import express from 'express';
+import * as http from 'http';
 
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
@@ -8,25 +9,23 @@ import express from 'express';
 const app = express();
 // import express from "express"
 app.use(express.json()); // lets you handle JSON input
-const port = 3010;
-
-/////////////////////////////////////////////
-//////////// ExpressRouting ////////////////
-/////////////////////////////////////////////
-
 app.use(express.static('src'));
+const port = 3010;
 
 /////////////////////////////////////////////
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
 
+
+
+const port = 3010;
 app.post('/Forum/create', (req, res) =>{
+    console.log("HERE")
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
     // send info to db
-    // return post_id created in db
-    // res.send(JSON.stringify(res.statusCode));
+    ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
     res.send({"course": course, "title": title, "posts": posts})
 });
 app.post('/Forum/update', (req, res) => {
@@ -35,15 +34,27 @@ app.post('/Forum/update', (req, res) => {
     // put new info into database WHERE post_id = post_id
     // res.send(JSON.stringify(res.statusCode));
     res.send({"post": post, "posts": posts});
-
 });
+
+app.post('/Forum/longpost/:post_id/update', (req, res) => {
+    const post = req.params.post_id;
+    const posts = req.body['content_array'];
+    // put new info into database WHERE post_id = post_id (UPDATE)
+    ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
+    res.send({"post": post, "posts": posts})
+})
+
 app.get('/Forum/longpost/:post_id', (req, res) => {
     const postID = req.params.post_id;
     // get and return content_array and post_title, course from db
     res.send({"title": "title", "posts": ["here's a post", "and another"], "course": "web programming"});
+    
 
+    ///// WILL GET AND RETURN CONTENT_ARRAY, POST_TITLE AND COURSE FROM DB, FAKE DATA FOR NOW //////
+    //res.send({"title": "title", "course": "web programming", "posts": ["here's a post", "and another"]})
 });
 app.get('/Forum/shortpost/:post_id', (req, res) => {
+<<<<<<< HEAD
     const post = req.params.post_id;
     // get post title from db using post id
     // res.send({"post_title": post_title})
@@ -70,6 +81,17 @@ app.post('/Courses/addcourse', (req, res) =>{
 app.post('/Courses/search', (req, res) =>{
     res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
+=======
+    const post = req.params.post_id
+    ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
+    ////// FAKE DATA FOR NOW //////
+    res.send({"post_id": post})
+})
+
+  
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+>>>>>>> tom
 });
 
 
