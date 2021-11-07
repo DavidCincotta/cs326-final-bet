@@ -98,8 +98,7 @@ app.post('/Account/addcourse',(req,res)=>{
 })
 app.post('/Account/update',(req,res)=>{
     //update account settings from body in db
-    
-    res.send(JSON.stringify(res.body));
+    res.send(JSON.stringify("okay"));
 })
 /*
 app.get('*', (req, res) => {
