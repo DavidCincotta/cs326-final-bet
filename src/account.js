@@ -1,28 +1,29 @@
 import {postData} from './utilities.js';
 
+async function getLogin(body){  
+    const log = await postData('Account/login',body);
+    if(log==='Account_id'){
+        document.location.href = './courses.html';
+    }
+    else{
+        alert("Account does not exist");
+    }
+}
+async function createAccount(body){  
+    const create = await postData('Account/register',body);
+    if(create!==null){
+        document.location.href = './courses.html';
+    }
+    else{
+        alert("something went wrong");
+    }
+}
+async function updateAccount(body){
+    const x = await postData('Account/update',body);
+    
+}
+
 function afterLoad(){
-    async function getLogin(body){  
-        const log = await postData('account/login',body);
-        if(log==='account_id'){
-            document.location.href = './courses.html';
-        }
-        else{
-            alert("account does not exist");
-        }
-    }
-    async function createAccount(body){  
-        const create = await postData('account/register',body);
-        if(create!==null){
-            document.location.href = './courses.html';
-        }
-        else{
-            alert("something went wrong");
-        }
-    }
-    async function updateAccount(body){
-        const x = await postData('account/update',body);
-        
-    }
 
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
