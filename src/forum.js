@@ -50,15 +50,6 @@ class Forum {
     }
 
     render(title, posts, course){
-        const banner = document.getElementById("banner");
-        const courseTitle = document.createElement("div");
-        courseTitle.innerText = course; 
-        banner.appendChild(courseTitle); 
-
-
-
-
-        ///// RERENDER HTML WITH NEW POST INFO ///// 
         const content = document.getElementsByClassName("content")[0];
         content.innerHTML = '';
         const titleDiv = document.createElement("div")
