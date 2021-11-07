@@ -104,14 +104,14 @@ app.post('/Account/login', (req,res)=> {
     //then sent id
     res.send(JSON.stringify("account_id"));
 })
-app.post('/Account/addcourse',(req,res)=>{
-    const account = req.body['account_id'];
-    const course = req.body['course'];
-    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
-})
-app.post('/Account/update',(req,res)=>{
+
+app.patch('/Account/update',(req,res)=>{
     //update account settings from body in db
-    res.send(JSON.stringify("okay"));
+    res.send(JSON.stringify(res.statusCode));
+})
+app.delete('/Account/delete',(req,res)=>{
+    //delete account from db
+    res.send(JSON.stringify(res.statusCode));
 })
 /*
 app.get('*', (req, res) => {
