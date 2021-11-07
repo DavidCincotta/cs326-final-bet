@@ -76,16 +76,16 @@ app.get('/Forum/shortpost/:post_id', (req, res) => {
 app.post('/Courses/getcourse', (req, res) =>{
     const account = req.body['account_id'];
 
-    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
+    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.get('/Courses/directory', (req, res) =>{
-    res.send([{'id':'1','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'},{'id':'1','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
+187    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'.','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'},{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.post('/Courses/addcourse', (req, res) =>{
     res.send();
 });
 app.post('/Courses/search', (req, res) =>{
-    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
+    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
 });
 

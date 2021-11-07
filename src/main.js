@@ -14,12 +14,12 @@ function afterLoad(){
         //Change Content
         item.addEventListener('click',()=>{
             console.log('bad link');
-            window.location.replace(item.innerHTML.toLowerCase()+'.html');
+            document.location.href =item.innerHTML.toLowerCase()+'.html';
         });    
     }
     try{
         document.getElementById('create-page').addEventListener('click', ()=>{
-            window.location.replace('./createCourse.html');
+            document.location.href ='./createCourse.html';
         });
     }catch(error){}
 
