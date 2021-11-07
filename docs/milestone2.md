@@ -1,6 +1,30 @@
 # Milestone 2 Write Up
 ## Screenshots
-![Screenshot 1](/docs/m2screenshot1.png "screenshot1")
+![Screenshot 1](/screenshots/m2screenshot1.png "screenshot1")
+
+### The delete button sends a DELETE request to the server and removes the account.  The update button takes the parameters above and sends a patch request to the server to update the corresponding values.
+----------------------------------
+$~$
+
+![Screenshot 2](/screenshots/m2screenshot2.JPG "screenshot2")
+
+### The create post button will open the post creation area where the user can input a title and content for the post.  A POST request is made to create the post in the database and allow for responses to be stored with it.
+---------------------------------------
+$~$
+
+![Screenshot 3](/screenshots/courses.JPG "screenshot3")
+
+### The table is built through a request to the server to retrieve the proper courses that should be listed here.  These courses are specific to the user; they are the courses the user has chosen to subscribe to.  
+------------------------------
+$~$
+
+![Screenshot 4](/screenshots/m2screenshot3.png "screenshot4")
+
+### The client sends a POST request to the server with the above parameters to create a new account.  
+--------------------------
+$~$
+
+
 
 ## Endpoint Descriptions
 
