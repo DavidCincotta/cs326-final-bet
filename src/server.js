@@ -16,9 +16,6 @@ const port = 3010;
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
 
-
-
-const port = 3010;
 app.post('/Forum/create', (req, res) =>{
     console.log("HERE")
     const course = req.body['course_key'];
@@ -54,7 +51,6 @@ app.get('/Forum/longpost/:post_id', (req, res) => {
     //res.send({"title": "title", "course": "web programming", "posts": ["here's a post", "and another"]})
 });
 app.get('/Forum/shortpost/:post_id', (req, res) => {
-<<<<<<< HEAD
     const post = req.params.post_id;
     // get post title from db using post id
     // res.send({"post_title": post_title})
@@ -81,18 +77,11 @@ app.post('/Courses/addcourse', (req, res) =>{
 app.post('/Courses/search', (req, res) =>{
     res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
-=======
     const post = req.params.post_id
     ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
     ////// FAKE DATA FOR NOW //////
     res.send({"post_id": post})
 })
-
-  
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
->>>>>>> tom
-});
 
 
 /////////////////////////////////////////////

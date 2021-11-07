@@ -8,6 +8,7 @@ class Forum {
     async createPost(course, title, posts){
         // Send data to server
         const body = {"course_key": course, "post_title": title, "content_array": posts}
+        /*
         const response = await fetch("http://localhost:3010/Forum/create", {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, *cors, same-origin
@@ -19,7 +20,8 @@ class Forum {
             },
             body: JSON.stringify(body) // body data type must match "Content-Type" header
         });
-        // const response = await postData("http://localhost:3010/Forum/create", body)
+        */
+        const response = await postData("http://localhost:3010/Forum/create", body)
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
         alert(`${response['course']} ${response['title']} ${response["posts"]}`)
         ///// EVENTUALLY... /////
@@ -57,6 +59,14 @@ class Forum {
     }
 
     render(title, posts, course){
+        const banner = document.getElementById("banner");
+        const courseTitle = document.createElement("div");
+        courseTitle.innerText = course; 
+        banner.appendChild(courseTitle); 
+
+
+
+
         ///// RERENDER HTML WITH NEW POST INFO ///// 
         const content = document.getElementsByClassName("content")[0];
         content.innerHTML = '';
@@ -65,7 +75,7 @@ class Forum {
         titleDiv.innerText = title;
         const forum = document.createElement("div")
         forum.id = "forum";
-        document.getElementById("courseTitle").innerText = course;
+        //document.getElementById("courseTitle").innerText = course;
         for (let i in posts){
             const card = document.createElement("div");
             card.className = "card";
@@ -120,7 +130,7 @@ function onLoad(){
                 ], 
                 ['Post Title','Number of Replies','Date Added']);
             document.getElementById('create-post').addEventListener('click', ()=>{
-                window.location.replace('createPost.html');
+                document.location.href='createPost.html';
             });
             break;
         case 'forumPost.html':
@@ -148,7 +158,7 @@ function onLoad(){
                 const course = "326"
                 // SEND DATA TO SERVER/DATABASE
                 forum.createPost(course, title, post)  
-                // window.location.replace('forumPost.html');  
+                // document.location.href='forumPost.html';  
             })
         default:
             break;
