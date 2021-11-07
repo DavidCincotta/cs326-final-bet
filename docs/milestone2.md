@@ -1,6 +1,6 @@
 # Milestone 2 Write Up
 ## Screenshots
-
+![Screenshot 1](/docs/m2screenshot1.png "screenshot1")
 
 ## Endpoint Descriptions
 
@@ -9,6 +9,7 @@
 - createAccount: Used to send user information to the server to be stored in a database. This will effectively create a new account for the user who signed up.
 - login: Used to verify users information to allow them to log in to their account.  This endpoint is hit after a user types their info and clicks the log in button.
 - update: Used to change account information such as password and notification flag.  Accessible only after the user has logged in and would like to change their settings.
+- delete: Used to delete a user account.  Will query the server/database for the user information and remove it so that the user no longer has access to any of their account.
 
 ### Courses
 - getCourses: Used to get all of the courses that a user is subscribed to from the server.  The courses will be displayed in a table with links allowing the user to further explore each specific course.
