@@ -100,15 +100,13 @@ h4{
 }
 .login-size2{
     width: 20rem; 
-    height:19rem;
+    height:21rem;
 }
 .settings-size{
     width: 30rem; 
     height:18rem
 }
-.borderthicc{
-    border-style: 5px solid black;
-}
+
 .class-table{
     margin:auto;
     width:500px;
@@ -124,7 +122,6 @@ h4{
     background:white;
     color:#821010;
 }
-
 
 .post-title{
     color:black;
