@@ -1,5 +1,7 @@
 'use strict'
+
 import {createTable, postData} from './utilities.js';
+
 
 class Forum {
     constructor(){
@@ -7,7 +9,6 @@ class Forum {
 
     async createPost(course, title, posts){
         // Send data to server
-
         const body = {"course_key": course, "post_title": title, "content_array": posts};
         const response = await postData("http://localhost:3010/Forum/create", body)
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
@@ -15,29 +16,31 @@ class Forum {
         alert(`${response['course']} ${response['title']} ${response["posts"]}`)
         ///// EVENTUALLY... /////
         // this.getPost(postID)
-        this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}], "326")
+        // this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}], "326")
+        return 1 // postID
     }
 
     async updatePost(postID, post){
         // send new forum post info to server
         const body = {"content_array": post}
-        const response = await postData(`http://localhost:3010/Forum/longpost/${postID}/update`) 
+        const response = await postData(`http://localhost:3010/Forum/longpost/${postID}/update`, body) 
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL ACTUALLY JUST RETURN A STATUS CODE //////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['post']} ${response['posts']}`)
         ///// EVENTUALLY... /////
-        // this.getPost(postID)
-        this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}, post], "326")
+        this.getPost(postID)
+        // this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}, post], "326")
     }
 
     async getPost(post_id){
         // get post title, content and course name from server to return
-        const response = await fetch(`http://localhost:3010/Forum/longpost/${post_id}`, {mode: 'no-cors'})
+        const response = await fetch(`http://localhost:3010/Forum/get/${post_id}`, {mode: 'no-cors'})
         const json = await response.json();
+        // console.log(json)
         ///// USED TO SHOW SUCCESSFUL GET REQUEST /////
-        alert(`${response['title']} ${response['course']} ${response['posts'][0]}`)
+        // alert(`${json['title']} ${json['course']} ${json['posts'][0]}`)
         ///// EVENTUALLY... /////
-        // this.render(title, posts, course)
+        this.render(json['title'], json['posts'], json['course'])
     }
 
     async getPostShort(post_id){
@@ -49,7 +52,7 @@ class Forum {
         // return response (A JSON OBJECT)
     }
 
-    render(title, posts, course){
+    async render(title, posts, course){
         const content = document.getElementsByClassName("content")[0];
         content.innerHTML = '';
         const titleDiv = document.createElement("div")
@@ -104,47 +107,28 @@ class Forum {
     
 }
 
-function onLoad(){
+function afterLoad() {
     const forum = new Forum();
-    switch(window.location.pathname.split('/').pop()){
-        case 'forum.html':
-            console.log('notifications');
-            // Loop over user's courses and find forum id's
-            // populate table with info from calls to forum.getPostShort() with all id's
-            createTable('table-placement','new-table',[
-                ['<a href=\'./forumPost.html\'>Midterm</a>','I thought that was easy!','Today'],
-                ['<a href=\'./link\'>Homework</a>','We get way too much in this class','Yesterday'],
-                ], 
-                ['Post Title','Number of Replies','Date Added']);
-            document.getElementById('create-post').addEventListener('click', ()=>{
-                document.location.href='createPost.html';
+
+    if (window.location.pathname === "/Forum/"){
+            document.getElementById('create-post').addEventListener('click', async ()=>{
+                document.location.href = await "http://localhost:3010/Forum/create"
             });
-            break;
-        case 'forumPost.html':
-            console.log('notifications');
-            // will eventually get this info from db instead of hardcoded
-            // will use getPost instead of createPost
-            forum.createPost("CS 326", "This class rocks!", [{"username": "Ronald McDonald",
-            "date": "11/5/2021 6:17 pm", "post": "it sure does!"},
-            {"username": "Grimace", "date": "11/5/2021 6:30 pm", "post": "hell yeah I agree"}]);
-            document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
-                const response = document.getElementById("response").value;
-                forum.updatePost(1, {"username": "user", "date": "currentDate", "post": response});
-            })
-            break;
-        case 'createPost.html':
-            console.log('notifications');
-            document.getElementById("create-post-btn").addEventListener('click', () => {
-                console.log("Hello there")
+        }
+    else if (window.location.pathname === "/Forum/create"){
+            document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
                 const post = [document.getElementById("body").value];
                 const course = "326"
-                // SEND DATA TO SERVER/DATABASE
-                window.location.replace('forumPost.html');  
-                forum.createPost(course, title, post)  
-            })
-        default:
-            break;
+                const postID = await forum.createPost(course, title, post)
+                // console.log(postID)
+                document.location.href = `http://localhost:3010/Forum/longpost/${postID}`
+            });
+        }
+    else if (window.location.pathname.split("/")[2] === "longpost"){
+        const postID = window.location.pathname.split("/")[3]
+        forum.getPost(postID)
     }
 }
-window.addEventListener('load', onLoad);
+
+window.addEventListener('load', afterLoad);
