@@ -17,6 +17,22 @@ import {createTable} from './utilities.js';
 //         });    
 //     }
 // }
+// window.addEventListener('load', afterLoad);
+
+//     //make sidebar an active element
+//     document.getElementById('menu').addEventListener('click',()=>{
+//         document.getElementById('sidebar').classList.toggle('active');
+//     });
+
+//     //create links to other pages
+//     const items = document.getElementsByClassName('item');
+//     for(const item of items){
+//         //Change Content
+//         item.addEventListener('click',()=>{
+//             document.location.href = `http://localhost:3010/${item.innerText}`;
+//         });    
+//     }
+// }
 
 // window.addEventListener('load', afterLoad);
 function afterLoad(){
@@ -31,24 +47,27 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            window.location.pathname =item.innerHTML;
+            document.location.href =item.innerHTML.toLowerCase();//+'html';
+
         });    
     }
     try{
         document.getElementById('create-page').addEventListener('click', ()=>{
-            document.location.href ='./createCourse.html';
+            document.location.href ='./createCourse';
+
         });
     }catch(error){}
 
     //switch on name of page
     switch(window.location.pathname.split('/').pop()){
-        case 'courses.html':
+        case 'courses':
             break;
-        case 'directory.html':
+        case 'directory':
             break;
-        case 'search.html':
+        case 'search':
             break;
-        case 'notifications.html':
+        case 'notifications':
+
             console.log('notifications');
             createTable('table-placement','new-table',[
                 ['1','326','recent'],
@@ -57,7 +76,9 @@ function afterLoad(){
                 ], 
                 ['Recency','Course','Activity']);
             break;
-        case 'resources.html':
+
+        case 'resources':
+
             console.log('notifications');
             createTable('table-placement','new-table',[
                 ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
@@ -66,9 +87,10 @@ function afterLoad(){
                 ], 
                 ['Resource','Description','Date']);
             break;
-        case 'forum.html':
+        case 'forum':
             break;
-        case 'forumPost.html':
+        case 'forumPost':
+
             break;
         default:
             break;
