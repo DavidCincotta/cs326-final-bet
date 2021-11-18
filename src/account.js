@@ -1,34 +1,11 @@
 import {postData} from './utilities.js';
 
-async function getLogin(body){  
-    const log = await postData('Account/login',body);
-    if(log==='Account_id'){
-        document.location.href = './courses.html';
-    }
-    else{
-        alert("Account does not exist");
-    }
-}
-async function createAccount(body){  
-    const create = await postData('Account/register',body);
-    if(create!==null){
-        document.location.href = './courses.html';
-    }
-    else{
-        alert("something went wrong");
-    }
-}
-async function updateAccount(body){
-    const x = await postData('Account/update',body);
-    
-}
-
 function afterLoad(){
 
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
     const updateBtn = document.getElementById('updateBtn');
-
+    const deleteBtn = document.getElementById('deleteBtn');
     if (loginBtn!== null){
         loginBtn.addEventListener('click',()=>{
             const login = document.getElementById('login').value;
@@ -97,7 +74,31 @@ function afterLoad(){
             }
         })
     }
+    if (deleteBtn!== null){
+        deleteBtn.addEventListener('click',()=>{
+           deleteAcc({'accountId':'account_id'});
+        })
+    }
 }
+
+async function deleteAcc(data){
+    const response = await fetch('account/delete', {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data)  // body data type must match "Content-Type" header
+    });
+    const x = await response.json(); // parses JSON response into native JavaScript objects
+    if (x === 200){
+        document.location.href = './login.html';
+    }
+}
+
 async function getLogin(body){  
     const log = await postData('account/login',body);
     if(log==='account_id'){
@@ -117,8 +118,22 @@ async function createAccount(body){
     }
 }
 async function updateAccount(body){
-    const x = await postData('account/update',body);
-    if(x==="okay"){
+
+    const response = await fetch('account/update', {
+        method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(body) // body data type must match "Content-Type" header
+    });
+    const x = await response.json(); // parses JSON response into native JavaScript objects
+
+    //const x = await postData('account/update',body);
+    if(x===200){
         alert("Settings have been updated");
     }
 }
