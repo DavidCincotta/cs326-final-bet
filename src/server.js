@@ -113,6 +113,10 @@ app.post('/Account/update',(req,res)=>{
     //update account settings from body in db
     res.send(JSON.stringify("okay"));
 })
+
+app.get('/',
+    (req, res) => res.sendFile('/html/forum.html',
+                    { 'root' : __dirname }));
 /*
 app.get('*', (req, res) => {
     res.send('NO FOOL, BAD COMMAND');
