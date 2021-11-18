@@ -118,6 +118,6 @@ app.get('*', (req, res) => {
     res.send('NO FOOL, BAD COMMAND');
   });
 */
-app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || 3010, () => {
     console.log(`Course Explorer app listening at http://localhost:${port}`);
 });
