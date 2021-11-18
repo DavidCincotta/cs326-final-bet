@@ -114,7 +114,7 @@ app.post('/Account/update',(req,res)=>{
     res.send(JSON.stringify("okay"));
 })
 
-app.get('/',
+app.get('./',
     (req, res) => res.sendFile('/html/forum.html',
                     { 'root' : __dirname }));
 /*
