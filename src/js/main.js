@@ -31,7 +31,7 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            document.location.href =item.innerHTML.toLowerCase()+'.html';
+            window.location.pathname =item.innerHTML;
         });    
     }
     try{

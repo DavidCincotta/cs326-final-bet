@@ -21,8 +21,8 @@ const port = 3010;
 /////////////////////////////////////////////
 
 app.get('/Forum',
-    (req, res) => res.sendFile('/html/forum.html'
-                    ));
+    (req, res) => res.sendFile('/html/forum.html',
+            { 'root' : __dirname }));
 
 
 app.get('/Forum/longpost/:post_id',
