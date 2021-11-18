@@ -10,7 +10,8 @@ class Forum {
     async createPost(course, title, posts){
         // Send data to server
         const body = {"course_key": course, "post_title": title, "content_array": posts};
-        const response = await postData("http://localhost:3010/Forum/create", body)
+
+        const response = await postData("/Forum/create", body)
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['course']} ${response['title']} ${response["posts"]}`)
@@ -23,7 +24,7 @@ class Forum {
     async updatePost(postID, post){
         // send new forum post info to server
         const body = {"content_array": post}
-        const response = await postData(`http://localhost:3010/Forum/longpost/${postID}/update`, body) 
+        const response = await postData(`/Forum/longpost/${postID}/update`, body) 
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL ACTUALLY JUST RETURN A STATUS CODE //////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['post']} ${response['posts']}`)
@@ -35,6 +36,7 @@ class Forum {
     async getPost(post_id){
         // get post title, content and course name from server to return
         const response = await fetch(`Forum/get/${post_id}`, {mode: 'no-cors'})
+
         const json = await response.json();
         // console.log(json)
         ///// USED TO SHOW SUCCESSFUL GET REQUEST /////
@@ -45,10 +47,11 @@ class Forum {
 
     async getPostShort(post_id){
         // get post title and course from server to return
-        const response = await fetch(`Forum/shortpost/${post_id}`, {mode: 'no-cors'})
+
+        const response = await fetch(`/Forum/shortpost/${post_id}`, {mode: 'no-cors'})
         const json = await response.json()
         ///// USED TO SHOW SUCCESSFUL GET REQUEST. WILL EVENTUALLY RETURN TO FILL FORUM LIST PAGE ///// 
-        alert(`${response['title']} ${response['course']}`)
+        alert(`${json['title']} ${json['course']}`)
         // return response (A JSON OBJECT)
     }
 
@@ -112,7 +115,7 @@ function afterLoad() {
 
     if (window.location.pathname === "/Forum/"){
             document.getElementById('create-post').addEventListener('click', async ()=>{
-                document.location.href = await "Forum/create"
+                document.location.href = "/Forum/create"
             });
         }
     else if (window.location.pathname === "/Forum/create"){
@@ -122,7 +125,8 @@ function afterLoad() {
                 const course = "326"
                 const postID = await forum.createPost(course, title, post)
                 // console.log(postID)
-                document.location.href = `Forum/longpost/${postID}`
+                document.location.href = `/Forum/longpost/${postID}`
+
             });
         }
     else if (window.location.pathname.split("/")[2] === "longpost"){

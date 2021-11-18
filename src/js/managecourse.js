@@ -15,6 +15,7 @@ function afterLoad(){
         console.log(item);
         item.addEventListener('click',()=>{
             document.location.href = './'+item.innerHTML.toLowerCase();//+'.html';
+
         });    
     }
     

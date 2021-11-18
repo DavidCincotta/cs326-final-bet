@@ -13,6 +13,7 @@ async function search(){
     console.log(keyword+'  '+college+'  '+number);
     data = {'keyword':keyword,'college':college,'course_number':number};
     response = await postData('Courses/getcourse',data);
+
     arrList = []
     for(let r of response){
         arrList.push(['<a href=\'information.html\'>'+r.name+'</a>',r.course_number,r.description]);
@@ -33,7 +34,7 @@ async function afterLoad(){
             }
             createTable('table-placement','new-table',arrList,['Course', 'Course Number', 'Description']);
             break;
-        case 'directoryx':
+        case 'directory':
             response = await fetch('Courses/directory');
             response = await response.json();
             arrList = [];

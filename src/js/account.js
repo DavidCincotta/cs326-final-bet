@@ -5,7 +5,6 @@ function afterLoad(){
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
     const updateBtn = document.getElementById('updateBtn');
-
     if (loginBtn!== null){
         loginBtn.addEventListener('click',()=>{
             const login = document.getElementById('login').value;
@@ -74,12 +73,36 @@ function afterLoad(){
             }
         })
     }
+
 }
 async function getLogin(body){  
     const log = await postData('account/login',body);
     if(log==='account_id'){
         document.location.href = './courses';
+}
+
+async function deleteAcc(data){
+    const response = await fetch('account/delete', {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data)  // body data type must match "Content-Type" header
+    });
+    const x = await response.json(); // parses JSON response into native JavaScript objects
+    if (x === 200){
+        document.location.href = './login.html';
     }
+}
+
+async function getLogin(body){  
+    const log = await postData('account/login',body);
+    if(log==='account_id'){
+        document.location.href = './courses.html';
     else{
         alert("account does not exist");
     }
@@ -96,6 +119,7 @@ async function createAccount(body){
 async function updateAccount(body){
     const x = await postData('account/update',body);
     if(x==="okay"){
+
         alert("Settings have been updated");
     }
 }

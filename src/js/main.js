@@ -17,8 +17,8 @@ import {createTable} from './utilities.js';
 //         });    
 //     }
 // }
+// window.addEventListener('load', afterLoad);
 
-window.addEventListener('load', afterLoad);
 function afterLoad(){
 
     //make sidebar an active element
@@ -32,11 +32,13 @@ function afterLoad(){
         //Change Content
         item.addEventListener('click',()=>{
             document.location.href =item.innerHTML.toLowerCase();//+'html';
+
         });    
     }
     try{
         document.getElementById('create-page').addEventListener('click', ()=>{
             document.location.href ='./createCourse';
+
         });
     }catch(error){}
 
@@ -49,6 +51,7 @@ function afterLoad(){
         case 'search':
             break;
         case 'notifications':
+
             console.log('notifications');
             createTable('table-placement','new-table',[
                 ['1','326','recent'],
@@ -57,7 +60,9 @@ function afterLoad(){
                 ], 
                 ['Recency','Course','Activity']);
             break;
+
         case 'resources':
+
             console.log('notifications');
             createTable('table-placement','new-table',[
                 ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
@@ -69,6 +74,7 @@ function afterLoad(){
         case 'forum':
             break;
         case 'forumPost':
+
             break;
         default:
             break;
