@@ -1,6 +1,10 @@
 //import * as db from './database.js';
 import express from 'express';
 import * as http from 'http';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
@@ -16,6 +20,25 @@ const port = 3010;
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
 
+app.get('/Forum',
+    (req, res) => res.sendFile('/html/forum.html'
+                    ));
+
+
+app.get('/Forum/longpost/:post_id',
+    (req, res) => res.sendFile('/html/forumPost.html',
+                    { 'root' : __dirname }));
+
+app.get('/Forum/get/:post_id',
+    (req, res) => {const postID = req.params.post_id;
+//     // get and return content_array and post_title, course from db
+    res.send({"title": "title", "posts": [{"username": "Obi-Wan", "date": "today", "post": "Hello there!"}, {"username": "General Grievous", "date": "today", "post": "General Kenobi!"}], "course": "web programming"});
+    });
+
+app.get('/Forum/create',
+    (req, res) => res.sendFile('/html/createPost.html',
+                { 'root' : __dirname }));
+
 app.post('/Forum/create', (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
@@ -23,13 +46,7 @@ app.post('/Forum/create', (req, res) =>{
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
     res.send({"course": course, "title": title, "posts": posts})
-});
-app.post('/Forum/update', (req, res) => {
-    const post = req.body['post_id'];
-    const posts = req.body['content_array'];
-    // put new info into database WHERE post_id = post_id
-    // res.send(JSON.stringify(res.statusCode));
-    res.send({"post": post, "posts": posts});
+    // res.redirect("/Forum")
 });
 
 app.post('/Forum/longpost/:post_id/update', (req, res) => {
@@ -39,23 +56,6 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     res.send({"post": post, "posts": posts})
 })
-
-app.get('/Forum/longpost/:post_id', (req, res) => {
-    const postID = req.params.post_id;
-    // get and return content_array and post_title, course from db
-    res.send({"title": "title", "posts": ["here's a post", "and another"], "course": "web programming"});
-    
-
-    ///// WILL GET AND RETURN CONTENT_ARRAY, POST_TITLE AND COURSE FROM DB, FAKE DATA FOR NOW //////
-    //res.send({"title": "title", "course": "web programming", "posts": ["here's a post", "and another"]})
-});
-app.get('/Forum/shortpost/:post_id', (req, res) => {
-    const post = req.params.post_id;
-    // get post title from db using post id
-    // res.send({"post_title": post_title})
-    // res.send(JSON.stringify(res.statusCode));
-    res.send({"post_id": post});
-});
 
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
@@ -113,11 +113,15 @@ app.delete('/Account/delete',(req,res)=>{
     //delete account from db
     res.send(JSON.stringify(res.statusCode));
 })
+
+app.get('/',
+    (req, res) => res.sendFile('/html/forum.html',
+                    { 'root' : __dirname }));
 /*
 app.get('*', (req, res) => {
     res.send('NO FOOL, BAD COMMAND');
   });
 */
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+app.listen(process.env.PORT || 3010, () => {
+    console.log(`Course Explorer app listening at http://localhost:${port}`);
 });
