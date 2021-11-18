@@ -1,6 +1,10 @@
 //import * as db from './database.js';
 import express from 'express';
 import * as http from 'http';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
@@ -13,8 +17,67 @@ app.use(express.static('src'));
 const port = 3010;
 
 /////////////////////////////////////////////
+//////////// HTML gets       ////////////////
+/////////////////////////////////////////////
+app.get('/courses',
+    (req, res) => res.sendFile('/html/courses.html',
+                    { 'root' : __dirname }));
+app.get('/createCourse',
+    (req, res) => res.sendFile('/html/createCourse.html',
+                    { 'root' : __dirname }));
+app.get('/createPost',
+    (req, res) => res.sendFile('/html/createPost.html',
+                    { 'root' : __dirname }));
+app.get('/directory',
+    (req, res) => res.sendFile('/html/directory.html',
+                { 'root' : __dirname }));
+app.get('/Forum',
+    (req, res) => res.sendFile('/html/forum.html',
+                    { 'root' : __dirname }));
+app.get('/Forumpost',
+    (req, res) => res.sendFile('/html/forumPost.html',
+                    { 'root' : __dirname }));
+app.get('/index',
+    (req, res) => res.sendFile('/html/index.html',
+                    { 'root' : __dirname }));
+app.get('/information',
+    (req, res) => res.sendFile('/html/information.html',
+                { 'root' : __dirname }));
+app.get('/Login',
+    (req, res) => res.sendFile('/html/login.html',
+                    { 'root' : __dirname }));
+app.get('/notfications',
+    (req, res) => res.sendFile('/html/notifications.html',
+                { 'root' : __dirname }));
+app.get('/resources',
+    (req, res) => res.sendFile('/html/resources.html',
+                { 'root' : __dirname }));
+app.get('/search',
+    (req, res) => res.sendFile('/html/search.html',
+                    { 'root' : __dirname }));
+app.get('/settings',
+    (req, res) => res.sendFile('/html/settings.html',
+                    { 'root' : __dirname }));
+app.get('/signup',
+    (req, res) => res.sendFile('/html/signup.html',
+                    { 'root' : __dirname }));
+
+/////////////////////////////////////////////
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
+app.get('/Forum/longpost/:post_id',
+    (req, res) => res.sendFile('/html/forumPost.html',
+                    { 'root' : __dirname }));
+
+app.get('/Forum/get/:post_id',
+    (req, res) => {const postID = req.params.post_id;
+//     // get and return content_array and post_title, course from db
+    res.send({"title": "title", "posts": [{"username": "Obi-Wan", "date": "today", "post": "Hello there!"}, {"username": "General Grievous", "date": "today", "post": "General Kenobi!"}], "course": "web programming"});
+    });
+
+app.get('/Forum/create',
+    (req, res) => res.sendFile('/html/createPost.html',
+                { 'root' : __dirname }));
 
 app.post('/Forum/create', (req, res) =>{
     const course = req.body['course_key'];
@@ -23,13 +86,7 @@ app.post('/Forum/create', (req, res) =>{
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
     res.send({"course": course, "title": title, "posts": posts})
-});
-app.post('/Forum/update', (req, res) => {
-    const post = req.body['post_id'];
-    const posts = req.body['content_array'];
-    // put new info into database WHERE post_id = post_id
-    // res.send(JSON.stringify(res.statusCode));
-    res.send({"post": post, "posts": posts});
+    // res.redirect("/Forum")
 });
 
 app.post('/Forum/longpost/:post_id/update', (req, res) => {
@@ -39,23 +96,6 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     res.send({"post": post, "posts": posts})
 })
-
-app.get('/Forum/longpost/:post_id', (req, res) => {
-    const postID = req.params.post_id;
-    // get and return content_array and post_title, course from db
-    res.send({"title": "title", "posts": ["here's a post", "and another"], "course": "web programming"});
-    
-
-    ///// WILL GET AND RETURN CONTENT_ARRAY, POST_TITLE AND COURSE FROM DB, FAKE DATA FOR NOW //////
-    //res.send({"title": "title", "course": "web programming", "posts": ["here's a post", "and another"]})
-});
-app.get('/Forum/shortpost/:post_id', (req, res) => {
-    const post = req.params.post_id;
-    // get post title from db using post id
-    // res.send({"post_title": post_title})
-    // res.send(JSON.stringify(res.statusCode));
-    res.send({"post_id": post});
-});
 
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
@@ -104,14 +144,14 @@ app.post('/Account/login', (req,res)=> {
     //then sent id
     res.send(JSON.stringify("account_id"));
 })
-
-app.patch('/Account/update',(req,res)=>{
-    //update account settings from body in db
-    res.send(JSON.stringify(res.statusCode));
+app.post('/Account/addcourse',(req,res)=>{
+    const account = req.body['account_id'];
+    const course = req.body['course'];
+    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
 })
-app.delete('/Account/delete',(req,res)=>{
-    //delete account from db
-    res.send(JSON.stringify(res.statusCode));
+app.post('/Account/update',(req,res)=>{
+    //update account settings from body in db
+    res.send(JSON.stringify("okay"));
 })
 /*
 app.get('*', (req, res) => {
