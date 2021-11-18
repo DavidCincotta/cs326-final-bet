@@ -18,7 +18,7 @@ import {createTable} from './utilities.js';
 //     }
 // }
 
-window.addEventListener('load', afterLoad);
+// window.addEventListener('load', afterLoad);
 function afterLoad(){
 
     //make sidebar an active element

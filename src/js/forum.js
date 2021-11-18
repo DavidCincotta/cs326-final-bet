@@ -48,7 +48,7 @@ class Forum {
         const response = await fetch(`http://localhost:3010/Forum/shortpost/${post_id}`, {mode: 'no-cors'})
         const json = await response.json()
         ///// USED TO SHOW SUCCESSFUL GET REQUEST. WILL EVENTUALLY RETURN TO FILL FORUM LIST PAGE ///// 
-        alert(`${response['title']} ${response['course']}`)
+        alert(`${json['title']} ${json['course']}`)
         // return response (A JSON OBJECT)
     }
 
@@ -112,7 +112,7 @@ function afterLoad() {
 
     if (window.location.pathname === "/Forum/"){
             document.getElementById('create-post').addEventListener('click', async ()=>{
-                document.location.href = await "http://localhost:3010/Forum/create"
+                document.location.href = "http://localhost:3010/Forum/create"
             });
         }
     else if (window.location.pathname === "/Forum/create"){
