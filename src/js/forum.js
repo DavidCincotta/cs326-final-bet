@@ -10,6 +10,7 @@ class Forum {
     async createPost(course, title, posts){
         // Send data to server
         const body = {"course_key": course, "post_title": title, "content_array": posts};
+
         const response = await postData("/Forum/create", body)
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
@@ -34,7 +35,8 @@ class Forum {
 
     async getPost(post_id){
         // get post title, content and course name from server to return
-        const response = await fetch(`/Forum/get/${post_id}`, {mode: 'no-cors'})
+        const response = await fetch(`Forum/get/${post_id}`, {mode: 'no-cors'})
+
         const json = await response.json();
         // console.log(json)
         ///// USED TO SHOW SUCCESSFUL GET REQUEST /////
@@ -45,6 +47,7 @@ class Forum {
 
     async getPostShort(post_id){
         // get post title and course from server to return
+
         const response = await fetch(`/Forum/shortpost/${post_id}`, {mode: 'no-cors'})
         const json = await response.json()
         ///// USED TO SHOW SUCCESSFUL GET REQUEST. WILL EVENTUALLY RETURN TO FILL FORUM LIST PAGE ///// 
@@ -123,6 +126,7 @@ function afterLoad() {
                 const postID = await forum.createPost(course, title, post)
                 // console.log(postID)
                 document.location.href = `/Forum/longpost/${postID}`
+
             });
         }
     else if (window.location.pathname.split("/")[2] === "longpost"){
