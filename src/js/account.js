@@ -79,6 +79,7 @@ async function getLogin(body){
     const log = await postData('account/login',body);
     if(log==='account_id'){
         document.location.href = './courses';
+    }
 }
 
 async function deleteAcc(data){
@@ -103,6 +104,7 @@ async function getLogin(body){
     const log = await postData('account/login',body);
     if(log==='account_id'){
         document.location.href = './courses.html';
+    }
     else{
         alert("account does not exist");
     }
@@ -125,7 +127,3 @@ async function updateAccount(body){
 }
 
 window.addEventListener('load', afterLoad);
-
-
-
-
