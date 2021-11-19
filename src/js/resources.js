@@ -1,30 +1,29 @@
 import {createTable, postData} from './utilities.js';
 
-function afterLoad() {
-    switch(window.location.pathname){
-        case 'resources':
-            document.getElementById('createCourse btn').addEventListener('click', async ()=>{
-                window.location.pathname = "/addResource"
-            });
-
-            console.log('notifications');
-            createTable('table-placement','new-table',[
-                ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
-                ['<a href=\'./link\'>Resource 2</a>','Good pseudocode','Yesterday'],
-                ['<a href=\'./link\'>Resource 3</a>','Funny meme','Last week']
-                ], 
-                ['Resource','Description','Date']);
-            break;
-        case 'addResource':
+async function afterLoad() {
+    if (window.location.pathname.split("/")[2] = "resource"){
+        const id = window.location.pathname.split("/")[3]
+        document.getElementById('createCourse btn').addEventListener('click', async ()=>{
+            window.location.pathname = "/addResource"
+        });
+        const resources = await fetch(`/getResources/${id}`)
+        const json = await resources.json()
+        const params = []
+        for (const resource of json["resources"]){
+            const param = [`<a href=\'${resource['link']}\'>${resource['title']}</a>`,`${resource['description']}`,`${resource['date']}`]
+            console.log(param)
+            params.push(param)
+        }
+        createTable('table-placement','new-table', params,
+            ['Resource','Description','Date']);
+    }
+    else if (window.location.pathname === 'addResource'){
             document.getElementById('resource btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value
                 const link = document.getElementById("link").value
                 const desc = document.getElementById("description").value
                 addResource(title, link, desc)
             });
-            break;
-        default:
-            break;
     }
 }
 

@@ -107,13 +107,25 @@ class Forum {
     
 }
 
-function afterLoad() {
+async function afterLoad() {
     const forum = new Forum();
-    console.log(window.location.pathname)
-    if (window.location.pathname === "/forum"){
+    console.log(window.location.pathname.split('/')[2])
+    if (window.location.pathname.split('/')[1] === "forum"){
             document.getElementById('create-post').addEventListener('click', async ()=>{
                 window.location.pathname = "/createPost"
             });
+            const id = window.location.pathname.split('/')[2]
+            const posts = await fetch(`/getPosts/${id}`)
+            const json = await posts.json()
+            const params = []
+            for (const resource of json["posts"]){
+                const param = [`<a href=\'${resource['title']}\'>${resource['title']}</a>`,`${resource['date']}`]
+                console.log(param)
+                params.push(param)
+            }
+            createTable('table-placement','new-table', params,
+                ['Post Title','Date']);
+
         }
     else if (window.location.pathname === "/createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{

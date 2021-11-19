@@ -30,7 +30,8 @@ async function afterLoad(){
             response = await postData('Courses/getcourse',data);
             arrList = [];
             for(let r of response){
-                arrList.push(['<a href=\'information\'>'+r.name+'</a>',r.course_number,r.description]);
+                /// Make information = information/${course_id}
+                arrList.push([`<a href=\'information/${r.id}\'>`+r.name+'</a>',r.course_number,r.description]);
             }
             createTable('table-placement','new-table',arrList,['Course', 'Course Number', 'Description']);
             break;
@@ -39,7 +40,7 @@ async function afterLoad(){
             response = await response.json();
             arrList = [];
             for(let r of response){
-                arrList.push(['<a href=\'information\'>'+r.name+'</a>',r.course_number,r.description]);
+                arrList.push([`<a href=\'information/${r.id}\'>`+r.name+'</a>',r.course_number,r.description]);
             }
             createTable('table-placement','new-table',arrList,['Course', 'Course Number', 'Description']);
             break;
