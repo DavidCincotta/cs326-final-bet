@@ -80,6 +80,9 @@ async function getLogin(body){
     if(log==='account_id'){
         document.location.href = './courses';
     }
+    else{
+        alert("account does not exist");
+    }
 }
 
 async function deleteAcc(data){
@@ -97,16 +100,6 @@ async function deleteAcc(data){
     const x = await response.json(); // parses JSON response into native JavaScript objects
     if (x === 200){
         document.location.href = './login.html';
-    }
-}
-
-async function getLogin(body){  
-    const log = await postData('account/login',body);
-    if(log==='account_id'){
-        document.location.href = './courses.html';
-    }
-    else{
-        alert("account does not exist");
     }
 }
 async function createAccount(body){  
