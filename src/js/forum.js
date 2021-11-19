@@ -109,20 +109,20 @@ class Forum {
 
 function afterLoad() {
     const forum = new Forum();
-
-    if (window.location.pathname === "/Forum/"){
+    console.log(window.location.pathname)
+    if (window.location.pathname === "/forum"){
             document.getElementById('create-post').addEventListener('click', async ()=>{
-                document.location.href = "/Forum/create"
+                window.location.pathname = "/createPost"
             });
         }
-    else if (window.location.pathname === "/Forum/create"){
+    else if (window.location.pathname === "/createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
                 const post = [document.getElementById("body").value];
                 const course = "326"
                 const postID = await forum.createPost(course, title, post)
                 // console.log(postID)
-                document.location.href = `/Forum/longpost/${postID}`
+                window.location.pathname = `/Forum/longpost/${postID}`
             });
         }
     else if (window.location.pathname.split("/")[2] === "longpost"){
