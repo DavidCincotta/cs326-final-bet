@@ -19,22 +19,6 @@ import {createTable} from './utilities.js';
 // }
 // window.addEventListener('load', afterLoad);
 
-//     //make sidebar an active element
-//     document.getElementById('menu').addEventListener('click',()=>{
-//         document.getElementById('sidebar').classList.toggle('active');
-//     });
-
-//     //create links to other pages
-//     const items = document.getElementsByClassName('item');
-//     for(const item of items){
-//         //Change Content
-//         item.addEventListener('click',()=>{
-//             document.location.href = `http://localhost:3010/${item.innerText}`;
-//         });    
-//     }
-// }
-
-// window.addEventListener('load', afterLoad);
 function afterLoad(){
 
     //make sidebar an active element
@@ -47,13 +31,19 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            document.location.href =item.innerHTML.toLowerCase();//+'html';
+            window.location.pathname =item.innerHTML.toLowerCase();//+'html';
 
         });    
     }
     try{
         document.getElementById('create-page').addEventListener('click', ()=>{
-            document.location.href ='./createCourse';
+            window.location.pathname ='/createCourse';
+
+        });
+    }catch(error){}
+    try{
+        document.getElementById('createButton').addEventListener('click', ()=>{
+            window.location.pathname ='/information';
 
         });
     }catch(error){}
