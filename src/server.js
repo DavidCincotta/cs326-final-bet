@@ -178,8 +178,7 @@ app.post('/Account/update',(req,res)=>{
 })
 
 app.get('/',
-    (req, res) => res.sendFile('/html/forum.html',
-                    { 'root' : __dirname }));
+    (req, res) => res.redirect("/login"));
 /*
 app.get('*', (req, res) => {
     res.send('NO FOOL, BAD COMMAND');
