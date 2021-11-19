@@ -68,6 +68,9 @@ function afterLoad(){
             break;
 
         case 'resources':
+            document.getElementById('createCourse btn').addEventListener('click', async ()=>{
+                window.location.pathname = "/addResource"
+            });
 
             console.log('notifications');
             createTable('table-placement','new-table',[
@@ -77,6 +80,10 @@ function afterLoad(){
                 ], 
                 ['Resource','Description','Date']);
             break;
+        case 'addResource':
+            document.getElementById('resource btn').addEventListener('click', async ()=>{
+                window.location.pathname = "/resources"
+            });
         case 'forum':
             break;
         case 'forumPost':

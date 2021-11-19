@@ -120,7 +120,3 @@ async function updateAccount(body){
 }
 
 window.addEventListener('load', afterLoad);
-
-
-
-

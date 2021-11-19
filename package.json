@@ -9,5 +9,22 @@
   },
   "scripts": {
     "start": "node ./src/server.js"
-  }
+  },
+  "name": "cs326-final-bet",
+  "description": "Final project for web programming course",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidCincotta/cs326-final-bet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidCincotta/cs326-final-bet/issues"
+  },
+  "homepage": "https://github.com/DavidCincotta/cs326-final-bet#readme"
 }

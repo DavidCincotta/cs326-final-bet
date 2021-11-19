@@ -60,7 +60,7 @@ class Forum {
         titleDiv.innerText = title;
         const forum = document.createElement("div")
         forum.id = "forum";
-        document.getElementById("courseTitle").innerText = course;
+        document.getElementById("courseTitle").innerText = `Course: ${course}`;
         for (let i in posts){
             const card = document.createElement("div");
             card.className = "card";
