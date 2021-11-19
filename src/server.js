@@ -52,6 +52,9 @@ app.get('/notfications',
 app.get('/resources',
     (req, res) => res.sendFile('/html/resources.html',
                 { 'root' : __dirname }));
+app.get('/addResource',
+    (req, res) => res.sendFile('/html/addResource.html',
+                { 'root' : __dirname }));
 app.get('/search',
     (req, res) => res.sendFile('/html/search.html',
                     { 'root' : __dirname }));
@@ -113,6 +116,14 @@ app.post('/Courses/search', (req, res) =>{
     ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
     ////// FAKE DATA FOR NOW //////
     res.send({"post_id": post})
+})
+
+app.post('/addResource', (req, res) => {
+    const title = req.body["title"]
+    const link = req.body["link"]
+    const desc = req.body["description"]
+    // send info to db
+    res.redirect("/resources")
 })
 
 
