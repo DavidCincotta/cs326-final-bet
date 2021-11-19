@@ -98,6 +98,25 @@ app.get('/Forum/create',
     (req, res) => res.sendFile('/html/createPost.html',
                 { 'root' : __dirname }));
 
+app.get('/Forum',
+    (req, res) => res.sendFile('/html/forum.html',
+            { 'root' : __dirname }));
+
+
+app.get('/Forum/longpost/:post_id',
+    (req, res) => res.sendFile('/html/forumPost.html',
+                    { 'root' : __dirname }));
+
+app.get('/Forum/get/:post_id',
+    (req, res) => {const postID = req.params.post_id;
+//     // get and return content_array and post_title, course from db
+    res.send({"title": "title", "posts": [{"username": "Obi-Wan", "date": "today", "post": "Hello there!"}, {"username": "General Grievous", "date": "today", "post": "General Kenobi!"}], "course": "web programming"});
+    });
+
+app.get('/Forum/create',
+    (req, res) => res.sendFile('/html/createPost.html',
+                { 'root' : __dirname }));
+
 app.post('/Forum/create', (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];

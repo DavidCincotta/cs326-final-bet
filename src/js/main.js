@@ -19,6 +19,22 @@ import {createTable} from './utilities.js';
 // }
 // window.addEventListener('load', afterLoad);
 
+//     //make sidebar an active element
+//     document.getElementById('menu').addEventListener('click',()=>{
+//         document.getElementById('sidebar').classList.toggle('active');
+//     });
+
+//     //create links to other pages
+//     const items = document.getElementsByClassName('item');
+//     for(const item of items){
+//         //Change Content
+//         item.addEventListener('click',()=>{
+//             document.location.href = `http://localhost:3010/${item.innerText}`;
+//         });    
+//     }
+// }
+
+// window.addEventListener('load', afterLoad);
 function afterLoad(){
 
     //make sidebar an active element
