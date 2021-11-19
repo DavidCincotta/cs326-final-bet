@@ -20,7 +20,6 @@ import {createTable} from './utilities.js';
 // window.addEventListener('load', afterLoad);
 
 function afterLoad(){
-
     //make sidebar an active element
     document.getElementById('menu').addEventListener('click',()=>{
         document.getElementById('sidebar').classList.toggle('active');
@@ -31,7 +30,14 @@ function afterLoad(){
     for(const item of items){
         //Change Content
         item.addEventListener('click',()=>{
-            window.location.pathname =item.innerHTML.toLowerCase();//+'html';
+            const destination = item.innerHTML.toLowerCase()
+            if (destination === "resources" || destination === "forum" || destination === "information"){
+                const id = window.location.pathname.split("/")[2];
+                window.location.pathname = `${item.innerHTML.toLowerCase()}/${id}`;
+            }
+            else {
+                window.location.pathname = `${item.innerHTML.toLowerCase()}`
+            }
 
         });    
     }
@@ -67,19 +73,19 @@ function afterLoad(){
                 ['Recency','Course','Activity']);
             break;
 
-        case 'resources':
-            document.getElementById('createCourse btn').addEventListener('click', async ()=>{
-                window.location.pathname = "/addResource"
-            });
+        // case 'resources':
+        //     document.getElementById('createCourse btn').addEventListener('click', async ()=>{
+        //         window.location.pathname = "/addResource"
+        //     });
 
-            console.log('notifications');
-            createTable('table-placement','new-table',[
-                ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
-                ['<a href=\'./link\'>Resource 2</a>','Good pseudocode','Yesterday'],
-                ['<a href=\'./link\'>Resource 3</a>','Funny meme','Last week']
-                ], 
-                ['Resource','Description','Date']);
-            break;
+        //     console.log('notifications');
+        //     createTable('table-placement','new-table',[
+        //         ['<a href=\'./link\'>Resource 1</a>','Helpful article','Today'],
+        //         ['<a href=\'./link\'>Resource 2</a>','Good pseudocode','Yesterday'],
+        //         ['<a href=\'./link\'>Resource 3</a>','Funny meme','Last week']
+        //         ], 
+        //         ['Resource','Description','Date']);
+        //     break;
         case 'addResource':
             document.getElementById('resource btn').addEventListener('click', async ()=>{
                 window.location.pathname = "/resources"

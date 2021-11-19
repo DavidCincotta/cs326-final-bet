@@ -31,7 +31,7 @@ app.get('/createPost',
 app.get('/directory',
     (req, res) => res.sendFile('/html/directory.html',
                 { 'root' : __dirname }));
-app.get('/Forum',
+app.get('/Forum/:course_id',
     (req, res) => res.sendFile('/html/forum.html',
                     { 'root' : __dirname }));
 app.get('/Forum/longpost/:post_id',
@@ -40,7 +40,7 @@ app.get('/Forum/longpost/:post_id',
 app.get('/index',
     (req, res) => res.sendFile('/html/index.html',
                     { 'root' : __dirname }));
-app.get('/information',
+app.get('/information/:course_id',
     (req, res) => res.sendFile('/html/information.html',
                 { 'root' : __dirname }));
 app.get('/Login',
@@ -49,7 +49,7 @@ app.get('/Login',
 app.get('/notfications',
     (req, res) => res.sendFile('/html/notifications.html',
                 { 'root' : __dirname }));
-app.get('/resources',
+app.get('/resources/:course_id',
     (req, res) => res.sendFile('/html/resources.html',
                 { 'root' : __dirname }));
 app.get('/addResource',
@@ -93,6 +93,13 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
     res.send({"post": post, "posts": posts})
 })
 
+app.get("/getPosts/:course_id", (req, res) => {
+    const course = req.params.course_id;
+    res.send({"posts": [{"title": "Great Course, 10/10 recommend!", "date": "Today"},
+                        {"title": "Learned so much in this class", "data": "3 weeks ago"},
+                    {"title": "Tonight's homework", "date": "Last month"}]})
+})
+
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
@@ -102,6 +109,11 @@ app.post('/Courses/getcourse', (req, res) =>{
     const account = req.body['account_id'];
 
     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+});
+
+app.get('/getInfo/:course_id', (req, res) => {
+    const course = req.params.course_id
+    res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
 });
 app.get('/Courses/directory', (req, res) =>{
     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
@@ -116,6 +128,13 @@ app.post('/Courses/search', (req, res) =>{
     ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
     ////// FAKE DATA FOR NOW //////
     res.send({"post_id": post})
+});
+app.get("/getResources/:course_id", (req, res) => {
+    const course = req.params.course_id
+    res.send({"resources": [{"link": "www.google.com", "title": "Google", "description": "Search Engine", "date": "Today"},
+        {"link": "www.bing.com", "title": "Bing", "description": "Another search engine", "date": "Yesterday"},
+        {"link": "www.yahoo.com", "title": "Yahoo", "description": "A third search engine", "date": "3 weeks ago"}
+    ]})
 })
 
 app.post('/addResource', (req, res) => {

@@ -6,7 +6,8 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='/css/style.css'>
         <title>Course Information</title>
-        <script type='module'src='/js/managecourse.js'></script>
+        <script type='module'src='/js/main.js'></script>
+        <script type='module'src='/js/information.js'></script>
     </head>
     <body>
 
@@ -14,7 +15,7 @@
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
-            <h4>Course: Web Programming</h4>
+            <h4 id="course-header">Course: Web Programming</h4>
 
         </div>
 
@@ -29,12 +30,11 @@
             </nav>
 
             <div class='content'>
-                <h1>CS 326 Web Programming</h1>
-                <h5>Professor: Emery Berger</h5>
-                <h5>History: 2016-2021</h5>
-                <h5>Activity: 20 posts this semester</h5>
+                <h1 id="course-title">CS 326 Web Programming</h1>
+                <h5 id="professor">Professor: Emery Berger</h5>
+                <h5 id="start-year">2016</h5>
                 <h5>Course Description:</h5>
-                <p>Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.</p>
+                <p id="description">Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.</p>
                 <div>
                     <button class="btn createButton">Edit </button>
                 </div>
