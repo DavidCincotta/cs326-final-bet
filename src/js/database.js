@@ -30,10 +30,15 @@
 //     return id;
 // }
 
-const pgp = require('pg-promise')();
-const db = pgp(connection);
+import pgPromise from 'pg-promise';
+const pgp = pgPromise({});
+const connectionString = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+};
+const db = pgp(connectionString );
 
-async function create(request){
+export async function create(request){
     try{
         await db.none(request)
     }
@@ -41,7 +46,7 @@ async function create(request){
     }
 }
 
-async function insert(request){
+export async function insert(request){
     try {
         await db.none(request)
     }
@@ -50,13 +55,13 @@ async function insert(request){
     }
 }
 
-async function find(number, request){
+export async function find(number, request){
     try {
         if (number === 1){
             return db.one(request)
         }
         else {
-            return db.many(request)
+            return db.any(request)
         }
     }
     catch(e){
@@ -64,7 +69,7 @@ async function find(number, request){
     }
 }
 
-async function updateDelete(request){
+export async function updateDelete(request){
     try {
         db.none(request)
     }
