@@ -2,6 +2,7 @@
 import express from 'express';
 import * as http from 'http';
 import path from 'path';
+import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,7 +10,6 @@ const __dirname = path.dirname(__filename);
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
 /////////////////////////////////////////////
-
 const app = express();
 // import express from "express"
 app.use(express.json()); // lets you handle JSON input

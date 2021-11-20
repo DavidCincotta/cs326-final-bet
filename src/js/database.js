@@ -1,39 +1,13 @@
-// import * as fs from 'fs';
+import pgPromise from 'pg-promise';
+const pgp = pgPromise({});
 
-// const dbFile = './db.json';
-// let db={};
-// if(fs.existsSync(dbFile)){
-//     db = JSON.parse(fs.readFileSync(stateFile));
-// }
-// function write(){
-//     fs.writeFileSync(dbFile,JSON.stringify(db));
-// }
+const connectionString = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+};
+const db = pgp(connectionString);
 
-// function findId(table,id){
-//     return db.table[id];
-// }
-
-// function findAndUpdate(table,id,obj){
-//     if(table in db && id in db.table){
-//         db.table[id] = obj;
-//         return true;
-//     }
-//     else: return false;
-// }
-
-// function insert(table,obj){
-//     //TODO
-//     //autopopulate id fields
-
-//     let id = db.table.length;
-//     db.table.push(obj);
-//     return id;
-// }
-
-const pgp = require('pg-promise')();
-const db = pgp(connection);
-
-async function create(request){
+export async function noneFunction(request){
     try{
         await db.none(request)
     }
@@ -41,32 +15,18 @@ async function create(request){
     }
 }
 
-async function insert(request){
+export async function oneFunction(request){
     try {
-        await db.none(request)
+        await db.one(request)
     }
     catch(e){
         alert("Entry already exists!")
     }
 }
 
-async function find(number, request){
+export async function anyFunction(request){
     try {
-        if (number === 1){
-            return db.one(request)
-        }
-        else {
-            return db.many(request)
-        }
-    }
-    catch(e){
-        alert("No such entry!")
-    }
-}
-
-async function updateDelete(request){
-    try {
-        db.none(request)
+        return db.any(request)
     }
     catch(e){
         alert("No such entry!")
