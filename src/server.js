@@ -1,6 +1,5 @@
-//import * as db from './database.js';
+import {create, insert, find, updateDelete} from './js/database.js';
 import express from 'express';
-import * as http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -70,9 +69,10 @@ app.get('/signup',
 /////////////////////////////////////////////
 
 app.get('/Forum/get/:post_id',
-    (req, res) => {const postID = req.params.post_id;
+    async (req, res) => {const postID = req.params.post_id;
+        const response = await find(1, `SELECT postTitle, posts, course FROM forum WHERE id = ${postID}`)
 //     // get and return content_array and post_title, course from db
-    res.send({"title": "title", "posts": [{"username": "Obi-Wan", "date": "today", "post": "Hello there!"}, {"username": "General Grievous", "date": "today", "post": "General Kenobi!"}], "course": "web programming"});
+    res.send(response);
     });
 
 app.post('/Forum/create', (req, res) =>{
@@ -86,11 +86,22 @@ app.post('/Forum/create', (req, res) =>{
 });
 
 app.post('/Forum/longpost/:post_id/update', (req, res) => {
-    const post = req.params.post_id;
+    const postID = req.params.post_id;
     const posts = req.body['content_array'];
+    const dbPosts = await find(1, `SELECT posts FROM forum WHERE id = ${postID}`)
+    dbPosts[0]['posts'].push(posts)
+    let ret = "array["
+    for (const post of response[0]['posts']){
+        console.log(post)
+        const newPost = `'${JSON.stringify(post)}'::json,`
+        ret += newPost
+    }
+    ret = ret.slice(0, -1) + ']'
+    await updateDelete(`UPDATE forum SET posts = ${ret} WHERE id=${postID}`)
     // put new info into database WHERE post_id = post_id (UPDATE)
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
-    res.send({"post": post, "posts": posts})
+    // res.send({"post": post, "posts": posts})
+    res.redirect(`/forum/longpost/${postID}`)
 })
 
 app.get("/getPosts/:course_id", (req, res) => {
