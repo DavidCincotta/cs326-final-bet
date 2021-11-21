@@ -71,7 +71,7 @@ app.get('/Forum/get/:post_id',
     res.send(response);
     });
 
-app.post('/Forum/create', (req, res) =>{
+app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
@@ -84,7 +84,7 @@ app.post('/Forum/create', (req, res) =>{
     // res.redirect("/Forum")
 });
 
-app.post('/Forum/longpost/:post_id/update', (req, res) => {
+app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     const postID = req.params.post_id;
     const posts = req.body['content_array'];
     const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = ${postID}`)
@@ -103,9 +103,9 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
     res.redirect(`/forum/longpost/${postID}`)
 })
 
-app.get("/getPosts/:course_id", (req, res) => {
+app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
-    const courseList = anyFunction(`SELECT posttitle, id FROM forum WHERE course = ${course}`)
+    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = ${course}`)
     res.send({"posts": courseList})
 })
 
@@ -138,18 +138,18 @@ app.post('/Courses/search', (req, res) =>{
     ////// FAKE DATA FOR NOW //////
     res.send({"post_id": post})
 });
-app.get("/getResources/:course_id", (req, res) => {
+app.get("/getResources/:course_id", async (req, res) => {
     const course = req.params.course_id
-    const resources = anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
+    const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
     res.send({"resources": resources})
 })
 
-app.post('/addNewResource/:course_id', (req, res) => {
+app.post('/addNewResource/:course_id', async (req, res) => {
     const course = req.params.course_id;
     const title = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
-    noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
+    await noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
     res.redirect(`/resources/${course}`)
 })
 
