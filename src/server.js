@@ -1,4 +1,3 @@
-import {create, insert, find, updateDelete} from './js/database.js';
 import express from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
@@ -24,7 +23,7 @@ app.get('/courses',
 app.get('/createCourse',
     (req, res) => res.sendFile('/html/createCourse.html',
                     { 'root' : __dirname }));
-app.get('/createPost',
+app.get('/createPost/:course_id',
     (req, res) => res.sendFile('/html/createPost.html',
                     { 'root' : __dirname }));
 app.get('/directory',
@@ -45,13 +44,10 @@ app.get('/information/:course_id',
 app.get('/Login',
     (req, res) => res.sendFile('/html/login.html',
                     { 'root' : __dirname }));
-app.get('/notfications',
-    (req, res) => res.sendFile('/html/notifications.html',
-                { 'root' : __dirname }));
 app.get('/resources/:course_id',
     (req, res) => res.sendFile('/html/resources.html',
                 { 'root' : __dirname }));
-app.get('/addResource',
+app.get('/addResource/:course_id',
     (req, res) => res.sendFile('/html/addResource.html',
                 { 'root' : __dirname }));
 app.get('/search',
@@ -70,7 +66,7 @@ app.get('/signup',
 
 app.get('/Forum/get/:post_id',
     async (req, res) => {const postID = req.params.post_id;
-        const response = await find(1, `SELECT postTitle, posts, course FROM forum WHERE id = ${postID}`)
+        const response = await oneFunction(`SELECT postTitle, posts, course FROM forum WHERE id = ${postID}`)
 //     // get and return content_array and post_title, course from db
     res.send(response);
     });
@@ -79,16 +75,19 @@ app.post('/Forum/create', (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
+    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES (${title}, ${posts}, ${course})`)
+    const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle=${title} AND course=${course} `)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
-    res.send({"course": course, "title": title, "posts": posts})
+    // res.send({"course": course, "title": title, "posts": posts})
+    res.send(postID)
     // res.redirect("/Forum")
 });
 
 app.post('/Forum/longpost/:post_id/update', (req, res) => {
     const postID = req.params.post_id;
     const posts = req.body['content_array'];
-    const dbPosts = await find(1, `SELECT posts FROM forum WHERE id = ${postID}`)
+    const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = ${postID}`)
     dbPosts[0]['posts'].push(posts)
     let ret = "array["
     for (const post of response[0]['posts']){
@@ -97,7 +96,7 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
         ret += newPost
     }
     ret = ret.slice(0, -1) + ']'
-    await updateDelete(`UPDATE forum SET posts = ${ret} WHERE id=${postID}`)
+    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id=${postID}`)
     // put new info into database WHERE post_id = post_id (UPDATE)
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     // res.send({"post": post, "posts": posts})
@@ -106,9 +105,8 @@ app.post('/Forum/longpost/:post_id/update', (req, res) => {
 
 app.get("/getPosts/:course_id", (req, res) => {
     const course = req.params.course_id;
-    res.send({"posts": [{"title": "Great Course, 10/10 recommend!", "date": "Today"},
-                        {"title": "Learned so much in this class", "data": "3 weeks ago"},
-                    {"title": "Tonight's homework", "date": "Last month"}]})
+    const courseList = anyFunction(`SELECT posttitle, id FROM forum WHERE course = ${course}`)
+    res.send({"posts": courseList})
 })
 
 /////////////////////////////////////////////
@@ -142,18 +140,17 @@ app.post('/Courses/search', (req, res) =>{
 });
 app.get("/getResources/:course_id", (req, res) => {
     const course = req.params.course_id
-    res.send({"resources": [{"link": "www.google.com", "title": "Google", "description": "Search Engine", "date": "Today"},
-        {"link": "www.bing.com", "title": "Bing", "description": "Another search engine", "date": "Yesterday"},
-        {"link": "www.yahoo.com", "title": "Yahoo", "description": "A third search engine", "date": "3 weeks ago"}
-    ]})
+    const resources = anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
+    res.send({"resources": resources})
 })
 
-app.post('/addResource', (req, res) => {
+app.post('/addNewResource/:course_id', (req, res) => {
+    const course = req.params.course_id;
     const title = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
-    // send info to db
-    res.redirect("/resources")
+    noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
+    res.redirect(`/resources/${course}`)
 })
 
 

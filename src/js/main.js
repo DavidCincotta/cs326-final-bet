@@ -62,17 +62,6 @@ function afterLoad(){
             break;
         case 'search':
             break;
-        case 'notifications':
-
-            console.log('notifications');
-            createTable('table-placement','new-table',[
-                ['1','326','recent'],
-                ['2','240','inactive'],
-                ['3','400','recent']
-                ], 
-                ['Recency','Course','Activity']);
-            break;
-
         // case 'resources':
         //     document.getElementById('createCourse btn').addEventListener('click', async ()=>{
         //         window.location.pathname = "/addResource"
@@ -86,10 +75,10 @@ function afterLoad(){
         //         ], 
         //         ['Resource','Description','Date']);
         //     break;
-        case 'addResource':
-            document.getElementById('resource btn').addEventListener('click', async ()=>{
-                window.location.pathname = "/resources"
-            });
+        // case 'addResource':
+        //     document.getElementById('resource btn').addEventListener('click', async ()=>{
+        //         window.location.pathname = "/resources"
+        //     });
         case 'forum':
             break;
         case 'forumPost':
