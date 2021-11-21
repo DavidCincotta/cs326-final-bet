@@ -81,8 +81,7 @@ function afterLoad(){
 }
 async function getLogin(body){  
     const log = await postData('account/login',body);
-    console.log(log)
-    if(log==='account_id'){
+    if(JSON.parse(log)===true){
         document.location.href = './courses';
     }
     else{

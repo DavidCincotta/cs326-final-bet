@@ -5,8 +5,6 @@ const connectionString = {
     ssl: { rejectUnauthorized: false }
 };
 const db = pgp(connectionString);
-const db = pgp(cn);
-
 
 export async function noneFunction(request){
     try{
