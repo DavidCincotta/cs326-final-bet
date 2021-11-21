@@ -77,7 +77,7 @@ app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
-    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES (${title}, array'${posts}'::json', ${course})`)
+    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES (${title}, array'[${posts[0]}]'::json', ${course})`)
     const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle=${title} AND course=${course}`)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
