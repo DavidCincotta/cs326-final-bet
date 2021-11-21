@@ -110,16 +110,20 @@ class Forum {
 async function afterLoad() {
     const forum = new Forum();
     console.log(window.location.pathname.split('/')[2])
-    if (window.location.pathname.split('/')[1] === "forum"){
+    if (window.location.pathname.split("/")[2] === "longpost"){
+        const postID = window.location.pathname.split("/")[3]
+        forum.getPost(postID)
+    }
+    else if (window.location.pathname.split('/')[1] === "forum"){
+            const course = window.location.pathname.split('/')[2];
             document.getElementById('create-post').addEventListener('click', async ()=>{
-                window.location.pathname = "/createPost"
+                window.location.pathname = `/createPost/${course}`
             });
             const id = window.location.pathname.split('/')[2]
             const posts = await fetch(`/getPosts/${id}`)
-            const json = await posts.json()
             const params = []
-            for (const resource of json["posts"]){
-                const param = [`<a href=\'${resource['title']}\'>${resource['title']}</a>`,`${resource['date']}`]
+            for (const post of posts["posts"]){
+                const param = [`<a href=\'/forum/longpost/${post['id']}\'>${post['title']}</a>`,`${post['date']}`]
                 console.log(param)
                 params.push(param)
             }
@@ -127,20 +131,16 @@ async function afterLoad() {
                 ['Post Title','Date']);
 
         }
-    else if (window.location.pathname === "/createPost"){
+    else if (window.location.pathname.split('/')[1] === "/createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
                 const post = [document.getElementById("body").value];
-                const course = "326"
+                const course = window.location.pathname.split('/')[2]
                 const postID = await forum.createPost(course, title, post)
                 // console.log(postID)
                 window.location.pathname = `/Forum/longpost/${postID}`
             });
         }
-    else if (window.location.pathname.split("/")[2] === "longpost"){
-        const postID = window.location.pathname.split("/")[3]
-        forum.getPost(postID)
-    }
 }
 
 window.addEventListener('load', afterLoad);
