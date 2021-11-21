@@ -59,6 +59,8 @@ app.get('/settings',
 app.get('/signup',
     (req, res) => res.sendFile('/html/signup.html',
                     { 'root' : __dirname }));
+app.get('/',
+    (req, res) => res.redirect("/login"));
 
 /////////////////////////////////////////////
 //////////// Forum enpoints ////////////////
@@ -119,17 +121,19 @@ app.post('/Courses/getcourse', (req, res) =>{
 
     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
-
+//use
 app.get('/getInfo/:course_id', (req, res) => {
     const course = req.params.course_id
     res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
 });
+//mine
 app.get('/Courses/directory', (req, res) =>{
     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.post('/Courses/addcourse', (req, res) =>{
     res.send();
 });
+//mine
 app.post('/Courses/search', (req, res) =>{
     res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
@@ -159,39 +163,34 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 /////////////////////////////////////////////
 app.post('/Account/register', (req,res) => {
     const account = {
-        username: req.body.username,
         email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
-        notification_flag: req.body.notification_flag
     };
-    //store account in db
-    //sent account to client
+    noneFunction('INSERT INTO account (email, username,password) VALUES (${email},${username},${password})',account)
     res.send(JSON.stringify(account))
 })
-app.post('/Account/login', (req,res)=> {
+app.post('/Account/login', async (req,res)=> {
     const email = req.body['email'];
     const password = req.body['password'];
-    //check if match with data base
-    //then sent id
-    res.send(JSON.stringify("account_id"));
-})
-app.post('/Account/addcourse',(req,res)=>{
-    const account = req.body['account_id'];
-    const course = req.body['course'];
-    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'...','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'...','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'...','description':'predicate mathematics and proofing'}]);
+    try{
+        const result = await anyFunction('SELECT * FROM account WHERE email = ${email} AND password = ${password}')
+    }
+    catch{e=>console.log(e)}
+    if (result!= null){ 
+        res.send(JSON.stringify(true))
+    }
+    else{
+        res.send(JSON.stringify(false));
+    }
 })
 app.post('/Account/update',(req,res)=>{
     //update account settings from body in db
     res.send(JSON.stringify("okay"));
 })
 
-app.get('/',
-    (req, res) => res.redirect("/login"));
-/*
-app.get('*', (req, res) => {
-    res.send('NO FOOL, BAD COMMAND');
-  });
-*/
+
+    
 app.listen(process.env.PORT || 8080, () => {
     console.log(`Course Explorer app listening at http://localhost:${port}`);
 });

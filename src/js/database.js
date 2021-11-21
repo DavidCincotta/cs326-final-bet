@@ -1,15 +1,16 @@
 import pgPromise from 'pg-promise';
 const pgp = pgPromise({});
-
 const connectionString = {
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
 };
 const db = pgp(connectionString);
+const db = pgp(cn);
+
 
 export async function noneFunction(request){
     try{
-        await db.none(request)
+        const result = await db.none(request);
     }
     catch(e){
     }
@@ -17,7 +18,8 @@ export async function noneFunction(request){
 
 export async function oneFunction(request){
     try {
-        await db.one(request)
+        const result = db.one(request);
+        return result;
     }
     catch(e){
         alert("Entry already exists!")
@@ -26,7 +28,8 @@ export async function oneFunction(request){
 
 export async function anyFunction(request){
     try {
-        return db.any(request)
+        const result = db.any(request);
+        return result;
     }
     catch(e){
         alert("No such entry!")
