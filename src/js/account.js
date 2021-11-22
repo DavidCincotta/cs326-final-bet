@@ -110,7 +110,7 @@ async function createAccount(body){
     if(create!==null || create !==undefined){
         document.cookie = `user_id:${create}`;
         console.log(document.cookie);
-        //document.location.href = './courses';
+        document.location.href = './courses';
     }
     else{
         alert("something went wrong");
