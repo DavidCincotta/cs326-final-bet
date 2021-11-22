@@ -122,9 +122,10 @@ async function afterLoad() {
             });
             const id = window.location.pathname.split('/')[2]
             const posts = await fetch(`/getPosts/${id}`)
+            const json = await posts.json();
             const params = []
-            for (const post of posts["posts"]){
-                const param = [`<a href=\'/forum/longpost/${post['id']}\'>${post['title']}</a>`,`${post['date']}`]
+            for (const post of json["posts"]){
+                const param = [`<a href=\'/forum/longpost/${post['id']}\'>${post['posttitle']}</a>`,`${post['date']}`]
                 console.log(param)
                 params.push(param)
             }
