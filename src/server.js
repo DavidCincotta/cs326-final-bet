@@ -170,9 +170,15 @@ app.post('/Account/register', async (req,res) => {
         password: req.body.password,
     };
     try{
-        await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
-        res.send(JSON.stringify(account.user_id));
-        return;
+        const result = await anyFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
+        console.log(result);
+        if (result.length === 0 ){
+            await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
+            res.send(JSON.stringify(account.user_id));
+        }
+        else{
+            res.send(JSON.stringify(null))
+        }
     }
     catch{(e)=>res.send(JSON.stringify(null));}
 
@@ -181,9 +187,9 @@ app.post('/Account/login', async (req,res)=> {
     const username = req.body['username'];
     const password = req.body['password'];
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE email = '${username}' AND password = '${password}'`)
-        if (result!== null){ 
-            res.send(JSON.stringify(result[3]))
+        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}' AND password = '${password}'`);
+        if (result.length>0){ 
+            res.send(JSON.stringify(result[0].user_id));
         }
         else{
             res.send(JSON.stringify(false));

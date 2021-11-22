@@ -4,7 +4,7 @@ const connectionString = {
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
 };
-const db = pgp(connectionString);
+const db = pgp("postgres://postgres:1234@localhost:5432/test")
 
 export async function noneFunction(request){
     try{

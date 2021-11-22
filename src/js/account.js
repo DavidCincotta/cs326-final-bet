@@ -96,8 +96,10 @@ async function deleteAcc(data){
 }
 async function getLogin(body){  
     const log = await postData('account/login',body);
-    if(log){
+
+    if(log===false){
         alert("account does not exist");
+        return;
     }
     else{
         document.cookie = `user_id:${log}`;
@@ -107,12 +109,12 @@ async function getLogin(body){
 async function createAccount(body){  
     const create = await postData('account/register',body);
     console.log(create);
-    if(create!==null || create !==undefined){
+    if(create!==null){
         document.cookie = `user_id:${create}`;
         document.location.href = './courses';
     }
     else{
-        alert("something went wrong");
+        alert("Username or Email already exists");
     }
 }
 async function updateAccount(body){
