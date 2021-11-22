@@ -1,4 +1,4 @@
-import {postData} from './utilities.js';
+import {postData,authorization} from './utilities.js';
 
 function afterLoad(){
     const loginBtn = document.getElementById('loginBtn');
@@ -42,6 +42,7 @@ function afterLoad(){
         })
     }
     if (updateBtn!==null){
+        authorization();
         updateBtn.addEventListener('click',()=>{
             const emailUpdate = document.getElementById('emailUpdate').value;
             const username = document.getElementById('usernameUpdate').value;

@@ -1,5 +1,5 @@
-import {createTable,postData} from './utilities.js';
-
+import {createTable,postData,authorization} from './utilities.js';
+authorization();
 let response = '';
 let arrList = [];
 let data = {};

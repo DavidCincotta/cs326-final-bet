@@ -1,6 +1,7 @@
-import {createTable, postData} from './utilities.js';
+import {createTable, postData,authorization} from './utilities.js';
 
 async function afterLoad() {
+    authorization()
     const id = window.location.pathname.split("/")[2]
     const information = await fetch(`/getInfo/${id}`)
     const json = await information.json()

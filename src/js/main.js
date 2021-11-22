@@ -1,5 +1,5 @@
 'use strict'
-import {createTable} from './utilities.js';
+import {createTable,authorization} from './utilities.js';
 
 // function afterLoad(){
 
@@ -20,6 +20,7 @@ import {createTable} from './utilities.js';
 // window.addEventListener('load', afterLoad);
 
 function afterLoad(){
+    authorization();
     //make sidebar an active element
     document.getElementById('menu').addEventListener('click',()=>{
         document.getElementById('sidebar').classList.toggle('active');

@@ -1,6 +1,6 @@
 'use strict'
 
-import {createTable, postData} from './utilities.js';
+import {createTable, postData,authorization} from './utilities.js';
 
 
 class Forum {
@@ -110,6 +110,7 @@ class Forum {
 }
 
 async function afterLoad() {
+    authorization();
     const forum = new Forum();
     console.log(window.location.pathname.split('/')[2])
     if (window.location.pathname.split("/")[2] === "longpost"){
