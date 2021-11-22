@@ -196,9 +196,45 @@ app.post('/Account/login', async (req,res)=> {
     }
     catch{e=>console.log(e)}
 })
-app.post('/Account/update',(req,res)=>{
-    
-    res.send(JSON.stringify("okay"));
+app.post('/Account/update', async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    const username = req.body.username;
+    const currPass = req.body.currPass;
+    const user_id = req.body.user_id;
+    try{
+        let quary = `UPDATE account SET`
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        if (result.length===0){
+            res.send(JSON.stringify("Incorrect Password"));
+            return;
+        }
+        if (email!==undefined){
+            const result = await anyFunction(`SELECT * FROM account WHERE email = '${email}'`)
+            if (result.length!==0){
+                res.send(JSON.stringify("Email already taken"))
+                return;
+            }
+            quary+=` email = '${email}',`;
+        }
+        if (username!==undefined){
+            const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}'`)
+            if (result.length!==0){
+                res.send(JSON.stringify("Username already taken"))
+                return;
+            }
+            quary+=` username = '${username}',`;
+        }
+        if (password !==undefined){
+            quary+=` password= '${password}',`;
+        }
+        quary = quary.slice(0, -1)
+        quary+=` WHERE user_id = '${user_id}'`
+        console.log(quary)
+        await noneFunction(quary);
+        res.send(JSON.stringify('200'));
+    }
+    catch{(e)=>console.log(e)}
 })
 
 

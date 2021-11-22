@@ -43,14 +43,11 @@ function afterLoad(){
     }
     if (updateBtn!==null){
         updateBtn.addEventListener('click',()=>{
-            const currPass = document.getElementById('currPass').value;
-            const currEmail = document.getElementById('curremail').value;
-            const updatePass = document.getElementById('updatePass').value;
-            const confirmPass = document.getElementById('confirmPass').value;
+            const emailUpdate = document.getElementById('emailUpdate').value;
             const username = document.getElementById('usernameUpdate').value;
+            const updatePass = document.getElementById('updatePass').value;
+            const currPass = document.getElementById('currPass').value;
             const data={};
-            if(currPass === passData){
-                const emailUpdate = document.getElementById('emailUpdate').value;
                 if (emailUpdate.length>0&&!(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(emailUpdate))){
                     alert("Email not available");
                     return;
@@ -58,21 +55,19 @@ function afterLoad(){
                 else if(emailUpdate.length!=0){
                     data["email"]=emailUpdate;
                 }
-                if (updatePass !== confirmPass){
-                    alert("Passwords do not match");
-                }
-                else if(updatePass.length<8&&updatePass.length!==0){
+                if(updatePass.length<8&&updatePass.length!==0){
                     alert("Password too short");
+                    return;
                 }
                 else if(updatePass.length!==0){
                     data["password"]=updatePass;
                 }
-                data["usernameUpdate"]=notifCheck;
+                if(username.length>0){
+                    data["username"]=username;
+                }
+                data["currPass"]=currPass;
+                data["user_id"]=document.cookie.split(':')[1];
                 updateAccount(data);
-            }
-            else{
-                alert("Wrong Password");
-            }
         })
     }
 
@@ -117,10 +112,12 @@ async function createAccount(body){
     }
 }
 async function updateAccount(body){
-    const x = await postData('account/update',body);
-    if(x==="okay"){
-
-        alert("Settings have been updated");
+    const result = await postData('account/update',body);
+    if(result!=="200"){
+        alert(result);
+    }
+    else{
+        alert('Settings updated!');
     }
 }
 
