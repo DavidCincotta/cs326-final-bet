@@ -132,7 +132,7 @@ async function afterLoad() {
                 ['Post Title','Date']);
 
         }
-    else if (window.location.pathname.split('/')[1] === "/createPost"){
+    else if (window.location.pathname.split('/')[1] === "createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
                 const post = [{"username": "Obi-Wan", "date": "today", "post": document.getElementById("body").value}];
