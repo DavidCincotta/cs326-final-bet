@@ -11,14 +11,14 @@ class Forum {
         // Send data to server
         const body = {"course_key": course, "post_title": title, "content_array": posts};
         const response = await postData("/Forum/create", body)
-        const json = await response.json();
+        // const json = await response.json();
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
         alert(`${response['course']} ${response['title']} ${response["posts"]}`)
         ///// EVENTUALLY... /////
         // this.getPost(postID)
         // this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}], "326")
-        return json.id; // postID
+        return response.id; // postID
     }
 
     async updatePost(postID, post){
