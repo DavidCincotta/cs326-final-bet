@@ -76,8 +76,8 @@ app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
-    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES (${title}, ${posts}, ${course})`)
-    const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle=${title} AND course=${course} `)
+    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES ('${title}', array'[${posts[0]}]'::json', '${course}')`)
+    const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle=${title} AND course=${course}`)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
     // res.send({"course": course, "title": title, "posts": posts})
@@ -114,12 +114,11 @@ app.get("/getPosts/:course_id", async (req, res) => {
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
 
+// app.post('/Courses/getcourse', (req, res) =>{
+//     const account = req.body['account_id'];
+//     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+// });
 
-app.post('/Courses/getcourse', (req, res) =>{
-    const account = req.body['account_id'];
-    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
-});
-//use
 app.get('/getInfo/:course_id', (req, res) => {
     const course = req.params.course_id
     res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
