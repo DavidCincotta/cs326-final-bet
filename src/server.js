@@ -162,6 +162,12 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 //////////// Account endpoints ////////////////
 /////////////////////////////////////////////
 
+app.get('/getUsername/:api', async (req,res)=>{
+    const api = req.params.api;
+    const user = oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
+    res.send({"username": user})
+})
+
 app.post('/Account/register', async (req,res) => {
     const account = {
         user_id: req.body.user_id,
