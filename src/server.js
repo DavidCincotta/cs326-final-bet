@@ -89,15 +89,15 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     const postID = req.params.post_id;
     const posts = req.body['content_array'];
     const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = '${postID}'`)
-    dbPosts[0]['posts'].push(posts)
+    dbPosts['posts'].push(posts)
     let ret = "array["
-    for (const post of response[0]['posts']){
+    for (const post of dbPosts['posts']){
         console.log(post)
         const newPost = `'${JSON.stringify(post)}'::json,`
         ret += newPost
     }
     ret = ret.slice(0, -1) + ']'
-    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id = '${postID}''`)
+    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id = '${postID}'`)
     // put new info into database WHERE post_id = post_id (UPDATE)
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     // res.send({"post": post, "posts": posts})
