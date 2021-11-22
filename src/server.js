@@ -169,17 +169,11 @@ app.post('/Account/register', async (req,res) => {
         password: req.body.password,
     };
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE username = '${account.user_id}' OR email ='${account.email}')`);
-        if (result.length>0){
-            res.send(JSON.stringify(null));
-        }
-        else{ 
-            await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
-            res.send(JSON.stringify(account.user_id));
-            return;
-        }
+        await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
+        res.send(JSON.stringify(account.user_id));
+        return;
     }
-    catch{(e)=>res.send(null);}
+    catch{(e)=>res.send(JSON.stringify(null));}
 
 })
 app.post('/Account/login', async (req,res)=> {
