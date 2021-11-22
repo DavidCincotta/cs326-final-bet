@@ -99,10 +99,14 @@ class Forum {
         forum.appendChild(textArea)
         forum.appendChild(button)
         content.appendChild(forum)
-        document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
+        document.getElementsByClassName("btn replyButton")[0].addEventListener('click', async () => {
             const postID = window.location.pathname.split("/")[3]
             const response = document.getElementById("response").value;
-            this.updatePost(postID, {"username": "user", "date": "currentDate", "post": response});
+            const api = document.cookie.split(':')[1];
+            const user = await fetch(`/getUsername/${api}`, {mode: 'no-cors'})
+            const currentDate = new Date();
+            const date = `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`
+            this.updatePost(postID, {"username": user, "date": date, "post": response});
         })
     }
 
@@ -138,7 +142,11 @@ async function afterLoad() {
     else if (window.location.pathname.split('/')[1] === "createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
-                const post = [{"username": "Obi-Wan", "date": "today", "post": document.getElementById("body").value}];
+                const api = document.cookie.split(':')[1];
+                const user = await fetch(`/getUsername/${api}`, {mode: 'no-cors'})
+                const currentDate = new Date();
+                const date = `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`
+                const post = [{"username": user, "date": date, "post": document.getElementById("body").value}];
                 const course = window.location.pathname.split('/')[2]
                 alert(`${title} ${post[0]} ${course}`)
                 const postID = await forum.createPost(course, title, post)
