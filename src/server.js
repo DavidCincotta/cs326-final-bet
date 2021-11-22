@@ -171,7 +171,6 @@ app.post('/Account/register', async (req,res) => {
     };
     try{
         const result = await anyFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
-        console.log(result);
         if (result.length === 0 ){
             await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
             res.send(JSON.stringify(account.user_id));
