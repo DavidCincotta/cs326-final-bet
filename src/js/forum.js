@@ -134,7 +134,7 @@ async function afterLoad() {
     else if (window.location.pathname.split('/')[1] === "/createPost"){
             document.getElementById('create-post-btn').addEventListener('click', async ()=>{
                 const title = document.getElementById("title").value;
-                const post = [document.getElementById("body").value];
+                const post = [{"username": "Obi-Wan", "date": "today", "post": document.getElementById("body").value}];
                 const course = window.location.pathname.split('/')[2]
                 const postID = await forum.createPost(course, title, post)
                 // console.log(postID)
