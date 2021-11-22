@@ -1,7 +1,6 @@
 import {postData} from './utilities.js';
 
 function afterLoad(){
-
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
     const updateBtn = document.getElementById('updateBtn');
@@ -38,18 +37,17 @@ function afterLoad(){
                 alert("Passwords do not match!");
                 return;
             }
-            const body = {"email": login,"username":username, "password": password};
+            const body = {"user_id": guid(), "email": login,"username":username, "password": password};
             createAccount(body);
         })
     }
     if (updateBtn!==null){
         updateBtn.addEventListener('click',()=>{
             const currPass = document.getElementById('currPass').value;
+            const currEmail = document.getElementById('curremail').value;
             const updatePass = document.getElementById('updatePass').value;
             const confirmPass = document.getElementById('confirmPass').value;
-            const username = document.getElementById('usernameUpdate').checked;
-
-            let passData = "" //use the one thats stored on Account
+            const username = document.getElementById('usernameUpdate').value;
             const data={};
             if(currPass === passData){
                 const emailUpdate = document.getElementById('emailUpdate').value;
@@ -79,16 +77,6 @@ function afterLoad(){
     }
 
 }
-async function getLogin(body){  
-    const log = await postData('account/login',body);
-    if(JSON.parse(log)===true){
-        document.location.href = './courses';
-    }
-    else{
-        alert("account does not exist");
-    }
-}
-
 async function deleteAcc(data){
     const response = await fetch('account/delete', {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
@@ -106,10 +94,23 @@ async function deleteAcc(data){
         document.location.href = './login';
     }
 }
+async function getLogin(body){  
+    const log = await postData('account/login',body);
+    if(log){
+        alert("account does not exist");
+
+    }
+    else{
+        document.cookie = "user_id:${log}";
+        document.location.href = './courses';
+    }
+}
 async function createAccount(body){  
     const create = await postData('account/register',body);
+    console.log(create)
     if(create!==null){
-        document.location.href = './courses';
+        document.cookie = "user_id:${create}";
+        //document.location.href = './courses';
     }
     else{
         alert("something went wrong");
@@ -124,3 +125,9 @@ async function updateAccount(body){
 }
 
 window.addEventListener('load', afterLoad);
+
+function S4() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
+}
+const guid = () => (S4() + S4()+ S4() + S4().substr(0,3) + S4() + S4()).toLowerCase();
+

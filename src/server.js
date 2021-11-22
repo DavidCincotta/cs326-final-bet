@@ -4,7 +4,6 @@ import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
 /////////////////////////////////////////////
@@ -118,7 +117,6 @@ app.get("/getPosts/:course_id", async (req, res) => {
 
 app.post('/Courses/getcourse', (req, res) =>{
     const account = req.body['account_id'];
-
     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 //use
@@ -161,36 +159,44 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 /////////////////////////////////////////////
 //////////// Account endpoints ////////////////
 /////////////////////////////////////////////
-app.post('/Account/register', (req,res) => {
+
+app.post('/Account/register', async (req,res) => {
     const account = {
+        user_id: req.body.user_id,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
     };
-    noneFunction('INSERT INTO account (email, username,password) VALUES (${email},${username},${password})',account)
-    res.send(JSON.stringify(account))
+    const result = oneFunction('SELECT * FROM account WHERE email = ${account.email} OR username = ${account.username}')
+    if (result === null){
+        res.send(JSON.stringify(null));
+    }
+    else{
+        noneFunction('INSERT INTO account (user_id,email, username,password) VALUES (${user_id},${email},${username},${password})',account)
+        res.send(JSON.stringify(account.user_id))
+    }
 })
 app.post('/Account/login', async (req,res)=> {
     const email = req.body['email'];
     const password = req.body['password'];
     try{
         const result = await anyFunction('SELECT * FROM account WHERE email = ${email} AND password = ${password}')
+        if (result!= null){ 
+            res.send(result[0])
+        }
+        else{
+            res.send(false);
+        }
     }
     catch{e=>console.log(e)}
-    if (result!= null){ 
-        res.send(JSON.stringify(true))
-    }
-    else{
-        res.send(JSON.stringify(false));
-    }
 })
 app.post('/Account/update',(req,res)=>{
-    //update account settings from body in db
+    
     res.send(JSON.stringify("okay"));
 })
 
 
     
 app.listen(process.env.PORT || 8080, () => {
-    console.log(`Course Explorer app listening at http://localhost:${port}`);
+    console.log(`Course Explorer app listening at http://localhost:8080`);
 });
