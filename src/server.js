@@ -237,8 +237,6 @@ app.post('/Account/update', async (req,res)=>{
     catch{(e)=>console.log(e)}
 })
 
-
-    
 app.listen(process.env.PORT || 8080, () => {
     console.log(`Course Explorer app listening at http://localhost:8080`);
 });
