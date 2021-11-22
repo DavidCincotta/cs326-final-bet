@@ -47,3 +47,9 @@ export async function postData(url, data){
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+export function authorization(){
+    const cookie = document.cookie.split(':')[1];
+    if (cookie ===undefined || cookie.length!==23 || cookie === null ){
+        document.location.href = './login';
+    }
+}

@@ -1,6 +1,7 @@
-import {createTable, postData} from './utilities.js';
+import {createTable, postData,authorization} from './utilities.js';
 
 async function afterLoad() {
+    authorization();
     if (window.location.pathname.split("/")[1] = "resources"){
         const id = window.location.pathname.split("/")[2]
         document.getElementById('createCourse btn').addEventListener('click', async ()=>{
