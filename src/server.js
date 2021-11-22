@@ -170,7 +170,7 @@ app.post('/Account/register', async (req,res) => {
     };
     try{
         const result = await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`)
-        res.send(JSON.stringify(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`))
+        res.send(JSON.stringify(user_id))
         return;
     }
     catch{(e)=>console.log(e);}
