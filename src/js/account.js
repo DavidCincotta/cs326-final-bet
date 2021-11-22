@@ -4,6 +4,7 @@ function afterLoad(){
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
     const updateBtn = document.getElementById('updateBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
     if (loginBtn!== null){
         loginBtn.addEventListener('click',()=>{
             const login = document.getElementById('login').value;
@@ -71,6 +72,20 @@ function afterLoad(){
                 updateAccount(data);
         })
     }
+    if (deleteBtn!==null){
+        deleteBtn.addEventListener('click', ()=>{     
+        const currPass = document.getElementById('currPass').value;
+        if (currPass.length===0){
+            alert('Enter password');
+            return;
+        }
+        const data = {'currPass':currPass,'user_id':document.cookie.split(':')[1]};
+        if (confirm('Are you sure you want to delete this account?')) {
+            deleteAcc(data);
+          } 
+        else{}//do nothing
+    })
+    }
 
 }
 async function deleteAcc(data){
@@ -85,9 +100,14 @@ async function deleteAcc(data){
         },
         body: JSON.stringify(data)  // body data type must match "Content-Type" header
     });
-    const x = await response.json(); // parses JSON response into native JavaScript objects
-    if (x === 200){
+    console.log("here")
+    const result = await response.json(); // parses JSON response into native JavaScript objects
+    if (result === 200){
+        document.cookie = "user_id:;expires=" + new Date(0).toUTCString();
         document.location.href = './login';
+    }
+    else{
+        alert("Wrong Password");
     }
 }
 async function getLogin(body){  

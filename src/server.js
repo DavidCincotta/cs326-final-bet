@@ -236,7 +236,24 @@ app.post('/Account/update', async (req,res)=>{
     }
     catch{(e)=>console.log(e)}
 })
-
+app.delete('/Account/delete', async (req,res)=>{
+    const currPass = req.body.currPass;
+    const user_id = req.body.user_id;
+    console.log(currPass);
+    console.log(user_id);
+    try{
+        console.log("we here");
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        if (result.length>0){ 
+            await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
+            res.send(JSON.stringify(200));
+        }
+        else{
+            res.send(JSON.stringify(false));
+        }
+    }
+    catch{e=>console.log(e)}
+})
 app.listen(process.env.PORT || 8080, () => {
     console.log(`Course Explorer app listening at http://localhost:8080`);
 });
