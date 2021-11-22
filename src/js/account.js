@@ -107,7 +107,7 @@ async function getLogin(body){
 async function createAccount(body){  
     const create = await postData('account/register',body);
     console.log(create)
-    if(create!==null){
+    if(create!==null || create !==undefined){
         document.cookie = `user_id:${create}`;
         console.log(document.cookie);
         //document.location.href = './courses';
