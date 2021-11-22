@@ -36,8 +36,12 @@ function afterLoad(){
                 const id = window.location.pathname.split("/")[2];
                 window.location.pathname = `${item.innerHTML.toLowerCase()}/${id}`;
             }
+            else if(destination === "signout"){
+                document.cookie = "user_id:;expires=" + new Date(0).toUTCString();
+                window.location.pathname = '/login';
+            }
             else {
-                window.location.pathname = `${item.innerHTML.toLowerCase()}`
+                window.location.pathname = `${item.innerHTML.toLowerCase()}`;
             }
 
         });    
