@@ -67,10 +67,11 @@ app.get('/',
 /////////////////////////////////////////////
 
 app.get('/Forum/get/:post_id',
-    async (req, res) => {const postID = req.params.post_id;
+    async (req, res) => {
+        const postID = req.params.post_id;
         const response = await oneFunction(`SELECT postTitle, posts, course FROM forum WHERE id = '${postID}'`)
 //     // get and return content_array and post_title, course from db
-    res.send(response);
+        res.send(response);
     });
 
 app.post('/Forum/create', async (req, res) =>{
