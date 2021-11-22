@@ -12,7 +12,7 @@ function afterLoad(){
                 alert("Invalid Email!");
                 return;
             }
-            const body = {"email": login, "password": password};
+            const body = {"username": login, "password": password};
             getLogin(body); 
         })
     }
