@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
+import e from 'express';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /////////////////////////////////////////////
@@ -166,7 +167,13 @@ app.post('/Account/register', async (req,res) => {
         username: req.body.username,
         password: req.body.password,
     };
-    console.log(account);
+    try{
+        noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})'`)
+        res.send(JSON.stringify(account.user_id))
+        return;
+    }
+    catch{(e)=>console.log(e);}
+    /*
     try{
         const result = oneFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
     }
@@ -177,6 +184,7 @@ app.post('/Account/register', async (req,res) => {
         }
     }
     res.send(JSON.stringify(null));
+    */
 })
 app.post('/Account/login', async (req,res)=> {
     const email = req.body['email'];
@@ -184,7 +192,7 @@ app.post('/Account/login', async (req,res)=> {
     try{
         const result = await anyFunction(`SELECT * FROM account WHERE email = '${email}' AND password = '${password}'`)
         if (result!= null){ 
-            res.send(result[0])
+            res.send(result[3])
         }
         else{
             res.send(false);
