@@ -6,8 +6,6 @@ const connectionString = {
 };
 const db = pgp(connectionString);
 
-
-
 export async function noneFunction(request){
     try{
         const result = await db.none(request);
