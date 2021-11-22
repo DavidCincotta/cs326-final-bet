@@ -101,7 +101,7 @@ async function getLogin(body){
 
     }
     else{
-        document.cookie = "user_id:${log}";
+        document.cookie = `user_id:${log}`;
         document.location.href = './courses';
     }
 }
@@ -109,7 +109,7 @@ async function createAccount(body){
     const create = await postData('account/register',body);
     console.log(create)
     if(create!==null){
-        document.cookie = "user_id:${create}";
+        document.cookie = `user_id:${create}`;
         document.location.href = './courses';
     }
     else{
