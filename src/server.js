@@ -103,7 +103,8 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     // put new info into database WHERE post_id = post_id (UPDATE)
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     // res.send({"post": post, "posts": posts})
-    res.redirect(`/forum/longpost/${postID}`)
+    // res.redirect(`/forum/longpost/${postID}`)
+    res.send({"json": "object"});
 })
 
 app.get("/getPosts/:course_id", async (req, res) => {

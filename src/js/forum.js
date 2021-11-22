@@ -27,7 +27,7 @@ class Forum {
         const response = await postData(`/Forum/longpost/${postID}/update`, body) 
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL ACTUALLY JUST RETURN A STATUS CODE //////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
-        alert(`${response['post']} ${response['posts']}`)
+        // alert(`${response['post']} ${response['posts']}`)
         ///// EVENTUALLY... /////
         this.getPost(postID)
         // this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}, post], "326")
@@ -100,8 +100,9 @@ class Forum {
         forum.appendChild(button)
         content.appendChild(forum)
         document.getElementsByClassName("btn replyButton")[0].addEventListener('click', () => {
+            const postID = window.location.pathname.split("/")[3]
             const response = document.getElementById("response").value;
-            this.updatePost(1, {"username": "user", "date": "currentDate", "post": response});
+            this.updatePost(postID, {"username": "user", "date": "currentDate", "post": response});
         })
     }
 
