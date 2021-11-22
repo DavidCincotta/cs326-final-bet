@@ -67,7 +67,7 @@ app.get('/',
 
 app.get('/Forum/get/:post_id',
     async (req, res) => {const postID = req.params.post_id;
-        const response = await oneFunction(`SELECT postTitle, posts, course FROM forum WHERE id = ${postID}`)
+        const response = await oneFunction(`SELECT postTitle, posts, course FROM forum WHERE id = '${postID}'`)
 //     // get and return content_array and post_title, course from db
     res.send(response);
     });
@@ -77,7 +77,7 @@ app.post('/Forum/create', async (req, res) =>{
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
     await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}')`)
-    const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle=${title} AND course=${course}`)
+    const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle='${title}'' AND course='${course}'`)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
     // res.send({"course": course, "title": title, "posts": posts})
@@ -88,7 +88,7 @@ app.post('/Forum/create', async (req, res) =>{
 app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     const postID = req.params.post_id;
     const posts = req.body['content_array'];
-    const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = ${postID}`)
+    const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = '${postID}'`)
     dbPosts[0]['posts'].push(posts)
     let ret = "array["
     for (const post of response[0]['posts']){
@@ -97,7 +97,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
         ret += newPost
     }
     ret = ret.slice(0, -1) + ']'
-    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id=${postID}`)
+    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id = '${postID}''`)
     // put new info into database WHERE post_id = post_id (UPDATE)
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
     // res.send({"post": post, "posts": posts})
@@ -106,7 +106,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
 
 app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = ${course}`)
+    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
 })
 
