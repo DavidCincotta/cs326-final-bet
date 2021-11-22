@@ -181,11 +181,11 @@ app.post('/Account/login', async (req,res)=> {
     const password = req.body['password'];
     try{
         const result = await anyFunction(`SELECT * FROM account WHERE email = '${username}' AND password = '${password}'`)
-        if (result!= null){ 
-            res.send(result[3])
+        if (result!== null){ 
+            res.send(JSON.stringify(result[3]))
         }
         else{
-            res.send(false);
+            res.send(JSON.stringify(false));
         }
     }
     catch{e=>console.log(e)}
