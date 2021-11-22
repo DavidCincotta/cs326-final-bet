@@ -169,14 +169,14 @@ app.post('/Account/register', async (req,res) => {
     console.log(account);
     try{
         const result = oneFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
-        res.send(JSON.stringify(null));
     }
     catch{ (e) =>{
             noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})'`)
             res.send(JSON.stringify(account.user_id))
+            return;
         }
     }
-
+    res.send(JSON.stringify(null));
 })
 app.post('/Account/login', async (req,res)=> {
     const email = req.body['email'];
