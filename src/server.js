@@ -168,7 +168,7 @@ app.post('/Account/register', async (req,res) => {
         password: req.body.password,
     };
     try{
-        const result = await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})'`)
+        const result = await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})`)
         res.send(JSON.stringify(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})'`))
         return;
     }
