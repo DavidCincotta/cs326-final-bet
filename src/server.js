@@ -171,7 +171,7 @@ app.post('/Account/register', async (req,res) => {
         res.send(JSON.stringify(null));
     }
     else{
-        noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${user_id}','${email}','${username}','${password})'`,account)
+        noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password})'`)
         res.send(JSON.stringify(account.user_id))
     }
 })
