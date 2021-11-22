@@ -98,7 +98,6 @@ async function getLogin(body){
     const log = await postData('account/login',body);
     if(log){
         alert("account does not exist");
-
     }
     else{
         document.cookie = `user_id:${log}`;
@@ -107,9 +106,10 @@ async function getLogin(body){
 }
 async function createAccount(body){  
     const create = await postData('account/register',body);
-    console.log(create)
+    console.log(user_id)
     if(create!==null){
         document.cookie = `user_id:${create}`;
+        console.log(document.cookie)
         //document.location.href = './courses';
     }
     else{
