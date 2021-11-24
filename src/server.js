@@ -135,7 +135,7 @@ app.get("/Courses/directory", async (req, res) =>{
     console.log(courseA);
     res.send(courseA);
 });
-app.post('/Courses/addcourse', (req, res) =>{
+app.post('/Courses/addcourse', async (req, res) =>{
     //TODO
     console.log(req.body);
     
