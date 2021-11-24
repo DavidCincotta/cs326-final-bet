@@ -8,11 +8,11 @@ async function search(){
     console.log('search');
     const keyword = document.getElementById('keyword').value;    
     const collegeElm = document.getElementById('college-select');
-    const college = collegeElm.options[collegeElm.selectedIndex].innerHTML;
-    const number  = document.getElementById('course-number').innerHTML;
+    const college = collegeElm.options[collegeElm.selectedIndex].value;
+    const number  = document.getElementById('course-number').value;
     console.log(keyword+'  '+college+'  '+number);
     data = {'keyword':keyword,'college':college,'course_number':number};
-    response = await postData('Courses/search',data);
+    response = await postData('/Courses/search',data);
 
     arrList = []
     for(let r of response){

@@ -11,7 +11,14 @@ async function create(){
     const start_year = document.getElementById('start_year').value;
     const json = {"college":college,"course_name":course_name,"professor":professor,"course_number":course_number,"short_description":short_description,"long_description":long_description,"start_year":start_year};
     console.log(json);
-    response = await postData('/Courses/addcourse',json);
+    try{
+        const response = await postData('/Courses/addcourse',json);
+        console.log(response);
+        window.location.pathname = `/information/${response['id']}`;
+    catch(error){
+
+    }
+
 }
 
 function afterLoad(){

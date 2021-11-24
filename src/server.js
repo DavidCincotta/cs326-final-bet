@@ -130,10 +130,12 @@ app.get("/getInfo/:course_id", async (req, res) => {
 });
 
 app.get("/Courses/directory", async (req, res) =>{
-    let courseA = await anyFunction(`SELECT * FROM courses`);
+    const courseA = await anyFunction(`SELECT * FROM courses`);
     console.log("/Courses/directory");
-    console.log(courseA);
     res.send(courseA);
+});
+app.post('/Courses/getid', async (req, res) =>{
+    const queryResult
 });
 app.post('/Courses/addcourse', async (req, res) =>{
     //TODO
@@ -154,10 +156,11 @@ app.post('/Courses/addcourse', async (req, res) =>{
     const new_id = await oneFunction(`select id from courses where course_name='${name}' and college='${college}' limit 1`);
     console.log(new_id['id']);
     console.log('after index query');
-    res.redirect(`/information/${new_id['id']}`);
+    res.send(new_id);
 });
 
 app.post('/Courses/search', async (req, res) =>{
+    console.log('/Courses/search');
     const keyword = req.body['keyword'];
     const course_number = req.body['course_number'];
     const college = req.body['college'];
