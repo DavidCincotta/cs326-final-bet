@@ -1,23 +1,9 @@
 'use strict'
 import {createTable,authorization} from './utilities.js';
 
-// function afterLoad(){
-
-//     //make sidebar an active element
-//     document.getElementById('menu').addEventListener('click',()=>{
-//         document.getElementById('sidebar').classList.toggle('active');
-//     });
-
-//     //create links to other pages
-//     const items = document.getElementsByClassName('item');
-//     for(const item of items){
-//         //Change Content
-//         item.addEventListener('click',()=>{
-//             document.location.href = `http://localhost:3010/${item.innerText}`;
-//         });    
-//     }
-// }
-// window.addEventListener('load', afterLoad);
+async function create(){
+    document.getElementById()
+}
 
 function afterLoad(){
     authorization();
@@ -53,10 +39,7 @@ function afterLoad(){
         });
     }catch(error){}
     try{
-        document.getElementById('createButton').addEventListener('click', ()=>{
-            window.location.pathname ='/information';
-
-        });
+        document.getElementById('createButton').addEventListener('click',create);
     }catch(error){}
 
     //switch on name of page

@@ -121,41 +121,44 @@ app.get("/getPosts/:course_id", async (req, res) => {
 //     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 // });
 
-
-
 app.get("/getInfo/:course_id", async (req, res) => {
     const courseId = req.params.course_id
     const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
     console.log('/getInfo/:course_id');
     console.log(course);
     res.send(course);
-    
-    //sample data
-    //res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
-
 });
-
 
 app.get("/Courses/directory", async (req, res) =>{
     let courseA = await anyFunction(`SELECT * FROM courses`);
     console.log("/Courses/directory");
     console.log(courseA);
     res.send(courseA);
-    //res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.post('/Courses/addcourse', (req, res) =>{
     //TODO
     console.log(req.body);
-    res.send();
+    
+    const name = req.body['name'];
+    const college = req.body['college'];
+    const short_description = req.body['short_description'];
+    const long_description = req.body['long_description'];
+    const professor = req.body['professor'];
+    const start_year = req.body['start_year'];
+    const course_number = req.body['course_number'];
+
+    await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
+    const new_id = oneFunction(`select id from courses where course_name='${name} and college='${college}`);
+    res.redirect(`/information/${new_id}`);
 });
-//mine
+
 app.post('/Courses/search', async (req, res) =>{
     const keyword = req.body['keyword'];
     const courseNumber = req.body['course_number'];
     const college = req.body['college'];
     console.log(keyword+courseNumber+college);
     const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${courseNumber}" OR "${course_number}"="")`);
-    //res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+    res.send(query);
 
 });
 app.get("/getResources/:course_id", async (req, res) => {
