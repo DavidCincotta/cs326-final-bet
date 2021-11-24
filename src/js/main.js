@@ -12,7 +12,7 @@ async function create(){
     const json = {
         "college":college,"course_name":course_name,"course_number":course_number,"short_description":short_description,"long_description":long_description
     };
-    response = await postData('Courses/addcourse',json);
+    response = await postData('/Courses/addcourse',json);
 }
 
 function afterLoad(){
