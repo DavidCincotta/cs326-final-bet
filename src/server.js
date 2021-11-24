@@ -113,34 +113,50 @@ app.get("/getPosts/:course_id", async (req, res) => {
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
 
-
+//Depreciated endpoint
 app.post('/Courses/getcourse', (req, res) =>{
     const account = req.body['account_id'];
-
-    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+    // Depreciated
+    // TODO
+    //res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 
 app.get('/getInfo/:course_id', (req, res) => {
-    const course = req.params.course_id
-    res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
+    const courseId = req.params.course_id;
+
+    const course = await anyFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
+    console.log('/getInfo/:course_id');
+    console.log(course);
+    res.send(course)
+    
+    //sample data
+    //res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
 });
 app.get('/Courses/directory', (req, res) =>{
-    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+    const courses = await anyFunction(`SELECT * FROM courses`);
+    console.log(('/Courses/directory');
+    console.log(course);
+    res.send(courses);
+    //res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.post('/Courses/addcourse', (req, res) =>{
+    //TODO
+    console.log(req.body);
     res.send();
 });
 app.post('/Courses/search', (req, res) =>{
-    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
+    const keyword = req.body['keyword'];
+    const courseNumber = req.body['course_number'];
+    const college = req.body['college'];
+    console.log(keyword+courseNumber+college);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number=${courseNumber} OR ${course_number}="")`);
+    //res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
-    const post = req.params.post_id
-    ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
-    ////// FAKE DATA FOR NOW //////
-    res.send({"post_id": post})
 });
 app.get("/getResources/:course_id", async (req, res) => {
     const course = req.params.course_id
     const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
+    console.log(resources);
     res.send({"resources": resources})
 })
 
@@ -149,6 +165,7 @@ app.post('/addNewResource/:course_id', async (req, res) => {
     const title = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
+    console.log(title+link+desc);
     await noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
     res.redirect(`/resources/${course}`)
 })
