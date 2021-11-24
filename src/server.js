@@ -123,10 +123,10 @@ app.get("/getPosts/:course_id", async (req, res) => {
 
 app.get('/getInfo/:course_id', (req, res) => {
     //const courseId = req.params.course_id
-    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
-    console.log('/getInfo/:course_id');
-    console.log(course);
-    res.send(course);
+//    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
+//   console.log('/getInfo/:course_id');
+//    console.log(course);
+//    res.send(course);
     
     //sample data
     //res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
