@@ -123,11 +123,11 @@ app.get("/getPosts/:course_id", async (req, res) => {
 // });
 
 app.get('/getInfo/:course_id', (req, res) => {
-    const courseId = req.params.course_id;
-
-    const course = await anyFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
-    console.log('/getInfo/:course_id');
-    console.log(course);
+    const courseId = req.params.course_id
+    //Unexpected reserved word
+    const course = await anyFunction(`SELECT * FROM courses WHERE id = ${courseId}`)
+    console.log('/getInfo/:course_id')
+    console.log(course)
     res.send(course)
     
     //sample data
