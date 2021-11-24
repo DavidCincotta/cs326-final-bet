@@ -135,19 +135,12 @@ app.get("/getInfo/:course_id", (req, res) => {
 
 });
 
-app.get("/getPosts/:course_id", async (req, res) => {
-    const course = req.params.course_id;
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
-    res.send({"posts": courseList})
-});
-
 
 app.get("/Courses/directory", (req, res) =>{
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`);
-    const courses = await anyFunction(`SELECT * FROM courses`);
+    const courseA = await anyFunction(`SELECT * FROM courses`);
     console.log(("/Courses/directory");
-    console.log(course);
-    res.send(courses);
+    console.log(courseA);
+    res.send(courseA);
     //res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 });
 app.post('/Courses/addcourse', (req, res) =>{
