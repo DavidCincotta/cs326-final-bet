@@ -2,12 +2,12 @@
 import {createTable,authorization,postData} from './utilities.js';
 async function create(){
     const collegeElm = document.getElementById('college');
-    const college = collegeElm.options[collegeElm.selectedIndex].innerHTML;
-    const course_name = document.getElementById('course_name').innerHTML;
-    const course_number = document.getElementById('course_number').innerHTML;
-    const short_description = document.getElementById('short_description').innerHTML;
-    const long_description = document.getElementById('long_description').innerHTML;
-    const start_year = document.getElementById('start_year').innerHTML;
+    const college = collegeElm.options[collegeElm.selectedIndex].value;
+    const course_name = document.getElementById('course_name').value;
+    const course_number = document.getElementById('course_number').value;
+    const short_description = document.getElementById('short_description').value;
+    const long_description = document.getElementById('long_description').value;
+    const start_year = document.getElementById('start_year').value;
     const json = {
         "college":college,"course_name":course_name,"course_number":course_number,"short_description":short_description,"long_description":long_description
     };
