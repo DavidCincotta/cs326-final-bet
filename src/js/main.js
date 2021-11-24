@@ -2,7 +2,7 @@
 import {createTable,authorization} from './utilities.js';
 
 async function create(){
-    const collegeElm = document.getElementById('college').value;
+    const collegeElm = document.getElementById('college');
     const college = collegeElm.options[collegeElm.selectedIndex].innerHTML;
     const course_name = document.getElementById('course_name').innerHTML;
     const course_number = document.getElementById('course_number').innerHTML;
@@ -12,6 +12,7 @@ async function create(){
     const json = {
         "college":college,"course_name":course_name,"course_number":course_number,"short_description":short_description,"long_description":long_description
     };
+    console.log(json);
     response = await postData('/Courses/addcourse',json);
 }
 
