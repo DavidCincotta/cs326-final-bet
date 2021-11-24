@@ -1,6 +1,5 @@
 'use strict'
-import {createTable,authorization} from './utilities.js';
-
+import {createTable,authorization,postData} from './utilities.js';
 async function create(){
     const collegeElm = document.getElementById('college');
     const college = collegeElm.options[collegeElm.selectedIndex].innerHTML;
