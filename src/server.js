@@ -135,9 +135,15 @@ app.get("/getInfo/:course_id", (req, res) => {
 
 });
 
+app.get("/getPosts/:course_id", async (req, res) => {
+    const course = req.params.course_id;
+    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
+    res.send({"posts": courseList})
+});
+
 
 app.get("/Courses/directory", (req, res) =>{
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
+    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`);
     const courses = await anyFunction(`SELECT * FROM courses`);
     console.log(("/Courses/directory");
     console.log(course);
