@@ -16,7 +16,7 @@ async function search(){
 
     arrList = []
     for(let r of response){
-        arrList.push(['<a href=\'information.html\'>'+r.name+'</a>',r.course_number,r.description]);
+        arrList.push([`<a href=\'information/${r.id}\'>`+r.course_name+'</a>',r.course_number,r.short_description]);
     }
     createTable('table-placement','new-table',arrList,['Course', 'Course Number', 'Description']);
 }
