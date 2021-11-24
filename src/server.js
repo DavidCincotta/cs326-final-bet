@@ -154,7 +154,7 @@ app.post('/Courses/search', async (req, res) =>{
     const courseNumber = req.body['course_number'];
     const college = req.body['college'];
     console.log(keyword+courseNumber+college);
-    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number=${courseNumber} OR ${course_number}="")`);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${courseNumber}" OR "${course_number}"="")`);
     //res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
 });
