@@ -165,7 +165,8 @@ app.post('/Courses/search', async (req, res) =>{
     let college = req.body['college'];
     if(college==='Select College' || college ==='') college = null; 
     console.log(keyword+course_number+college);
-    const query = await anyFunction(`SELECT * FROM courses WHERE (college='${college}' OR ${college}is null) AND (course_name LIKE '%${keyword}%' or ${keyword}is null) AND (course_number="${course_number}" OR ${course_number}is null)`);
+    console.log(`SELECT * FROM courses WHERE (college='${college}' OR ${college} is null) AND (course_name LIKE '%${keyword}%' or ${keyword} is null) AND (course_number="${course_number}" OR ${course_number} is null)`);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college='${college}' OR ${college} is null) AND (course_name LIKE '%${keyword}%' or ${keyword} is null) AND (course_number="${course_number}" OR ${course_number} is null)`);
     res.send(query);
 
 });
