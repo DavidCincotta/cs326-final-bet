@@ -123,7 +123,7 @@ app.get("/getPosts/:course_id", async (req, res) => {
 
 app.get("/getInfo/:course_id", async (req, res) => {
     const courseId = req.params.course_id
-    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
+    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
     console.log('/getInfo/:course_id');
     console.log(course);
     res.send(course);
@@ -137,6 +137,7 @@ app.get("/Courses/directory", async (req, res) =>{
 });
 app.post('/Courses/addcourse', async (req, res) =>{
     //TODO
+    console.log('/Courses/addcourse');
     console.log(req.body);
     
     const name = req.body['course_name'];
@@ -148,6 +149,7 @@ app.post('/Courses/addcourse', async (req, res) =>{
     const course_number = req.body['course_number'];
 
     await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
+    
     const new_id = await oneFunction(`select id from courses where course_name='${name} and college='${college}`);
     res.redirect(`/information/${new_id}`);
 });
@@ -156,7 +158,7 @@ app.post('/Courses/search', async (req, res) =>{
     const keyword = req.body['keyword'];
     const course_number = req.body['course_number'];
     const college = req.body['college'];
-    console.log(keyword+courseNumber+college);
+    console.log(keyword+course_number+college);
     const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${course_number}" OR "${course_number}"="")`);
     res.send(query);
 
