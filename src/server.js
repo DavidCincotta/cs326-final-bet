@@ -158,11 +158,14 @@ app.post('/Courses/addcourse', async (req, res) =>{
 
 app.post('/Courses/search', async (req, res) =>{
     console.log('/Courses/search');
-    const keyword = req.body['keyword'];
-    const course_number = req.body['course_number'];
-    const college = req.body['college'];
+    let keyword = req.body['keyword'];
+    if(keyword==='') keyword=null;
+    let course_number = req.body['course_number'];
+    if(course_number==='') course_number=null;
+    let college = req.body['college'];
+    if(college==='Select College' || college ==='') college = null; 
     console.log(keyword+course_number+college);
-    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${course_number}" OR "${course_number}"="")`);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college='${college}' OR ${college}is null) AND (course_name LIKE '%${keyword}%' or ${keyword}is null) AND (course_number="${course_number}" OR ${course_number}is null)`);
     res.send(query);
 
 });
