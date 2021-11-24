@@ -12,7 +12,7 @@ async function search(){
     const number  = document.getElementById('course-number').innerHTML;
     console.log(keyword+'  '+college+'  '+number);
     data = {'keyword':keyword,'college':college,'course_number':number};
-    response = await postData('Courses/getcourse',data);
+    response = await postData('Courses/search',data);
 
     arrList = []
     for(let r of response){
@@ -27,7 +27,7 @@ async function afterLoad(){
     switch(window.location.pathname.split('/').pop()){
         case 'courses':
             let data = {'account_id':'123'};
-            response = await postData('Courses/getcourse',data);
+            response = await postData('Courses/directory',data);
             arrList = [];
             for(let r of response){
                 /// Make information = information/${course_id}
