@@ -137,6 +137,7 @@ app.get("/getInfo/:course_id", (req, res) => {
 
 
 app.get("/Courses/directory", (req, res) =>{
+    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
     const courses = await anyFunction(`SELECT * FROM courses`);
     console.log(("/Courses/directory");
     console.log(course);
