@@ -137,7 +137,7 @@ app.get("/getInfo/:course_id", (req, res) => {
 
 
 app.get("/Courses/directory", (req, res) =>{
-    const courseA = await anyFunction(`SELECT * FROM courses`);
+    let courseA = await anyFunction(`SELECT * FROM courses`);
     console.log(("/Courses/directory");
     console.log(courseA);
     res.send(courseA);
