@@ -123,12 +123,12 @@ app.get("/getPosts/:course_id", async (req, res) => {
 
 
 
-app.get("/getInfo/:course_id", (req, res) => {
-    //const courseId = req.params.course_id
-//    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
-//   console.log('/getInfo/:course_id');
-//    console.log(course);
-//    res.send(course);
+app.get("/getInfo/:course_id", async (req, res) => {
+    const courseId = req.params.course_id
+    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
+    console.log('/getInfo/:course_id');
+    console.log(course);
+    res.send(course);
     
     //sample data
     //res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
@@ -136,7 +136,7 @@ app.get("/getInfo/:course_id", (req, res) => {
 });
 
 
-app.get("/Courses/directory", (req, res) =>{
+app.get("/Courses/directory", async (req, res) =>{
     let courseA = await anyFunction(`SELECT * FROM courses`);
     console.log(("/Courses/directory");
     console.log(courseA);
@@ -149,7 +149,7 @@ app.post('/Courses/addcourse', (req, res) =>{
     res.send();
 });
 //mine
-app.post('/Courses/search', (req, res) =>{
+app.post('/Courses/search', async (req, res) =>{
     const keyword = req.body['keyword'];
     const courseNumber = req.body['course_number'];
     const college = req.body['college'];
