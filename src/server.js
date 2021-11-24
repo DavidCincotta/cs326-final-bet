@@ -147,10 +147,12 @@ app.post('/Courses/addcourse', async (req, res) =>{
     const professor = req.body['professor'];
     const start_year = req.body['start_year'];
     const course_number = req.body['course_number'];
-
-    await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
     
+    console.log('before insert');
+    await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
+    console.log('after insert'); 
     const new_id = await oneFunction(`select id from courses where course_name='${name} and college='${college}`);
+    console.log('after index query');
     res.redirect(`/information/${new_id}`);
 });
 
