@@ -154,10 +154,10 @@ app.post('/Courses/addcourse', async (req, res) =>{
 
 app.post('/Courses/search', async (req, res) =>{
     const keyword = req.body['keyword'];
-    const courseNumber = req.body['course_number'];
+    const course_number = req.body['course_number'];
     const college = req.body['college'];
     console.log(keyword+courseNumber+college);
-    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${courseNumber}" OR "${course_number}"="")`);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college=${college} OR ${college}="") AND (course_name LIKE %${keyword} or ${keyword}="") AND (course_number="${course_number}" OR "${course_number}"="")`);
     res.send(query);
 
 });

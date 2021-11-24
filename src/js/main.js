@@ -8,9 +8,7 @@ async function create(){
     const short_description = document.getElementById('short_description').value;
     const long_description = document.getElementById('long_description').value;
     const start_year = document.getElementById('start_year').value;
-    const json = {
-        "college":college,"course_name":course_name,"course_number":course_number,"short_description":short_description,"long_description":long_description
-    };
+    const json = {"college":college,"course_name":course_name,"course_number":course_number,"short_description":short_description,"long_description":long_description};
     console.log(json);
     response = await postData('/Courses/addcourse',json);
 }
