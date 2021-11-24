@@ -163,6 +163,7 @@ app.post('/Courses/search', async (req, res) =>{
     if(keyword===''){
         keyword=null;
         modkeyword=null;
+    }
     let course_number = req.body['course_number'];
     if(course_number==='') course_number=null;
     let college = req.body['college'];
