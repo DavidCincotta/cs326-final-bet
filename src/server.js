@@ -139,7 +139,7 @@ app.post('/Courses/addcourse', (req, res) =>{
     //TODO
     console.log(req.body);
     
-    const name = req.body['name'];
+    const name = req.body['course_name'];
     const college = req.body['college'];
     const short_description = req.body['short_description'];
     const long_description = req.body['long_description'];

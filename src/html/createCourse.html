@@ -33,7 +33,7 @@
                     Page Creation
                 </div>
                 <div>
-                    <select class="my-select">
+                    <select id='college' class="my-select">
                       <option selected>Select a College</option>
                       <option value="1">College of Education</option>
                       <option value="2">College of Engineering</option>
@@ -51,27 +51,33 @@
                   </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Course Name</span>
+                        <span class="input-group-text" id="basic-addon3">Course Name</span>
                     </div>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Web Programming">
-                  </div>
+                    <input id='course_name' type="text" class="form-control" aria-describedby="basic-addon3" placeholder="Web Programming">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Year</span>
+                    </div>
+                    <input id='start_year' type="text" class="form-control" aria-describedby="basic-addon3" placeholder="2016">
+                </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon3">Course Number</span>
                     </div>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="CS 326">
+                    <input type="text" class="form-control" id="course_number" aria-describedby="basic-addon3" placeholder="326">
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon3">Brief Description</span>
                     </div>
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="30 Character Limit!">
+                    <input type="text" class="form-control" id="short_description" aria-describedby="basic-addon3" placeholder="30 Character Limit!">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">Long Description</span>
                     </div>
-                    <textarea class="form-control" aria-label="With textarea" placeholder="This is displayed on the Course Information page. Be as detailed as you like!"></textarea>
+                    <textarea id='long_description' class="form-control" aria-label="With textarea" placeholder="This is displayed on the Course Information page. Be as detailed as you like!"></textarea>
                   </div>
                   <button type="button" class="btn createButton" id="createButton">Create Course</button>
             </div>
