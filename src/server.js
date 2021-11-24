@@ -111,7 +111,7 @@ app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
     const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
-})
+});
 
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
@@ -122,8 +122,8 @@ app.get("/getPosts/:course_id", async (req, res) => {
 // });
 
 
-/*
-app.get('/getInfo/:course_id', (req, res) => {
+
+app.get("/getInfo/:course_id", (req, res) => {
     //const courseId = req.params.course_id
 //    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${req.params.course_id}`);
 //   console.log('/getInfo/:course_id');
@@ -134,11 +134,11 @@ app.get('/getInfo/:course_id', (req, res) => {
     //res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
 
 });
-*/
 
-app.get('/Courses/directory', (req, res) =>{
+
+app.get("/Courses/directory", (req, res) =>{
     const courses = await anyFunction(`SELECT * FROM courses`);
-    console.log(('/Courses/directory');
+    console.log(("/Courses/directory");
     console.log(course);
     res.send(courses);
     //res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
