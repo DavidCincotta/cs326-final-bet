@@ -1,8 +1,8 @@
-import {createTable, postData} from './utilities.js';
+import {createTable, postData,authorization} from './utilities.js';
 
 async function afterLoad() {
-    console.log(window.location.pathname.split('/')[1])
-    if (window.location.pathname.split("/")[1] === "resources"){
+    authorization();
+    if (window.location.pathname.split("/")[1] = "resources"){
         const id = window.location.pathname.split("/")[2]
         document.getElementById('resource btn').addEventListener('click', async ()=>{
             window.location.pathname = `/addResource/${id}`

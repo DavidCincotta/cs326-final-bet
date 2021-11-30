@@ -2,9 +2,9 @@ import express from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
+import e from 'express';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 /////////////////////////////////////////////
 //////////// Express Defini. ////////////////
 /////////////////////////////////////////////
@@ -111,41 +111,77 @@ app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
     const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
-})
+});
 
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
-
-
 // app.post('/Courses/getcourse', (req, res) =>{
 //     const account = req.body['account_id'];
 //     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 // });
 
-app.get('/getInfo/:course_id', (req, res) => {
-    const course = req.params.course_id
-    res.send({"courseName": "Web Programming", "courseNumber": "CS 326", "description": "Interactive experience course. Focused on learning Javascript type='module'and how browsers work. You will create a front end application with a small group. This satisfies a requirement for the CS major.", "professor": "Emery Berger", "year": 2016})
+app.get("/getInfo/:course_id", async (req, res) => {
+    const courseId = req.params.course_id
+    const course = await oneFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
+    console.log('/getInfo/:course_id');
+    console.log(course);
+    res.send(course);
 });
-//mine
-app.get('/Courses/directory', (req, res) =>{
-    res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
-});
-app.post('/Courses/addcourse', (req, res) =>{
-    res.send();
-});
-//mine
-app.post('/Courses/search', (req, res) =>{
-    res.send([{'id':'1','college':'CICS','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','college':'CICS','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','college':'CICS','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
 
-    const post = req.params.post_id
-    ////// WILL GET AND RETURN FORUM POST TITLE AND COURSE FROM DB USING POST_ID ///////
-    ////// FAKE DATA FOR NOW //////
-    res.send({"post_id": post})
+app.get("/Courses/directory", async (req, res) =>{
+    const courseA = await anyFunction(`SELECT * FROM courses`);
+    console.log("/Courses/directory");
+    res.send(courseA);
+});
+app.post('/Courses/addcourse', async (req, res) =>{
+    //TODO
+    console.log('/Courses/addcourse');
+    console.log(req.body);
+    
+    const name = req.body['course_name'];
+    const college = req.body['college'];
+    const short_description = req.body['short_description'];
+    const long_description = req.body['long_description'];
+    const professor = req.body['professor'];
+    const start_year = req.body['start_year'];
+    const course_number = req.body['course_number'];
+    
+    console.log('before insert');
+    await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
+    console.log('after insert'); 
+    const new_id = await oneFunction(`select id from courses where course_name='${name}' and college='${college}' limit 1`);
+    console.log(new_id['id']);
+    console.log('after index query');
+    res.send(new_id);
+});
+
+app.post('/Courses/search', async (req, res) =>{
+    console.log('/Courses/search');
+    let keyword = req.body['keyword'];
+    let modkeyword='\''+keyword+'\'';
+    if(keyword===''){
+        keyword=null;
+        modkeyword=null;
+    }
+    let course_number = req.body['course_number'];
+    if(course_number==='') course_number=null;
+    let college = req.body['college'];
+    let modcollege='\''+college+'\'';
+    if(college==='Select College' || college ===''){
+        college = null;
+        modcollege=null;
+    }
+    console.log(keyword+course_number+college);
+    console.log(`SELECT * FROM courses WHERE (college='${college}' OR ${modcollege} is null) AND (course_name LIKE '%${keyword}%' or ${modkeyword} is null) AND (course_number=${course_number} OR ${course_number} is null)`);
+    const query = await anyFunction(`SELECT * FROM courses WHERE (college='${college}' OR ${modcollege} is null) AND (course_name LIKE '%${keyword}%' or ${modkeyword} is null) AND (course_number=${course_number} OR ${course_number} is null)`);
+    res.send(query);
+
 });
 app.get("/getResources/:course_id", async (req, res) => {
     const course = req.params.course_id
     const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
+    console.log(resources);
     res.send({"resources": resources})
 })
 
@@ -154,6 +190,7 @@ app.post('/addNewResource/:course_id', async (req, res) => {
     const title = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
+    console.log(title+link+desc);
     await noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
     res.redirect(`/resources/${course}`)
 })
@@ -162,36 +199,105 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 /////////////////////////////////////////////
 //////////// Account endpoints ////////////////
 /////////////////////////////////////////////
-app.post('/Account/register', (req,res) => {
+
+app.get('/getUsername/:api', async (req,res)=>{
+    const api = req.params.api;
+    const user = oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
+    res.send({"username": user})
+})
+
+app.post('/Account/register', async (req,res) => {
     const account = {
+        user_id: req.body.user_id,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
     };
-    noneFunction('INSERT INTO account (email, username,password) VALUES (${email},${username},${password})',account)
-    res.send(JSON.stringify(account))
+    try{
+        const result = await anyFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
+        if (result.length === 0 ){
+            await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
+            res.send(JSON.stringify(account.user_id));
+        }
+        else{
+            res.send(JSON.stringify(null))
+        }
+    }
+    catch{(e)=>res.send(JSON.stringify(null));}
+
 })
 app.post('/Account/login', async (req,res)=> {
-    const email = req.body['email'];
+    const username = req.body['username'];
     const password = req.body['password'];
     try{
-        const result = await anyFunction('SELECT * FROM account WHERE email = ${email} AND password = ${password}')
+        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}' AND password = '${password}'`);
+        if (result.length>0){ 
+            res.send(JSON.stringify(result[0].user_id));
+        }
+        else{
+            res.send(JSON.stringify(false));
+        }
     }
     catch{e=>console.log(e)}
-    if (result!= null){ 
-        res.send(JSON.stringify(true))
-    }
-    else{
-        res.send(JSON.stringify(false));
-    }
 })
-app.post('/Account/update',(req,res)=>{
-    //update account settings from body in db
-    res.send(JSON.stringify("okay"));
+app.post('/Account/update', async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    const username = req.body.username;
+    const currPass = req.body.currPass;
+    const user_id = req.body.user_id;
+    try{
+        let quary = `UPDATE account SET`
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        if (result.length===0){
+            res.send(JSON.stringify("Incorrect Password"));
+            return;
+        }
+        if (email!==undefined){
+            const result = await anyFunction(`SELECT * FROM account WHERE email = '${email}'`)
+            if (result.length!==0){
+                res.send(JSON.stringify("Email already taken"))
+                return;
+            }
+            quary+=` email = '${email}',`;
+        }
+        if (username!==undefined){
+            const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}'`)
+            if (result.length!==0){
+                res.send(JSON.stringify("Username already taken"))
+                return;
+            }
+            quary+=` username = '${username}',`;
+        }
+        if (password !==undefined){
+            quary+=` password= '${password}',`;
+        }
+        quary = quary.slice(0, -1)
+        quary+=` WHERE user_id = '${user_id}'`
+        console.log(quary)
+        await noneFunction(quary);
+        res.send(JSON.stringify('200'));
+    }
+    catch{(e)=>console.log(e)}
 })
-
-
-    
+app.delete('/Account/delete', async (req,res)=>{
+    const currPass = req.body.currPass;
+    const user_id = req.body.user_id;
+    console.log(currPass);
+    console.log(user_id);
+    try{
+        console.log("we here");
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        if (result.length>0){ 
+            await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
+            res.send(JSON.stringify(200));
+        }
+        else{
+            res.send(JSON.stringify(false));
+        }
+    }
+    catch{e=>console.log(e)}
+})
 app.listen(process.env.PORT || 8080, () => {
-    console.log(`Course Explorer app listening at http://localhost:${port}`);
+    console.log(`Course Explorer app listening at http://localhost:8080`);
 });
