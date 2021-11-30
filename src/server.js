@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
-import e from 'express';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /////////////////////////////////////////////
@@ -144,17 +143,18 @@ app.post('/Courses/search', (req, res) =>{
 });
 app.get("/getResources/:course_id", async (req, res) => {
     const course = req.params.course_id
-    const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = ${course}`)
+    const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = '${course}'`)
     res.send({"resources": resources})
 })
 
 app.post('/addNewResource/:course_id', async (req, res) => {
     const course = req.params.course_id;
-    const title = req.body["title"]
+    const name = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
-    await noneFunction(`INSERT INTO resources (title, link, description) VALUES (${title}, ${link}, ${desc})`)// send info to db
-    res.redirect(`/resources/${course}`)
+    const date = req.body['date']
+    await noneFunction(`INSERT INTO resources (name, link, description, course, date) VALUES ('${name}', '${link}', '${desc}', '${course}', '${date}')`)// send info to db
+    res.send({"success": "you know it"});
 })
 
 
@@ -245,10 +245,7 @@ app.post('/Account/update', async (req,res)=>{
 app.delete('/Account/delete', async (req,res)=>{
     const currPass = req.body.currPass;
     const user_id = req.body.user_id;
-    console.log(currPass);
-    console.log(user_id);
     try{
-        console.log("we here");
         const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
         if (result.length>0){ 
             await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
