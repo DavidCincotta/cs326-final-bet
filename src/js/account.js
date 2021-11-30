@@ -100,8 +100,8 @@ async function deleteAcc(data){
         },
         body: JSON.stringify(data)  // body data type must match "Content-Type" header
     });
-    console.log("here")
     const result = await response.json(); // parses JSON response into native JavaScript objects
+    console.log(result);
     if (result === 200){
         document.cookie = "user_id:;expires=" + new Date(0).toUTCString();
         document.location.href = './login';
