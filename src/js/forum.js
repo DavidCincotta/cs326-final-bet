@@ -14,7 +14,7 @@ class Forum {
         // const json = await response.json();
         ///// USED TO SHOW SUCCESSFUL POST REQUEST. WILL EVENTUALLY RETURN POST ID OF THE NEW POST /////
         ///// CURRENTLY WORKS IN POSTMAN BUT WILL NOT WORK THROUGH FETCH /////
-        alert(`${response['course']} ${response['title']} ${response["posts"]}`)
+        // alert(`${response['course']} ${response['title']} ${response["posts"]}`)
         ///// EVENTUALLY... /////
         // this.getPost(postID)
         // this.render("title", [{"username": "tom", "date": "today", "post": "HELLO THERE"}], "326")
@@ -49,7 +49,7 @@ class Forum {
         const response = await fetch(`/Forum/shortpost/${post_id}`, {mode: 'no-cors'})
         const json = await response.json()
         ///// USED TO SHOW SUCCESSFUL GET REQUEST. WILL EVENTUALLY RETURN TO FILL FORUM LIST PAGE ///// 
-        alert(`${json['title']} ${json['course']}`)
+        // alert(`${json['title']} ${json['course']}`)
         // return response (A JSON OBJECT)
     }
 
