@@ -31,7 +31,7 @@ app.get('/directory',
 app.get('/Forum/:course_id',
     (req, res) => res.sendFile('/html/forum.html',
                     { 'root' : __dirname }));
-app.get('/Forum/longpost/:post_id',
+app.get('/Forum/longpost/:course_id/:post_id',
     (req, res) => res.sendFile('/html/forumPost.html',
                     { 'root' : __dirname }));
 app.get('/index',
@@ -77,7 +77,8 @@ app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
-    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}')`)
+    const date = req.body['date'];
+    await noneFunction(`INSERT INTO forum (posttitle, posts, course, date) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}', '${date}')`)
     const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle='${title}' AND course='${course}'`)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
@@ -93,7 +94,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     dbPosts['posts'].push(posts)
     let ret = "array["
     for (const post of dbPosts['posts']){
-        console.log(post)
+        // console.log(post)
         const newPost = `'${JSON.stringify(post)}'::json,`
         ret += newPost
     }
@@ -108,7 +109,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
 
 app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
+    const courseList = await anyFunction(`SELECT posttitle, id, date FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
 });
 
@@ -200,8 +201,10 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 
 app.get('/getUsername/:api', async (req,res)=>{
     const api = req.params.api;
-    const user = oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
-    res.send({"username": user})
+    console.log(api)
+
+    const user = await oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
+    res.send(user)
 })
 
 app.post('/Account/register', async (req,res) => {
