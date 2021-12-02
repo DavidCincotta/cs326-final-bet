@@ -7,19 +7,19 @@
 }
 
 h2{
-    font-family:cursive;
+    font-family:;
     font-weight:bold;
     padding-left:40px;
 }
 
 h3{
-    font-family:cursive;
+    font-family:"Times New Roman";
     font-weight:bold;
     text-align: center;
 }
 
 h4{
-    font-family:cursive;
+    font-family:"Times New Roman";
     font-weight:bold;
     margin-left: auto;    
 }
@@ -125,7 +125,7 @@ h4{
 
 .post-title{
     color:black;
-    font-family:cursive;
+    font-family:"Times New Roman";
     font-weight:bold;
     padding-left:40px;
     text-align: center;
