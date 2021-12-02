@@ -13,7 +13,7 @@ async function afterLoad() {
         const params = []
         for (const resource of json["resources"]){
             // console.log(resource)
-            const param = [`<a href="http://${resource['link']}">${resource['name']}</a>`,`${resource['description']}`,`${resource['date']}`]
+            const param = [`<a href="http://${resource['link']}" target="_blank">${resource['name']}</a>`,`${resource['description']}`,`${resource['date']}`]
             // console.log(param)
             params.push(param)
         }

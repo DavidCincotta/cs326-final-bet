@@ -7,9 +7,9 @@ class Forum {
     constructor(){
     }
 
-    async createPost(course, title, posts){
+    async createPost(course, title, posts, date){
         // Send data to server
-        const body = {"course_key": course, "post_title": title, "content_array": posts};
+        const body = {"course_key": course, "post_title": title, "content_array": posts, "date": date};
         const response = await postData("/Forum/create", body)
         return response.id; // postID
     }
@@ -102,7 +102,7 @@ async function afterLoad() {
     authorization();
     const forum = new Forum();
     if (window.location.pathname.split("/")[2] === "longpost"){
-        const postID = window.location.pathname.split("/")[3]
+        const postID = window.location.pathname.split("/")[4]
         forum.getPost(postID)
     }
     else if (window.location.pathname.split('/')[1] === "forum"){
@@ -115,7 +115,7 @@ async function afterLoad() {
             const json = await posts.json();
             const params = []
             for (const post of json["posts"]){
-                const param = [`<a href=\'/forum/longpost/${post['id']}\'>${post['posttitle']}</a>`,`${post['date']}`]
+                const param = [`<a href=\'/forum/longpost/${course}/${post['id']}\'>${post['posttitle']}</a>`,`${post['date']}`]
                 params.push(param)
             }
             createTable('table-placement','new-table', params,
@@ -131,8 +131,8 @@ async function afterLoad() {
                 const date = getDate();
                 const post = [{"username": username['username'], "date": date, "post": document.getElementById("body").value}];
                 const course = window.location.pathname.split('/')[2]
-                const postID = await forum.createPost(course, title, post)
-                window.location.pathname = `/Forum/longpost/${postID}`
+                const postID = await forum.createPost(course, title, post, date)
+                window.location.pathname = `/Forum/longpost/${course}/${postID}`
             });
         }
 }
