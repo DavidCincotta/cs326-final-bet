@@ -1,4 +1,4 @@
-import {createTable, postData,authorization} from './utilities.js';
+import {createTable, postData,authorization, getDate} from './utilities.js';
 
 async function afterLoad() {
     authorization();
@@ -28,11 +28,12 @@ async function afterLoad() {
             const link = document.getElementById("link").value
             const desc = document.getElementById("description").value
             console.log(title, link, desc)
-            const currentDate = new Date();
-            const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();
-            const seconds = (currentDate.getSeconds()<10?'0':'') + currentDate.getSeconds()
-            const ending = currentDate.getHours() >= 12 ? "PM" : "AM";
-            const date = `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours() % 12}:${minutes}:${seconds} ${ending}`
+            const date = getDate();
+            // const currentDate = new Date();
+            // const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();
+            // const seconds = (currentDate.getSeconds()<10?'0':'') + currentDate.getSeconds()
+            // const ending = currentDate.getHours() >= 12 ? "PM" : "AM";
+            // const date = `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours() % 12}:${minutes}:${seconds} ${ending}`
             await addResource(title, link, desc, date, id)
             window.location.pathname = `/resources/${id}`
         });

@@ -93,7 +93,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     dbPosts['posts'].push(posts)
     let ret = "array["
     for (const post of dbPosts['posts']){
-        console.log(post)
+        // console.log(post)
         const newPost = `'${JSON.stringify(post)}'::json,`
         ret += newPost
     }
@@ -200,8 +200,10 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 
 app.get('/getUsername/:api', async (req,res)=>{
     const api = req.params.api;
-    const user = oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
-    res.send({"username": user})
+    console.log(api)
+
+    const user = await oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
+    res.send(user)
 })
 
 app.post('/Account/register', async (req,res) => {
