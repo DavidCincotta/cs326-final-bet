@@ -1,5 +1,10 @@
 import {createTable, postData,authorization} from './utilities.js';
 
+function tprint(){
+    console.log('clicked edit button')
+
+}
+
 async function afterLoad() {
     authorization()
     const id = window.location.pathname.split("/")[2]
@@ -15,7 +20,7 @@ async function afterLoad() {
     document.getElementById("professor").innerText = `Professor: ${prof}`
     document.getElementById("start-year").innerText = `Since: ${year}`
     document.getElementById("description").innerText = desc
-
+    document.getElementById("edit").addEventListener('click',tprint)
 }
 
 window.addEventListener('load', afterLoad);
