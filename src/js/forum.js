@@ -84,7 +84,7 @@ class Forum {
         forum.appendChild(button)
         content.appendChild(forum)
         document.getElementsByClassName("btn replyButton")[0].addEventListener('click', async () => {
-            const postID = window.location.pathname.split("/")[3]
+            const postID = window.location.pathname.split("/")[4]
             const response = document.getElementById("response").value;
             const api = document.cookie.split(':')[1];
             const user = await fetch(`/getUsername/${api}`, {mode: 'no-cors'})
