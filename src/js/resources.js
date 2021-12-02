@@ -2,7 +2,7 @@ import {createTable, postData,authorization} from './utilities.js';
 
 async function afterLoad() {
     authorization();
-    if (window.location.pathname.split("/")[1] = "resources"){
+    if (window.location.pathname.split("/")[1] === "resources"){
         const id = window.location.pathname.split("/")[2]
         document.getElementById('resource btn').addEventListener('click', async ()=>{
             window.location.pathname = `/addResource/${id}`
@@ -29,7 +29,10 @@ async function afterLoad() {
             const desc = document.getElementById("description").value
             console.log(title, link, desc)
             const currentDate = new Date();
-                const date = `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`
+            const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();
+            const seconds = (currentDate.getSeconds()<10?'0':'') + currentDate.getSeconds()
+            const ending = currentDate.getHours() >= 12 ? "PM" : "AM";
+            const date = `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours() % 12}:${minutes}:${seconds} ${ending}`
             await addResource(title, link, desc, date, id)
             window.location.pathname = `/resources/${id}`
         });
