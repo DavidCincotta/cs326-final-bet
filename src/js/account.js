@@ -113,7 +113,7 @@ async function deleteAcc(data){
 async function getLogin(body){  
     const log = await postData('account/login',body);
     if(log===false){
-        alert("account does not exist");
+        alert("Wrong username or password");
         return;
     }
     else{
