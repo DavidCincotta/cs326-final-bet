@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3' crossorigin='anonymous'>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href='/css/style.css'>
+        <title>Course Creation</title>
+        <script type='module' src='/js/main.js'></script>
+        <script type='module' src='/js/edit.js'></script>
+
+    </head>
+    <body>
+
+
+        <div class='header'>
+            <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
+            <h2>Course Explorer</h2>
+
+        </div>
+
+
+
+        <div class='container'>
+            <nav id='sidebar' class='sidebar active'>
+                <div type='button' class='item'>Information</div>
+                <div type='button' class='item'>Resources</div>
+                <div type='button' class='item'>Forum</div>
+                <div type='button' class='item'>Settings</div>
+                <div type='button' class='item'>Signout</div>
+            </nav>
+            <div class='content'>
+                <div class="alert alert-warning" role="alert">
+                    Page Creation
+                </div>
+                <div>
+                    <select id='college' class="my-select">
+                      <option selected>Select a College</option>
+                      <option value="1">College of Education</option>
+                      <option value="2">College of Engineering</option>
+                      <option value="3">College of Humanities and Fine Arts</option>
+                      <option value="4">College of Information and Computer Sciences</option>
+                      <option value="5">College of Natural Sciences</option>
+                      <option value="6">Elaine Marieb College of Nursing</option>
+                      <option value="7">College of Social and Behavioral Sciences</option>
+                      <option value="8">Commonwealth Honors College</option>
+                      <option value="9">Isenberg School of Management</option>
+                      <option value="10">School of Public Health and Health Sciences</option>
+                      <option value="11">Stockbridge School of Agriculture</option>
+                      <option value="12">Graduate School</option> 
+                    </select>
+                  </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Course Name</span>
+                    </div>
+                    <input id='course_name' type="text" class="form-control" aria-describedby="basic-addon3" placeholder="Web Programming">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Year</span>
+                    </div>
+                    <input id='start_year' type="text" class="form-control" aria-describedby="basic-addon3" placeholder="2016">
+                </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Course Number</span>
+                    </div>
+                    <input type="text" class="form-control" id="course_number" aria-describedby="basic-addon3" placeholder="326">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Professor</span>
+                    </div>
+                    <input type="text" class="form-control" id="professor" aria-describedby="basic-addon3" placeholder="Emery Berger">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Brief Description</span>
+                    </div>
+                    <input type="text" class="form-control" id="short_description" aria-describedby="basic-addon3" placeholder="30 Character Limit!">
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Long Description</span>
+                    </div>
+                    <textarea id='long_description' class="form-control" aria-label="With textarea" placeholder="This is displayed on the Course Information page. Be as detailed as you like!"></textarea>
+                  </div>
+                  <button type="button" class="btn createButton" id="changeButton">Submit Change</button>
+            </div>
+        </div>  
+    </body>
+</html>

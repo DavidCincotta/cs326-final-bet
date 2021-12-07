@@ -27,7 +27,7 @@ async function afterLoad(){
     switch(window.location.pathname.split('/').pop()){
         case 'courses':
             let data = {'account_id':'123'};
-            response = await postData('Courses/directory',data);
+            response = await postData('Courses/mycourses',data);
             arrList = [];
             for(let r of response){
                 /// Make information = information/${course_id}

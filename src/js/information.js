@@ -1,8 +1,23 @@
 import {createTable, postData,authorization} from './utilities.js';
 
 function editcourse(){
+    const loc = document.location.pathname.split('/');
+    const course = loc[2];
+    window.location = '/editcourse'+course
 }
-function addcourse(){
+async function trackcourse(){
+    const userid = document.cookie.split(':')[1];
+    const loc = document.location.pathname.split('/');
+    const course = loc[2];
+    const body = {'user_id':userid,'course':course};
+    await postData('/Courses/trackcourse',body);
+}
+async function untrackcourse(){
+    const userid = document.cookie.split(':')[1];
+    const loc = document.location.pathname.split('/');
+    const course = loc[2];
+    const body = {'user_id':userid,'course':course};
+    await postData('/Courses/untrackcourse',body);
 }
 
 async function afterLoad() {
@@ -22,6 +37,7 @@ async function afterLoad() {
     document.getElementById("description").innerText = desc
     document.getElementById("edit").addEventListener('click',editcourse)
     document.getElementById("add-course").addEventListener('click',addcourse)
+    document.getElementById("untrack-course").addEventListener('click',untrackcourse)
 }
 
 window.addEventListener('load', afterLoad);
