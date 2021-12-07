@@ -80,8 +80,8 @@ app.get('/Forum/get/:postID',
 
 // Add a new course to the database using the provided course_key (CS326), postTitle, posts, and post date
 app.post('/Forum/create', async (req, res) =>{
-    const course = req.body['course_key'];
-    const title = req.body['post_title'];
+    const course = req.body['courseKey'];
+    const title = req.body['postTitle'];
     const posts = req.body['posts'];
     const date = req.body['date'];
     await noneFunction(`INSERT INTO forum (posttitle, posts, course, date) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}', '${date}')`)
