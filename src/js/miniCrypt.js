@@ -1,4 +1,5 @@
 import c from 'crypto'
+//Edited version of miniCrypt from class
 class miniCrypt{
     constructor(){
         this.its = 1e5;
