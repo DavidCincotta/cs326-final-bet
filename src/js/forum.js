@@ -9,7 +9,7 @@ class Forum {
     // Send the new post data to the /Forum/create endpoint, which adds the information to the
     // database, and returns the new post's ID
     async createPost(course, title, posts, date){
-        const body = {"course_key": course, "post_title": title, "posts": posts, "date": date};
+        const body = {"courseKey": course, "postTitle": title, "posts": posts, "date": date};
         const response = await postData("/Forum/create", body)
         return response.id;
     }
