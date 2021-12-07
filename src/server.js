@@ -133,6 +133,9 @@ app.get("/Courses/directory", async (req, res) =>{
     console.log("/Courses/directory");
     res.send(courseA);
 });
+app.post('/Courses/edit', async (req, res) =>{
+
+});
 app.post('/Courses/addcourse', async (req, res) =>{
     //TODO
     console.log('/Courses/addcourse');
