@@ -135,6 +135,9 @@ h4{
 
 #forum-post{
     color: black;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight: normal;
     background-color: lightskyblue;
     margin-bottom: 50px;
     margin-top: 20px;
@@ -148,6 +151,7 @@ h4{
 
 .replyButton{
     background: lightskyblue;
+    font-family:'Times New Roman', Times, serif;
     color:black;
     margin-top: 15px;
     width: 100%

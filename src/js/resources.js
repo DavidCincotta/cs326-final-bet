@@ -2,46 +2,44 @@ import {createTable, postData,authorization, getDate} from './utilities.js';
 
 async function afterLoad() {
     authorization();
+    // This means we are viewing the list of resources for the course with "course"
     if (window.location.pathname.split("/")[1] === "resources"){
-        const id = window.location.pathname.split("/")[2]
-        document.getElementById('resource btn').addEventListener('click', async ()=>{
-            window.location.pathname = `/addResource/${id}`
+        const course = window.location.pathname.split("/")[2]
+        document.getElementBycourse('resource btn').addEventListener('click', async ()=>{
+            window.location.pathname = `/addResource/${course}`
         });
-        const resources = await fetch(`/getResources/${id}`)
-        const json = await resources.json();
-        // console.log(json)
+        const resources = await getResources(course);
         const params = []
-        for (const resource of json["resources"]){
-            // console.log(resource)
+        for (const resource of resources){
             const param = [`<a href="http://${resource['link']}" target="_blank">${resource['name']}</a>`,`${resource['description']}`,`${resource['date']}`]
-            // console.log(param)
             params.push(param)
         }
         createTable('table-placement','new-table', params,
             ['Resource','Description','Date']);
     }
     else if (window.location.pathname.split('/')[1] === 'addResource'){
-        const id = window.location.pathname.split("/")[2]
-        console.log(id)
+        const course = window.location.pathname.split("/")[2]
         document.getElementById('resource btn').addEventListener('click', async ()=>{
             const title = document.getElementById("title").value
             const link = document.getElementById("link").value
             const desc = document.getElementById("description").value
-            console.log(title, link, desc)
             const date = getDate();
-            // const currentDate = new Date();
-            // const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();
-            // const seconds = (currentDate.getSeconds()<10?'0':'') + currentDate.getSeconds()
-            // const ending = currentDate.getHours() >= 12 ? "PM" : "AM";
-            // const date = `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours() % 12}:${minutes}:${seconds} ${ending}`
-            await addResource(title, link, desc, date, id)
-            window.location.pathname = `/resources/${id}`
+            await addResource(title, link, desc, date, course)
+            window.location.pathname = `/resources/${course}`
         });
     }
 }
 
 window.addEventListener('load', afterLoad);
 
+// Get the list of resources related to course from the database
+async function getResources(course){
+    const resources = await fetch(`/getResources/${course}`)
+    const json = await resources.json();
+    return json;
+}
+
+// Add a new resources pertaining to course to the database
 async function addResource(title, link, description, date, course){
     const body = {"title": title, "link": link, "description": description, "date": date};
     await postData(`/addNewResource/${course}`, body);

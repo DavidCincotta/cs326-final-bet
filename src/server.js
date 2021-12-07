@@ -11,7 +11,7 @@ const app = express();
 // import express from "express"
 app.use(express.json()); // lets you handle JSON input
 app.use(express.static('src'));
-const port = 3010;
+const port = 8080;
 
 /////////////////////////////////////////////
 //////////// HTML gets       ////////////////
@@ -22,31 +22,31 @@ app.get('/courses',
 app.get('/createCourse',
     (req, res) => res.sendFile('/html/createCourse.html',
                     { 'root' : __dirname }));
-app.get('/createPost/:course_id',
+app.get('/createPost/:courseID',
     (req, res) => res.sendFile('/html/createPost.html',
                     { 'root' : __dirname }));
 app.get('/directory',
     (req, res) => res.sendFile('/html/directory.html',
                 { 'root' : __dirname }));
-app.get('/Forum/:course_id',
+app.get('/Forum/:courseID',
     (req, res) => res.sendFile('/html/forum.html',
                     { 'root' : __dirname }));
-app.get('/Forum/longpost/:course_id/:post_id',
+app.get('/Forum/longpost/:courseID/:postID',
     (req, res) => res.sendFile('/html/forumPost.html',
                     { 'root' : __dirname }));
 app.get('/index',
     (req, res) => res.sendFile('/html/index.html',
                     { 'root' : __dirname }));
-app.get('/information/:course_id',
+app.get('/information/:courseID',
     (req, res) => res.sendFile('/html/information.html',
                 { 'root' : __dirname }));
 app.get('/Login',
     (req, res) => res.sendFile('/html/login.html',
                     { 'root' : __dirname }));
-app.get('/resources/:course_id',
+app.get('/resources/:courseID',
     (req, res) => res.sendFile('/html/resources.html',
                 { 'root' : __dirname }));
-app.get('/addResource/:course_id',
+app.get('/addResource/:courseID',
     (req, res) => res.sendFile('/html/addResource.html',
                 { 'root' : __dirname }));
 app.get('/search',
@@ -65,50 +65,47 @@ app.get('/',
 //////////// Forum enpoints ////////////////
 /////////////////////////////////////////////
 
-app.get('/Forum/get/:post_id',
+// Query the database using the post id to retrieve the postTitle, posts array and the related course
+app.get('/Forum/get/:postID',
     async (req, res) => {
-        const postID = req.params.post_id;
+        const postID = req.params.postID;
         const response = await oneFunction(`SELECT postTitle, posts, course FROM forum WHERE id = '${postID}'`)
-//     // get and return content_array and post_title, course from db
         res.send(response);
     });
 
+// Add a new course to the database using the provided course_key (CS326), postTitle, posts, and post date
 app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
-    const posts = req.body['content_array'];
+    const posts = req.body['posts'];
     const date = req.body['date'];
     await noneFunction(`INSERT INTO forum (posttitle, posts, course, date) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}', '${date}')`)
     const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle='${title}' AND course='${course}'`)
-    // send info to db
-    ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
-    // res.send({"course": course, "title": title, "posts": posts})
     res.send(postID)
-    // res.redirect("/Forum")
 });
 
-app.post('/Forum/longpost/:post_id/update', async (req, res) => {
-    const postID = req.params.post_id;
-    const posts = req.body['content_array'];
+// Add a new response to a previously created post.  
+app.post('/Forum/longpost/:postID/update', async (req, res) => {
+    const postID = req.params.postID;
+    const posts = req.body['posts'];
     const dbPosts = await oneFunction(`SELECT posts FROM forum WHERE id = '${postID}'`)
     dbPosts['posts'].push(posts)
-    let ret = "array["
+    // Used to correctly format the db query to the form below, which is accepted as a JSON array:
+    // array['{"username": "user", "date": "today", "post": "the original post"}', ...]
+    let dbUpdate = "array["
     for (const post of dbPosts['posts']){
-        // console.log(post)
         const newPost = `'${JSON.stringify(post)}'::json,`
-        ret += newPost
+        dbUpdate += newPost
     }
-    ret = ret.slice(0, -1) + ']'
-    await noneFunction(`UPDATE forum SET posts = ${ret} WHERE id = '${postID}'`)
-    // put new info into database WHERE post_id = post_id (UPDATE)
-    ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ///////
-    // res.send({"post": post, "posts": posts})
-    // res.redirect(`/forum/longpost/${postID}`)
-    res.send({"json": "object"});
+    dbUpdate = dbUpdate.slice(0, -1) + ']'
+    await noneFunction(`UPDATE forum SET posts = ${dbUpdate} WHERE id = '${postID}'`)
+    res.send({"status": res.statusCode})
+    
 })
 
-app.get("/getPosts/:course_id", async (req, res) => {
-    const course = req.params.course_id;
+// Query the database for the postTitle, id, and date for every post related to the given courseID
+app.get("/getPosts/:courseID", async (req, res) => {
+    const course = req.params.courseID;
     const courseList = await anyFunction(`SELECT posttitle, id, date FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
 });
@@ -116,6 +113,7 @@ app.get("/getPosts/:course_id", async (req, res) => {
 /////////////////////////////////////////////
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
+
 // app.post('/Courses/getcourse', (req, res) =>{
 //     const account = req.body['account_id'];
 //     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
@@ -178,20 +176,23 @@ app.post('/Courses/search', async (req, res) =>{
     res.send(query);
 
 });
-app.get("/getResources/:course_id", async (req, res) => {
-    const course = req.params.course_id
+
+// Retrieve all resources for given courseID from the database
+app.get("/getResources/:courseID", async (req, res) => {
+    const course = req.params.courseID
     const resources = await anyFunction(`SELECT link, name, description, date FROM resources WHERE course = '${course}'`)
-    res.send({"resources": resources})
+    res.send(resources)
 })
 
-app.post('/addNewResource/:course_id', async (req, res) => {
-    const course = req.params.course_id;
+// Send a new resource related to :courseID to the database
+app.post('/addNewResource/:courseID', async (req, res) => {
+    const course = req.params.courseID;
     const name = req.body["title"]
     const link = req.body["link"]
     const desc = req.body["description"]
     const date = req.body['date']
     await noneFunction(`INSERT INTO resources (name, link, description, course, date) VALUES ('${name}', '${link}', '${desc}', '${course}', '${date}')`)// send info to db
-    res.send({"success": "you know it"});
+    res.send({"status": res.statusCode})
 })
 
 
@@ -201,8 +202,6 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 
 app.get('/getUsername/:api', async (req,res)=>{
     const api = req.params.api;
-    console.log(api)
-
     const user = await oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
     res.send(user)
 })
@@ -296,6 +295,6 @@ app.delete('/Account/delete', async (req,res)=>{
     }
     catch{e=>console.log(e)}
 })
-app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Course Explorer app listening at http://localhost:8080`);
 });
