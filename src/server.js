@@ -1,7 +1,8 @@
-import express from 'express';
+import express, { json } from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
+import {miniCrypt} from './js/miniCrypt.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /////////////////////////////////////////////
@@ -12,6 +13,9 @@ const app = express();
 app.use(express.json()); // lets you handle JSON input
 app.use(express.static('src'));
 const port = 3010;
+
+// Crytpo initsalization
+const mc = new miniCrypt();
 
 /////////////////////////////////////////////
 //////////// HTML gets       ////////////////
@@ -31,7 +35,7 @@ app.get('/directory',
 app.get('/Forum/:course_id',
     (req, res) => res.sendFile('/html/forum.html',
                     { 'root' : __dirname }));
-app.get('/Forum/longpost/:post_id',
+app.get('/Forum/longpost/:course_id/:post_id',
     (req, res) => res.sendFile('/html/forumPost.html',
                     { 'root' : __dirname }));
 app.get('/index',
@@ -77,7 +81,8 @@ app.post('/Forum/create', async (req, res) =>{
     const course = req.body['course_key'];
     const title = req.body['post_title'];
     const posts = req.body['content_array'];
-    await noneFunction(`INSERT INTO forum (posttitle, posts, course) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}')`)
+    const date = req.body['date'];
+    await noneFunction(`INSERT INTO forum (posttitle, posts, course, date) VALUES ('${title}', array['${JSON.stringify(posts[0])}'::json], '${course}', '${date}')`)
     const postID = await oneFunction(`SELECT id FROM forum WHERE posttitle='${title}' AND course='${course}'`)
     // send info to db
     ////// WILL RETURN POST ID FROM DB, FAKE INFO FOR NOW ////////
@@ -93,7 +98,7 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     dbPosts['posts'].push(posts)
     let ret = "array["
     for (const post of dbPosts['posts']){
-        console.log(post)
+        // console.log(post)
         const newPost = `'${JSON.stringify(post)}'::json,`
         ret += newPost
     }
@@ -105,10 +110,9 @@ app.post('/Forum/longpost/:post_id/update', async (req, res) => {
     // res.redirect(`/forum/longpost/${postID}`)
     res.send({"json": "object"});
 })
-
 app.get("/getPosts/:course_id", async (req, res) => {
     const course = req.params.course_id;
-    const courseList = await anyFunction(`SELECT posttitle, id FROM forum WHERE course = '${course}'`)
+    const courseList = await anyFunction(`SELECT posttitle, id, date FROM forum WHERE course = '${course}'`)
     res.send({"posts": courseList})
 });
 
@@ -203,21 +207,26 @@ app.post('/addNewResource/:course_id', async (req, res) => {
 
 app.get('/getUsername/:api', async (req,res)=>{
     const api = req.params.api;
-    const user = oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
-    res.send({"username": user})
+    console.log(api)
+
+    const user = await oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
+    res.send(user)
 })
 
 app.post('/Account/register', async (req,res) => {
+    const hash = mc.hash(req.body.password);
     const account = {
         user_id: req.body.user_id,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
+        hash: hash[0],
+        salt: hash[1]
+
     };
     try{
         const result = await anyFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
         if (result.length === 0 ){
-            await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
+            await noneFunction(`INSERT INTO account (user_id,email, username,hash,salt) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.hash}','${account.salt}')`);
             res.send(JSON.stringify(account.user_id));
         }
         else{
@@ -231,9 +240,16 @@ app.post('/Account/login', async (req,res)=> {
     const username = req.body['username'];
     const password = req.body['password'];
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}' AND password = '${password}'`);
+        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}'`);
         if (result.length>0){ 
-            res.send(JSON.stringify(result[0].user_id));
+            const hash = result[0].hash;
+            const salt = result[0].salt;
+            if (mc.check(password,salt,hash)){
+                res.send(JSON.stringify(result[0].user_id));
+            }
+            else{
+                res.send(JSON.stringify(false));
+            }
         }
         else{
             res.send(JSON.stringify(false));
@@ -245,12 +261,19 @@ app.post('/Account/update', async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
-    const currPass = req.body.currPass;
     const user_id = req.body.user_id;
+    const currPass = req.body.currPass;
+    console.log(currPass);
     try{
         let quary = `UPDATE account SET`
-        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
-        if (result.length===0){
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}'`);
+        const hash = result[0].hash;
+        const salt = result[0].salt;
+        console.log("we here");
+        console.log(mc.check(currPass,salt,hash));
+        console.log("we here 2");
+        if (!mc.check(currPass,salt,hash)){
+            console.log("WRONG PASSWORD");
             res.send(JSON.stringify("Incorrect Password"));
             return;
         }
@@ -271,7 +294,8 @@ app.post('/Account/update', async (req,res)=>{
             quary+=` username = '${username}',`;
         }
         if (password !==undefined){
-            quary+=` password= '${password}',`;
+            const hash = mc.hash(password);
+            quary+=` hash = '${hash[0]}', salt = '${hash[1]}',`;
         }
         quary = quary.slice(0, -1)
         quary+=` WHERE user_id = '${user_id}'`
@@ -285,10 +309,18 @@ app.delete('/Account/delete', async (req,res)=>{
     const currPass = req.body.currPass;
     const user_id = req.body.user_id;
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}'`);
         if (result.length>0){ 
-            await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
-            res.send(JSON.stringify(200));
+            const hash = result[0].hash;
+            const salt = result[0].salt;
+            if (mc.check(currPass,salt,hash)){
+                await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
+                res.send(JSON.stringify(200));
+            }
+            else{
+                console.log("we here")
+                res.send(JSON.stringify("Wrong Password"));
+            }
         }
         else{
             res.send(JSON.stringify(false));

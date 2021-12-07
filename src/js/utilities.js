@@ -54,3 +54,12 @@ export function authorization(){
         document.location.href = '/login';
     }
 }
+
+export function getDate(){
+    const currentDate = new Date();
+    const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();
+    const seconds = (currentDate.getSeconds()<10?'0':'') + currentDate.getSeconds()
+    const ending = currentDate.getHours() >= 12 ? "PM" : "AM";
+    const date = `${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours() % 12}:${minutes}:${seconds} ${ending}`
+    return date;
+}
