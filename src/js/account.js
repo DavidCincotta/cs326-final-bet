@@ -1,10 +1,12 @@
 import {postData,authorization} from './utilities.js';
 
+
 function afterLoad(){
     const loginBtn = document.getElementById('loginBtn');
     const submitBtn = document.getElementById('submitBtn');
     const updateBtn = document.getElementById('updateBtn');
     const deleteBtn = document.getElementById('deleteBtn');
+    //Adds event listener to login page login button
     if (loginBtn!== null){
         loginBtn.addEventListener('click',()=>{
             const login = document.getElementById('login').value;
@@ -17,6 +19,7 @@ function afterLoad(){
             getLogin(body); 
         })
     }
+    //Adds event listener to registration page submit button
     if (submitBtn!== null){
         submitBtn.addEventListener('click',()=>{
             const username = document.getElementById('username').value;
@@ -42,6 +45,7 @@ function afterLoad(){
             createAccount(body);
         })
     }
+    //Adds event listener to account settings update button
     if (updateBtn!==null){
         authorization();
         updateBtn.addEventListener('click',()=>{
@@ -72,6 +76,7 @@ function afterLoad(){
                 updateAccount(data);
         })
     }
+    //Adds event listener to account settings delete button
     if (deleteBtn!==null){
         deleteBtn.addEventListener('click', ()=>{     
         const currPass = document.getElementById('currPass').value;
@@ -88,6 +93,7 @@ function afterLoad(){
     }
 
 }
+//Sents rest api request to delete account
 async function deleteAcc(data){
     const response = await fetch('account/delete', {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
@@ -101,7 +107,6 @@ async function deleteAcc(data){
         body: JSON.stringify(data)  // body data type must match "Content-Type" header
     });
     const result = await response.json(); // parses JSON response into native JavaScript objects
-    console.log(result);
     if (result === 200){
         document.cookie = "user_id:;expires=" + new Date(0).toUTCString();
         document.location.href = './login';
@@ -110,6 +115,7 @@ async function deleteAcc(data){
         alert("Wrong Password");
     }
 }
+//Sents rest api request to login into account
 async function getLogin(body){  
     const log = await postData('account/login',body);
     if(log===false){
@@ -121,6 +127,7 @@ async function getLogin(body){
         document.location.href = './courses';
     }
 }
+//Sents rest api request to create an account
 async function createAccount(body){  
     const create = await postData('account/register',body);
     console.log(create);
@@ -132,6 +139,7 @@ async function createAccount(body){
         alert("Username or Email already exists");
     }
 }
+//Sents rest api request to update account
 async function updateAccount(body){
     const result = await postData('account/update',body);
     if(result!=="200"){
@@ -144,6 +152,7 @@ async function updateAccount(body){
 
 window.addEventListener('load', afterLoad);
 
+//Random string generator that is used to create a user_id that is used for authentication and database queries
 function S4() {
     return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
 }
