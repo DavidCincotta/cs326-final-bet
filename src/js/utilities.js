@@ -28,10 +28,12 @@ export function createTable(position, id,inputList,headers){
         });
         tbody.appendChild(trow);
     });
+    tbl.innerHTML = '';
     tbl.appendChild(tbody);
 
     document.getElementById(position).appendChild(tbl);
 }
+//Posts data to the server
 export async function postData(url, data){
     // Default options are marked with *
     const response = await fetch(url, {
@@ -47,13 +49,14 @@ export async function postData(url, data){
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+//Checks cookie on user to see if it matches, otherwise returns user back to login page
 export function authorization(){
     const cookie = document.cookie.split(':')[1];
     if (cookie ===undefined || cookie.length!==23 || cookie === null ){
         document.location.href = '/login';
     }
 }
-
+//Get current date for forum and resources 
 export function getDate(){
     const currentDate = new Date();
     const minutes = (currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes();

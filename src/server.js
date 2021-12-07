@@ -1,7 +1,8 @@
-import express from 'express';
+import express, { json } from 'express';
 import path from 'path';
 import {noneFunction,oneFunction,anyFunction} from './js/database.js';
 import { fileURLToPath } from 'url';
+import {miniCrypt} from './js/miniCrypt.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /////////////////////////////////////////////
@@ -13,9 +14,13 @@ app.use(express.json()); // lets you handle JSON input
 app.use(express.static('src'));
 const port = 8080;
 
+// Crytpo initialization
+const mc = new miniCrypt();
+
 /////////////////////////////////////////////
 //////////// HTML gets       ////////////////
 /////////////////////////////////////////////
+
 app.get('/courses',
     (req, res) => res.sendFile('/html/courses.html',
                     { 'root' : __dirname }));
@@ -200,23 +205,29 @@ app.post('/addNewResource/:courseID', async (req, res) => {
 //////////// Account endpoints ////////////////
 /////////////////////////////////////////////
 
+//uses api key to get username 
 app.get('/getUsername/:api', async (req,res)=>{
     const api = req.params.api;
     const user = await oneFunction(`SELECT username FROM account WHERE user_id='${api}'`);
     res.send(user)
 })
 
+//Sents account initialization parameters to the server, if succesful returns corresponding user_id 
+//params = user_id, email, username, password
+//returns user_id
 app.post('/Account/register', async (req,res) => {
+    const hash = mc.hash(req.body.password);
     const account = {
         user_id: req.body.user_id,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
+        hash: hash[0],
+        salt: hash[1]
     };
     try{
         const result = await anyFunction(`SELECT * FROM account WHERE email = '${account.email}' OR username = '${account.username}'`)
         if (result.length === 0 ){
-            await noneFunction(`INSERT INTO account (user_id,email, username,password) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.password}')`);
+            await noneFunction(`INSERT INTO account (user_id,email, username,hash,salt) VALUES ('${account.user_id}','${account.email}','${account.username}','${account.hash}','${account.salt}')`);
             res.send(JSON.stringify(account.user_id));
         }
         else{
@@ -226,13 +237,24 @@ app.post('/Account/register', async (req,res) => {
     catch{(e)=>res.send(JSON.stringify(null));}
 
 })
+
+//Sents account username and password to server, if succesful returns corresponding user_id 
+//params = username,password
+//returns user_id
 app.post('/Account/login', async (req,res)=> {
     const username = req.body['username'];
     const password = req.body['password'];
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}' AND password = '${password}'`);
+        const result = await anyFunction(`SELECT * FROM account WHERE username = '${username}'`);
         if (result.length>0){ 
-            res.send(JSON.stringify(result[0].user_id));
+            const hash = result[0].hash;
+            const salt = result[0].salt;
+            if (mc.check(password,salt,hash)){
+                res.send(JSON.stringify(result[0].user_id));
+            }
+            else{
+                res.send(JSON.stringify(false));
+            }
         }
         else{
             res.send(JSON.stringify(false));
@@ -240,16 +262,21 @@ app.post('/Account/login', async (req,res)=> {
     }
     catch{e=>console.log(e)}
 })
+//Sents account parameters to change, if succesful returns 200
+//params = currentPassword, password, username, email
+//returns 200
 app.post('/Account/update', async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
-    const currPass = req.body.currPass;
     const user_id = req.body.user_id;
+    const currPass = req.body.currPass;
     try{
         let quary = `UPDATE account SET`
-        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
-        if (result.length===0){
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}'`);
+        const hash = result[0].hash;
+        const salt = result[0].salt;
+        if (!mc.check(currPass,salt,hash)){
             res.send(JSON.stringify("Incorrect Password"));
             return;
         }
@@ -270,24 +297,34 @@ app.post('/Account/update', async (req,res)=>{
             quary+=` username = '${username}',`;
         }
         if (password !==undefined){
-            quary+=` password= '${password}',`;
+            const hash = mc.hash(password);
+            quary+=` hash = '${hash[0]}', salt = '${hash[1]}',`;
         }
         quary = quary.slice(0, -1)
         quary+=` WHERE user_id = '${user_id}'`
-        console.log(quary)
         await noneFunction(quary);
         res.send(JSON.stringify('200'));
     }
     catch{(e)=>console.log(e)}
 })
+//Sents server user_id and password, if password matches, deletes account from database and returns user to login 
+//params = user_id, password
+//returns 200 on success 
 app.delete('/Account/delete', async (req,res)=>{
     const currPass = req.body.currPass;
     const user_id = req.body.user_id;
     try{
-        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}' AND password = '${currPass}'`);
+        const result = await anyFunction(`SELECT * FROM account WHERE user_id = '${user_id}'`);
         if (result.length>0){ 
-            await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
-            res.send(JSON.stringify(200));
+            const hash = result[0].hash;
+            const salt = result[0].salt;
+            if (mc.check(currPass,salt,hash)){
+                await noneFunction(`DELETE FROM account WHERE user_id = '${user_id}'`);
+                res.send(JSON.stringify(200));
+            }
+            else{
+                res.send(JSON.stringify("Wrong Password"));
+            }
         }
         else{
             res.send(JSON.stringify(false));
