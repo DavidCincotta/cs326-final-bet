@@ -21,10 +21,19 @@ We have implemented a website where students can share their experiences in diff
 # UI Interface
 
 # API's
+In addition to the table of endpoints shown below, we have a get request for each of the HTML files that our application serves.  All of these are simple requests that take no parameters, and send the requested HTML file.
+
+![Endpoints](/docs/finalEndpoints.png "endpoints")
+
 
 # Database
 
+![Database](/docs/finalDatabase.png "database")
+
 # URL Routes/Mappings
+
+![URL Routes](/docs/routes.png "urlroutes")
+
 
 # Authentication/Authorization
 
