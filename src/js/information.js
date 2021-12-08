@@ -3,7 +3,7 @@ import {createTable, postData,authorization} from './utilities.js';
 function editcourse(){
     const loc = document.location.pathname.split('/');
     const course = loc[2];
-    window.location = '/editcourse'+course
+    window.location = '/editcourse/'+course
 }
 async function trackcourse(){
     const userid = document.cookie.split(':')[1];

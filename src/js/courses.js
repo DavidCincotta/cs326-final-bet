@@ -26,7 +26,7 @@ async function afterLoad(){
 
     switch(window.location.pathname.split('/').pop()){
         case 'courses':
-            let data = {'account_id':'123'};
+            let data = {'user_id' = document.cookie.split(':')[1]};
             response = await postData('Courses/mycourses',data);
             arrList = [];
             for(let r of response){
