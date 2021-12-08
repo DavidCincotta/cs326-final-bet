@@ -65,6 +65,9 @@ app.get('/signup',
                     { 'root' : __dirname }));
 app.get('/',
     (req, res) => res.redirect("/login"));
+app.get('/editcourse/:course_id',
+    (req, res) => res.sendFile('/html/information.html',
+                { 'root' : __dirname }));
 
 /////////////////////////////////////////////
 //////////// Forum enpoints ////////////////
@@ -119,11 +122,6 @@ app.get("/getPosts/:courseID", async (req, res) => {
 //////////// Course enpoints ////////////////
 /////////////////////////////////////////////
 
-// app.post('/Courses/getcourse', (req, res) =>{
-//     const account = req.body['account_id'];
-//     res.send([{'id':'1','name':'web programming','course_number':'326','description':'learning about front end applications and browsers'},{'id':'2','name':'data structures','course_number':'187','description':'basics of storing and accessing information'},{'id':'3','name':'discrete math','course_number':'250','description':'predicate mathematics and proofing'}]);
-// });
-
 app.get("/getInfo/:course_id", async (req, res) => {
     const courseId = req.params.course_id
     const course = await oneFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
@@ -137,8 +135,56 @@ app.get("/Courses/directory", async (req, res) =>{
     console.log("/Courses/directory");
     res.send(courseA);
 });
+app.post('/Courses/editcourse', async (req, res) =>{
+
+    const id = req.body['id'];
+    
+    let query = 'update courses set '
+    for(const key in req.body.keys()){
+        if(key=='id') continue; 
+        query+= key+' = '+req.body[key]+ ', '
+    } 
+    query = query.slice(0,query.length - 2); +'where id = '+id;
+    console.log(query)
+    await noneFunction(query);
+
+});
+
+app.post('/Courses/trackcourse', async (req, res) => {
+    console.log('trackcourse');
+    let user_courses = await oneFunction('select user_courses from account where user_id = '+req.body['user_id']);
+    console.log(user_courses);
+    if(!user_courses.split('-').includes(req.body['course'])){
+        user_courses+='-'+req.body['course'];
+    }
+    await noneFunction(`update account set user_courses = ${user_courses} where user_id = ${req.body['user_id']}`)
+    
+});
+app.post('/Courses/untrackcourse', async (req, res) => {
+    console.log('untrackcourse');
+    let user_courses = await oneFunction('select user_courses from account where user_id = '+req.body['user_id']);
+    console.log(user_courses);
+    if(user_courses.split('-').includes(req.body['course'])){
+        user_courses=user_courses.replace('-'+req.body['course'],'');
+    }
+    await noneFunction(`update account set user_courses = ${user_courses} where user_id = ${req.body['user_id']}`)
+
+});
+app.post('/Courses/mycourses', async (req, res) => {
+    console.log("/Courses/mycourses");
+    const courses = await oneFunction(`select user_courses from account where user_id=${req.body['user_id']}`);
+    let ids = ''
+    for(const c in courses.split('-')){
+        if(c.length>0){
+            ids+=c+','
+        }
+    }
+    if(ids.length>1) ids = ids.slice(0,ids.length-1);
+    const course_list = await anyFunction(`SELECT * FROM courses WHERE IN (${ids})`);
+    res.send(course_list);
+});
+
 app.post('/Courses/addcourse', async (req, res) =>{
-    //TODO
     console.log('/Courses/addcourse');
     console.log(req.body);
     
