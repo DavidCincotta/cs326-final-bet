@@ -154,9 +154,11 @@ app.post('/Courses/trackcourse', async (req, res) => {
     console.log('trackcourse');
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
+    console.log()
     console.log(user_courses['user_courses']);
+    console.log()
     console.log(typeof(user_courses['user_courses']));
-    console.log(user_courses['user_courses'].toString());
+    console.log()
     let sb = ''
     if(user_courses['user_courses'] === null){
         sb = '-'+req.body['course']
@@ -173,7 +175,7 @@ app.post('/Courses/untrackcourse', async (req, res) => {
     console.log('untrackcourse');
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
-    if(user_courses.split('-').includes(req.body['course'])){
+    if(user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
         user_courses=user_courses.replace('-'+req.body['course'],'');
     }
     const query = (`update account set user_courses = '${user_courses}' where user_id = '${req.body['user_id']}'`);
