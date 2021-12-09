@@ -175,10 +175,11 @@ app.post('/Courses/untrackcourse', async (req, res) => {
     console.log('untrackcourse');
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
+    let new_courses = ''
     if(user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
-        user_courses=user_courses.replace('-'+req.body['course'],'');
+        new_courses=user_courses['user_courses'].toString().replace('-'+req.body['course'],'');
     }
-    const query = (`update account set user_courses = '${user_courses}' where user_id = '${req.body['user_id']}'`);
+    const query = (`update account set user_courses = '${new_courses}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query)
 
@@ -196,8 +197,8 @@ app.post('/Courses/mycourses', async (req, res) => {
         }
     }
     if(ids.length>1) ids = ids.slice(0,ids.length-1);
-    console.log(`SELECT * FROM courses WHERE IN (${ids})`);
-    const course_list = await anyFunction(`SELECT * FROM courses WHERE IN (${ids})`);
+    console.log(`SELECT * FROM courses WHERE id IN (${ids})`);
+    const course_list = await anyFunction(`SELECT * FROM courses WHERE id IN (${ids})`);
     res.send(course_list);
 });
 
