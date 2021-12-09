@@ -42,7 +42,7 @@ async function editpost(){
 };
 
 function afterLoad(){
-    loc = document.location.split('/')[2];
+    loc = document.location.pathname.split('/')[2];
     editpull();
     console.log('after pull');
     document.getElementById('changeButton').addEventListener('click',editpost);

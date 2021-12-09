@@ -155,13 +155,16 @@ app.post('/Courses/trackcourse', async (req, res) => {
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
     console.log(user_courses['user_courses']);
-    console.log(typeof(user_courses));
-    console.log((user_courses.toString()));
-    
-    if(!user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
-        user_courses+='-'+req.body['course'];
+    console.log(typeof(user_courses['user_courses']));
+    console.log(user_courses['user_courses'].toString());
+    let sb = ''
+    if(user_courses['user_courses'] === null){
+        sb = '-'+req.body['course']
     }
-    const query = (`update account set user_courses = '${user_courses}' where user_id = '${req.body['user_id']}'`);
+    else if(!user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
+        sb=user_courses['user_courses']+'-'+req.body['course'];
+    }
+    const query = (`update account set user_courses = '${sb}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query);
     
@@ -184,6 +187,7 @@ app.post('/Courses/mycourses', async (req, res) => {
     console.log(query);
     const courses = await oneFunction(query);
     let ids = ''
+    if(courses['user_courses']===null) return;
     for(const c in courses['user_courses'].toString().split('-')){
         if(c.length>0){
             ids+=c+','
