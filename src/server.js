@@ -140,15 +140,18 @@ app.post('/Courses/editcourse', async (req, res) =>{
     const id = req.body['id'];
     
     let query = 'update courses set '
-    console.log(req.body);
-    for(const key of req.body){
-        if(key=='id') continue; 
-        query+= key+' = '+req.body[key]+ ', '
-    } 
-    query = query.slice(0,query.length - 2); +`where id = '${id}'`;
+    const name = req.body['course_name'];
+    const college = req.body['college'];
+    const short_description = req.body['short_description'];
+    const long_description = req.body['long_description'];
+    const professor = req.body['professor'];
+    const start_year = req.body['start_year'];
+    const course_number = req.body['course_number'];
+    query += `course_name = '${name}', college = '${college}', short_description='${short_description}',long_description='${long_description}',professor='${professor}',start_year='${start_year}',course_number='${course_number}' where id = '${id}'`;
+    
     console.log(query)
     await noneFunction(query);
-    res.send({})
+    res.send({'id':req.body['id']});
 
 });
 

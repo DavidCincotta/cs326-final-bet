@@ -38,6 +38,7 @@ async function editpost(){
         window.location.pathname = `/information/${loc}`;
     }
     catch(error){
+        window.location.pathname = `/information/${loc}`;
 
     }
 };
