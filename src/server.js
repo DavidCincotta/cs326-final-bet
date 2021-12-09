@@ -140,7 +140,8 @@ app.post('/Courses/editcourse', async (req, res) =>{
     const id = req.body['id'];
     
     let query = 'update courses set '
-    for(const key of req.body.keys()){
+    console.log(req.body);
+    for(const key of req.body){
         if(key=='id') continue; 
         query+= key+' = '+req.body[key]+ ', '
     } 
