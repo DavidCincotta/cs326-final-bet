@@ -28,6 +28,7 @@ export function createTable(position, id,inputList,headers){
         });
         tbody.appendChild(trow);
     });
+    tbl.innerHTML = '';
     tbl.appendChild(tbody);
 
     document.getElementById(position).appendChild(tbl);
