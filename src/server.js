@@ -147,6 +147,7 @@ app.post('/Courses/editcourse', async (req, res) =>{
     query = query.slice(0,query.length - 2); +`where id = '${id}'`;
     console.log(query)
     await noneFunction(query);
+    res.send('')
 
 });
 
@@ -169,7 +170,7 @@ app.post('/Courses/trackcourse', async (req, res) => {
     const query = (`update account set user_courses = '${sb}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query);
-    
+    res.send('')
 });
 app.post('/Courses/untrackcourse', async (req, res) => {
     console.log('untrackcourse');
@@ -178,24 +179,31 @@ app.post('/Courses/untrackcourse', async (req, res) => {
     let new_courses = ''
     if(user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
         new_courses=user_courses['user_courses'].toString().replace('-'+req.body['course'],'');
+    } else {
+        return;
     }
     const query = (`update account set user_courses = '${new_courses}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query)
-
+    res.send('')
 });
 app.post('/Courses/mycourses', async (req, res) => {
     console.log("/Courses/mycourses");
     const query  = (`select user_courses from account where user_id='${req.body['user_id']}'`);
     console.log(query);
     const courses = await oneFunction(query);
+    console.log(courses['user_courses']);
     let ids = ''
-    if(courses['user_courses']===null) return;
+    if(courses['user_courses']===null){
+        req.send('');
+        return;
+    }
     for(const c in courses['user_courses'].toString().split('-')){
         if(c.length>0){
             ids+=c+','
         }
     }
+    console.log(ids);
     if(ids.length>1) ids = ids.slice(0,ids.length-1);
     console.log(`SELECT * FROM courses WHERE id IN (${ids})`);
     const course_list = await anyFunction(`SELECT * FROM courses WHERE id IN (${ids})`);
