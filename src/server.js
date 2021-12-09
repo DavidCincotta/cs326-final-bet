@@ -66,7 +66,7 @@ app.get('/signup',
 app.get('/',
     (req, res) => res.redirect("/login"));
 app.get('/editcourse/:course_id',
-    (req, res) => res.sendFile('/html/information.html',
+    (req, res) => res.sendFile('/html/editcourse.html',
                 { 'root' : __dirname }));
 
 /////////////////////////////////////////////
