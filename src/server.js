@@ -144,7 +144,7 @@ app.post('/Courses/editcourse', async (req, res) =>{
         if(key=='id') continue; 
         query+= key+' = '+req.body[key]+ ', '
     } 
-    query = query.slice(0,query.length - 2); +'where id = '+id;
+    query = query.slice(0,query.length - 2); +`where id = '${id}'`;
     console.log(query)
     await noneFunction(query);
 
@@ -152,31 +152,32 @@ app.post('/Courses/editcourse', async (req, res) =>{
 
 app.post('/Courses/trackcourse', async (req, res) => {
     console.log('trackcourse');
-    let user_courses = await oneFunction('select user_courses from account where user_id = '+req.body['user_id']);
+    let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
     if(!user_courses.split('-').includes(req.body['course'])){
         user_courses+='-'+req.body['course'];
     }
-    const query = (`update account set user_courses = ${user_courses} where user_id = ${req.body['user_id']}`);
+    const query = (`update account set user_courses = '${user_courses}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query);
     
 });
 app.post('/Courses/untrackcourse', async (req, res) => {
     console.log('untrackcourse');
-    let user_courses = await oneFunction('select user_courses from account where user_id = '+req.body['user_id']);
+    let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
     console.log(user_courses);
     if(user_courses.split('-').includes(req.body['course'])){
         user_courses=user_courses.replace('-'+req.body['course'],'');
     }
-    console.log(`update account set user_courses = ${user_courses} where user_id = ${req.body['user_id']}`)
-    await noneFunction(`update account set user_courses = ${user_courses} where user_id = ${req.body['user_id']}`)
+    const query = (`update account set user_courses = '${user_courses}' where user_id = '${req.body['user_id']}'`);
+    console.log(query);
+    await noneFunction(query)
 
 });
 app.post('/Courses/mycourses', async (req, res) => {
     console.log("/Courses/mycourses");
-    const courses = await oneFunction(`select user_courses from account where user_id=${req.body['user_id']}`);
-    console.log(`select user_courses from account where user_id=${req.body['user_id']}`);
+    const query  = (`select user_courses from account where user_id='${req.body['user_id']}'`);
+    const courses = await oneFunction(query);
     let ids = ''
     for(const c in courses.split('-')){
         if(c.length>0){
