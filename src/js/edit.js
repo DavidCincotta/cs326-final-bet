@@ -48,3 +48,5 @@ function afterLoad(){
     document.getElementById('changeButton').addEventListener('click',editpost);
 
 }
+window.addEventListener('load', afterLoad);
+
