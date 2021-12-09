@@ -6,7 +6,7 @@ import {createTable,authorization,postData} from './utilities.js';
 let loc = ''
 
 async function editpull(){
-    const info = await postData(`/getInfo/${loc}`);
+    const info = await fetch(`/getInfo/${loc}`);
 
     const json = await info.json();
 
