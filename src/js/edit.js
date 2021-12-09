@@ -7,6 +7,7 @@ let loc = ''
 
 async function editpull(){
     const info = await postData(`/getInfo/${loc}`);
+
     const json = await info.json();
 
     document.getElementById('college').selectedIndex = json['college'];

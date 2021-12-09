@@ -147,7 +147,7 @@ app.post('/Courses/editcourse', async (req, res) =>{
     query = query.slice(0,query.length - 2); +`where id = '${id}'`;
     console.log(query)
     await noneFunction(query);
-    res.send('')
+    res.send({})
 
 });
 
@@ -164,13 +164,13 @@ app.post('/Courses/trackcourse', async (req, res) => {
         sb=user_courses['user_courses']+'-'+req.body['course'];
     }
     else {
-        res.send('');
+        res.send({});
         return;
     }
     const query = (`update account set user_courses = '${sb}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query);
-    res.send('')
+    res.send({})
 });
 app.post('/Courses/untrackcourse', async (req, res) => {
     console.log('untrackcourse');
@@ -185,7 +185,7 @@ app.post('/Courses/untrackcourse', async (req, res) => {
     const query = (`update account set user_courses = '${new_courses}' where user_id = '${req.body['user_id']}'`);
     console.log(query);
     await noneFunction(query)
-    res.send('')
+    res.send({})
 });
 app.post('/Courses/mycourses', async (req, res) => {
     console.log("/Courses/mycourses");
@@ -195,7 +195,7 @@ app.post('/Courses/mycourses', async (req, res) => {
     console.log(courses['user_courses']);
     let ids = ''
     if(courses['user_courses']===null){
-        req.send('');
+        req.send({});
         return;
     }
     for(const c of courses['user_courses'].split('-')){
