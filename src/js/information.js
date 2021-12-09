@@ -10,6 +10,7 @@ async function trackcourse(){
     const loc = document.location.pathname.split('/');
     const course = loc[2];
     const body = {'user_id':userid,'course':course};
+    console.log(body)
     await postData('/Courses/trackcourse',body);
 }
 async function untrackcourse(){
@@ -17,6 +18,7 @@ async function untrackcourse(){
     const loc = document.location.pathname.split('/');
     const course = loc[2];
     const body = {'user_id':userid,'course':course};
+    console.log(body)
     await postData('/Courses/untrackcourse',body);
 }
 
@@ -36,7 +38,7 @@ async function afterLoad() {
     document.getElementById("start-year").innerText = `Since: ${year}`
     document.getElementById("description").innerText = desc
     document.getElementById("edit").addEventListener('click',editcourse)
-    document.getElementById("add-course").addEventListener('click',addcourse)
+    document.getElementById("track-course").addEventListener('click',trackcourse)
     document.getElementById("untrack-course").addEventListener('click',untrackcourse)
 }
 
