@@ -29,7 +29,7 @@ export function createTable(position, id,inputList,headers){
         tbody.appendChild(trow);
     });
     tbl.appendChild(tbody);
-
+    document.getElementById(position).innerHTML = '';
     document.getElementById(position).appendChild(tbl);
 }
 //Posts data to the server
