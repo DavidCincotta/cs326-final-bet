@@ -17,9 +17,6 @@ async function editpull(){
     document.getElementById('long_description').value = json['long_description'];
     document.getElementById('professor').value = json['professor'];
     document.getElementById('start_year').value = json['start_year'];
-    
-    console.log(json);
-
 }
 async function editpost(){
     const collegeElm = document.getElementById('college');
@@ -31,10 +28,8 @@ async function editpost(){
     const professor = document.getElementById('professor').value;
     const start_year = document.getElementById('start_year').value;
     const json = {"id":loc,"college":college,"course_name":course_name,"professor":professor,"course_number":course_number,"short_description":short_description,"long_description":long_description,"start_year":start_year};
-    console.log(json);
     try{
         const response = await postData('/Courses/editcourse',json);
-        console.log(response);
         window.location.pathname = `/information/${loc}`;
     }
     catch(error){
@@ -46,9 +41,7 @@ async function editpost(){
 function afterLoad(){
     loc = document.location.pathname.split('/')[2];
     editpull();
-    console.log('after pull');
     document.getElementById('changeButton').addEventListener('click',editpost);
-
 }
 window.addEventListener('load', afterLoad);
 
