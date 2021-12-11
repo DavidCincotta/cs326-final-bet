@@ -18,7 +18,6 @@ export function createTable (position, id, inputList, headers) {
   tbl.appendChild(thd);
 
   const tbody = document.createElement('tbody');
-  console.log(inputList);
   inputList.forEach((row) => {
     const trow = document.createElement('tr');
     row.forEach((col) => {
