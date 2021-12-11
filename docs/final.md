@@ -94,7 +94,7 @@ In order to to get authenticated in order to get into the website the user has t
 
 # Division of Labor
 
-Our division of labor this semester has been fairly even. The distribution of work has been consistent in that Ilya handled the login pages and authentication, David created the course/directory functionality and Tom implemented the resources and forum portions of the course explorer.  We collaborated on CSS and design throughout the process, and worked together on creating our database schema as well as our API endpoints.  We worked well together considering that none of us knew each other prior to this project. Our team was able to play to our individual strengths and come up with a great, collaboratively built website.
+Our division of labor this semester has been fairly even. The distribution of work has been consistent in that Ilya handled the account signup,registration and settings pages and account authentication, David created the course/directory functionality and Tom implemented the resources and forum portions of the course explorer.  We collaborated on CSS and design throughout the process, and worked together on creating our database schema as well as our API endpoints.  We worked well together considering that none of us knew each other prior to this project. Our team was able to play to our individual strengths and come up with a great, collaboratively built website.
 
 # Conclusion
 
