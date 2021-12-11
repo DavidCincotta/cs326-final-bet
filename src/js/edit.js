@@ -1,4 +1,5 @@
 
+
 'use strict';
 import { postData } from './utilities.js';
 
@@ -35,9 +36,11 @@ async function editpost () {
   }
 };
 
-function afterLoad () {
-  loc = document.location.pathname.split('/')[2];
-  editpull();
-  document.getElementById('changeButton').addEventListener('click', editpost);
+
+function afterLoad(){
+    authorization()
+    loc = document.location.pathname.split('/')[2];
+    editpull();
+    document.getElementById('changeButton').addEventListener('click',editpost);
 }
 window.addEventListener('load', afterLoad);

@@ -5,6 +5,7 @@ export function createTable (position, id, inputList, headers) {
   tbl.setAttribute('id', id);
   tbl.classList.add('table');
 
+
   const thd = document.createElement('thead');
   const headerRow = document.createElement('tr');
   headers.forEach((h) => {

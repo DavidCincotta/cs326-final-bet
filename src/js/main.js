@@ -14,7 +14,7 @@ async function create () {
     const response = await postData('/Courses/addcourse', json);
     window.location.pathname = `/information/${response.id}`;
   } catch (error) {
-
+      return;
   }
 }
 
