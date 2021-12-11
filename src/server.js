@@ -125,14 +125,11 @@ app.get("/getPosts/:courseID", async (req, res) => {
 app.get("/getInfo/:course_id", async (req, res) => {
     const courseId = req.params.course_id
     const course = await oneFunction(`SELECT * FROM courses WHERE id = ${courseId}`);
-    console.log('/getInfo/:course_id');
-    console.log(course);
     res.send(course);
 });
 
 app.get("/Courses/directory", async (req, res) =>{
     const courseA = await anyFunction(`SELECT * FROM courses`);
-    console.log("/Courses/directory");
     res.send(courseA);
 });
 app.post('/Courses/editcourse', async (req, res) =>{
@@ -149,17 +146,13 @@ app.post('/Courses/editcourse', async (req, res) =>{
     const course_number = req.body['course_number'];
     query += `course_name = '${name}', college = '${college}', short_description='${short_description}',long_description='${long_description}',professor='${professor}',start_year='${start_year}',course_number='${course_number}' where id = '${id}'`;
     
-    console.log(query)
     await noneFunction(query);
     res.send({'id':req.body['id']});
 
 });
 
 app.post('/Courses/trackcourse', async (req, res) => {
-    console.log('trackcourse');
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
-    console.log(user_courses);
-    console.log()
     let sb = ''
     if(user_courses['user_courses'] === null){
         sb = '-'+req.body['course']
@@ -172,14 +165,11 @@ app.post('/Courses/trackcourse', async (req, res) => {
         return;
     }
     const query = (`update account set user_courses = '${sb}' where user_id = '${req.body['user_id']}'`);
-    console.log(query);
     await noneFunction(query);
     res.send({})
 });
 app.post('/Courses/untrackcourse', async (req, res) => {
-    console.log('untrackcourse');
     let user_courses = await oneFunction(`select user_courses from account where user_id = '${req.body['user_id']}'`);
-    console.log(user_courses);
     let new_courses = ''
     if(user_courses['user_courses'].toString().split('-').includes(req.body['course'])){
         new_courses=user_courses['user_courses'].toString().replace('-'+req.body['course'],'');
@@ -187,16 +177,12 @@ app.post('/Courses/untrackcourse', async (req, res) => {
         return;
     }
     const query = (`update account set user_courses = '${new_courses}' where user_id = '${req.body['user_id']}'`);
-    console.log(query);
     await noneFunction(query)
     res.send({})
 });
 app.post('/Courses/mycourses', async (req, res) => {
-    console.log("/Courses/mycourses");
     const query  = (`select user_courses from account where user_id='${req.body['user_id']}'`);
-    console.log(query);
     const courses = await oneFunction(query);
-    console.log(courses['user_courses']);
     let ids = ''
     if(courses['user_courses']===null){
         req.send({});
@@ -204,20 +190,15 @@ app.post('/Courses/mycourses', async (req, res) => {
     }
     for(const c of courses['user_courses'].split('-')){
         if(c.length>0){
-            console.log(c);
             ids+=c+','
         }
     }
-    console.log(ids);
     if(ids.length>1) ids = ids.slice(0,ids.length-1);
-    console.log(`SELECT * FROM courses WHERE id IN (${ids})`);
     const course_list = await anyFunction(`SELECT * FROM courses WHERE id IN (${ids})`);
     res.send(course_list);
 });
 
 app.post('/Courses/addcourse', async (req, res) =>{
-    console.log('/Courses/addcourse');
-    console.log(req.body);
     
     const name = req.body['course_name'];
     const college = req.body['college'];
@@ -227,17 +208,12 @@ app.post('/Courses/addcourse', async (req, res) =>{
     const start_year = req.body['start_year'];
     const course_number = req.body['course_number'];
     
-    console.log('before insert');
     await noneFunction(`insert into courses (course_name,college,short_description,long_description,professor,start_year,course_number) values('${name}','${college}','${short_description}','${long_description}','${professor}','${start_year}','${course_number}')`)
-    console.log('after insert'); 
     const new_id = await oneFunction(`select id from courses where course_name='${name}' and college='${college}' limit 1`);
-    console.log(new_id['id']);
-    console.log('after index query');
     res.send(new_id);
 });
 
 app.post('/Courses/search', async (req, res) =>{
-    console.log('/Courses/search');
     let keyword = req.body['keyword'];
     let modkeyword='\''+keyword+'\'';
     if(keyword===''){
@@ -252,8 +228,6 @@ app.post('/Courses/search', async (req, res) =>{
         college = null;
         modcollege=null;
     }
-    console.log(keyword+course_number+college);
-    console.log(`SELECT * FROM courses WHERE (college='${college}' OR ${modcollege} is null) AND (course_name LIKE '%${keyword}%' or ${modkeyword} is null) AND (course_number=${course_number} OR ${course_number} is null)`);
     const query = await anyFunction(`SELECT * FROM courses WHERE (college='${college}' OR ${modcollege} is null) AND (course_name LIKE '%${keyword}%' or ${modkeyword} is null) AND (course_number=${course_number} OR ${course_number} is null)`);
     res.send(query);
 
@@ -410,5 +384,4 @@ app.delete('/Account/delete', async (req,res)=>{
     catch{e=>console.log(e)}
 })
 app.listen(process.env.PORT || port, () => {
-    console.log(`Course Explorer app listening at http://localhost:8080`);
 });
