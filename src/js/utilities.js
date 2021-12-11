@@ -1,5 +1,5 @@
 'use strict';
-
+// Creates table used in forum pages
 export function createTable(position, id,inputList,headers){
     let tbl = document.createElement('table');
     tbl.setAttribute('id',id);

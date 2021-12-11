@@ -1,6 +1,6 @@
 
 'use strict'
-import {createTable,authorization,postData} from './utilities.js';
+import {authorization,postData} from './utilities.js';
 
 
 let loc = ''
@@ -39,6 +39,7 @@ async function editpost(){
 };
 
 function afterLoad(){
+    authorization()
     loc = document.location.pathname.split('/')[2];
     editpull();
     document.getElementById('changeButton').addEventListener('click',editpost);
