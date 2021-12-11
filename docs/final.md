@@ -1,4 +1,4 @@
-route# Team Name
+# Team Name
 Team-Bet
 
 # Application Name
@@ -71,15 +71,6 @@ We have implemented a website where students can share their experiences in diff
 ## View Forum Post Page
 ### The page where the actual forum discussion is rendered and users can add responses
 ![ForumPost](/screenshots/finalForumPost.JPG "ForumPost")
-
-
-
-
-
-
-
-
-
 
 
 # API's
