@@ -1,4 +1,4 @@
-# Team Name
+route# Team Name
 Team-Bet
 
 # Application Name
@@ -98,6 +98,8 @@ In addition to the table of endpoints shown below, we have a get request for eac
 
 
 # Authentication/Authorization
+
+In order to to get authenticated in order to get into the website the user has to create an account or log in to one. The password itself is encrypted with a hash and a salt in the database. If the password is correct, the website sets a cookie on the user with a user_id, a unique 32 number and letter identifier that is created on registration and is associated with the account. The website checks if the cookie exists with the user and is associated the the account on each website. If not, it will return the user back to the login page where you would have to login. There is no page on the website where one user might have more privileges over another. 
 
 # Division of Labor
 
