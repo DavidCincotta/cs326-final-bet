@@ -5,7 +5,7 @@ async function afterLoad () {
   // This means we are viewing the list of resources for the course with "course"
   if (window.location.pathname.split('/')[1] === 'resources') {
     const course = window.location.pathname.split('/')[2];
-    document.getElementById('resource btn').addEventListener('click', async () => {
+    document.getElementById('resource-btn').addEventListener('click', async () => {
       window.location.pathname = `/addResource/${course}`;
     });
     const resources = await getResources(course);
@@ -18,7 +18,7 @@ async function afterLoad () {
       ['Resource', 'Description', 'Date']);
   } else if (window.location.pathname.split('/')[1] === 'addResource') {
     const course = window.location.pathname.split('/')[2];
-    document.getElementById('resource btn').addEventListener('click', async () => {
+    document.getElementById('resource-btn').addEventListener('click', async () => {
       const title = document.getElementById('title').value;
       const link = document.getElementById('link').value;
       const desc = document.getElementById('description').value;

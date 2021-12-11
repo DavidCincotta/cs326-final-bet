@@ -9,42 +9,38 @@
         <script type="module" src='/js/main.js'></script>
         <script type="module" src='/js/forum.js'></script>
     </head>
+
     <body>
-
-
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
-
         </div>
-
-
 
         <div class='container'>
             <nav id='sidebar' class='sidebar active'>
-                <div type='button' class='item'onclick='changeContent'>Information</div>
-                <div type='button' class='item'onclick='changeContent'>Resources</div>
-                <div type='button' class='item'onclick='changeContent'>Forum</div>
-                <div type='button' class='item'>Settings</div>
-                <div type='button' class='item'>Signout</div>
+              <button class='item'>Information</button>
+              <button class='item'>Resources</button>
+              <button class='item'>Forum</button>
+              <button class='item'>Settings</button>
+              <button class='item'>Signout</button>
             </nav>
             <div class='content'>
                 <div class="alert alert-success" role="alert">
                     Discussion Post Creation
                 </div>
-                  <div class="input-group mb-3">
+				<div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Post Title</span>
+						<span class="input-group-text" id="basic-addon3">Post Title</span>
                     </div>
                     <input type="text" class="form-control" id="title" aria-describedby="basic-addon3" >
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Post Body</span>
+				</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Post Body</span>
                     </div>
                     <textarea class="form-control" aria-label="With textarea" id="body"></textarea>
-                  </div>
-                  <button type="button" class="btn createButton" id="create-post-btn">Create Post</button>
+				</div>
+				<button type="button" class="btn createButton" id="create-post-btn">Create Post</button>
             </div>
         </div>  
     </body>
