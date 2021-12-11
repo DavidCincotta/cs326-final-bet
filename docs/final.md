@@ -20,6 +20,68 @@ We have implemented a website where students can share their experiences in diff
 
 # UI Interface
 
+## Login page
+### Used to log in to an existing account
+![Login](/screenshots/finalLogin.JPG "login")
+
+## Signup Page
+### Used to create a new account
+![Signup](/screenshots/finalSignup.JPG "Signup")
+
+## Settings Page
+### Used to change the user's information, such as email and password
+![Settings](/screenshots/finalSettings.JPG "Settings")
+
+## Courses Page
+### Shows the courses that the signed in user has subscribed to
+![Courses](/screenshots/finalCourses.JPG "Courses")
+
+## Directory Page
+### Shows all courses that are currently stored in our database
+![Directory](/screenshots/finalDirectory.JPG "Directory")
+
+## Search Page
+### Used to search for a specific course stored in the database
+![Search](/screenshots/finalSearch.JPG "Search")
+
+## Create Course Page
+### Used to gather information to store in the database, and later render the course's information page
+![CreateCourse](/screenshots/finalCreateCourse.JPG "CreateCourse")
+
+## Course Information Page
+### Used to display the information entered in the course creation for a given course
+![Information](/screenshots/finalInformation.JPG "Information")
+
+## Resources Page
+### Used to display all resources posted to this course's page
+![Resources](/screenshots/finalResources.JPG "Resources")
+
+## Add New Resource Page
+### Used to add a link to a helpful resources for the given class
+![NewResource](/screenshots/finalNewResource.JPG "NewResource")
+
+## Forum Page
+### Displays links to all discussions occurring within the given course page
+![Forum](/screenshots/finalForum.JPG "Forum")
+
+## Create New Forum Post Page
+### The page where a user can create a new forum post for the given course
+![NewPost](/screenshots/finalNewPost.JPG "NewPost")
+
+## View Forum Post Page
+### The page where the actual forum discussion is rendered and users can add responses
+![ForumPost](/screenshots/finalForumPost.JPG "ForumPost")
+
+
+
+
+
+
+
+
+
+
+
 # API's
 In addition to the table of endpoints shown below, we have a get request for each of the HTML files that our application serves.  All of these are simple requests that take no parameters, and send the requested HTML file.
 
