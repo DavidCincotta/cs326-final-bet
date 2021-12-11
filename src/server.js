@@ -39,9 +39,6 @@ app.get('/Forum/:courseID',
 app.get('/Forum/longpost/:courseID/:postID',
     (req, res) => res.sendFile('/html/forumPost.html',
                     { 'root' : __dirname }));
-app.get('/index',
-    (req, res) => res.sendFile('/html/index.html',
-                    { 'root' : __dirname }));
 app.get('/information/:courseID',
     (req, res) => res.sendFile('/html/information.html',
                 { 'root' : __dirname }));

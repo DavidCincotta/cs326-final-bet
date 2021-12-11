@@ -64,6 +64,11 @@ h4{
     font-size: 1.1em;
     display: block;
     border-bottom: 2px solid black;
+    min-width: 200px;
+    max-width: 200px;
+    background: #821010;
+    color: #fff;
+    text-align: left;
 }
 .item:hover {
     color: black;

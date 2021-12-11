@@ -6,42 +6,45 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='/css/style.css'>
         <title>Account Settings</title>
-        <script type='module'src='/js/main.js'></script>
-        <script type="module" src='/js/account.js'></script>
+        <script type='module' src='/js/main.js'></script>
+        <script type='module' src='/js/account.js'></script>
     </head>
+
     <body>
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
         </div>
+        
         <div class='container'>
             <nav id='sidebar' class='sidebar active'>
-                <div type='button' class='item'>Courses</div>
-                <div type='button' class='item'>Directory</div>
-                <div type='button' class='item'>Search</div>
-                <div type='button' class='item selected'>Settings</div>
-                <div type='button' class='item'>Signout</div>
+                <button class='item'>Courses</button>
+                <button class='item'>Directory</button>
+                <button class='item'>Search</button>
+                <button class='item selected'>Settings</button>
+                <button class='item'>Signout</button>
             </nav>
             <div class='content'>
-            <div class="card rounded border settings-size borderthicc">
-                <div class="card-body">
-                    <form>
-                        <h4>Settings</h4>
-                        <div class="form-group mt-2" >
-                            <input class='form-control' type="text" id="emailUpdate" placeholder="Update Email">
-                        </div>
-                        <div class="form-group mt-2" >
-                            <input class='form-control' type="text" id="usernameUpdate" placeholder="Update Username">
-                        </div>
-                        <div class="form-group mt-2" >
-                            <input class='form-control' type="password" id="updatePass" name="login" placeholder="Update Password">
-                        </div>
-                        <div class="input-group mt-3">
-                            <input class='form-control' type="password" id="currPass" name="currPass" placeholder="Current Password">
-                            <input class='btn btn-primary' type="button" id = 'updateBtn' value="Update">
-                            <input class='btn btn-danger' type="button" id = 'deleteBtn' value="Delete Account">
-                        </div>
-                    </form>
+                <div class="card rounded border settings-size borderthicc">
+                    <div class="card-body">
+                        <form>
+                            <h4>Settings</h4>
+                            <div class="form-group mt-2" >
+                                <input class='form-control' type="text" id="emailUpdate" placeholder="Update Email">
+                            </div>
+                            <div class="form-group mt-2" >
+                                <input class='form-control' type="text" id="usernameUpdate" placeholder="Update Username">
+                            </div>
+                            <div class="form-group mt-2" >
+                                <input class='form-control' type="password" id="updatePass" name="login" placeholder="Update Password">
+                            </div>
+                            <div class="input-group mt-3">
+                                <input class='form-control' type="password" id="currPass" name="currPass" placeholder="Current Password">
+                                <input class='btn btn-primary' type="button" id = 'updateBtn' value="Update">
+                                <input class='btn btn-danger' type="button" id = 'deleteBtn' value="Delete Account">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

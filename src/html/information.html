@@ -6,37 +6,33 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='/css/style.css'>
         <title>Course Information</title>
-        <script type='module'src='/js/main.js'></script>
-        <script type='module'src='/js/information.js'></script>
+        <script type='module' src='/js/main.js'></script>
+        <script type='module' src='/js/information.js'></script>
     </head>
+
     <body>
-
-
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
             <h4 id="course-header">Course: Web Programming</h4>
-
         </div>
-
 
         <div class='container'>
             <nav id='sidebar' class='sidebar active'>
-                <div type='button' class='item'>Courses</div>
-                <div type='button' class='item selected'>Information</div>
-                <div type='button' class='item'>Resources</div>
-                <div type='button' class='item'>Forum</div>
-                <div type='button' class='item'>Settings</div>
-                <div type='button' class='item'>Signout</div>
+                <button class='item'>Courses</button>
+                <button class='item selected'>Information</button>
+                <button class='item'>Resources</button>
+                <button class='item'>Forum</button>
+                <button class='item'>Settings</button>
+                <button class='item'>Signout</button>
             </nav>
 
             <div class='content'>
-                <h1 id="course-title"></h1>
-                <h5 id="professor"></h5>
-                <h5 id="start-year"></h5>
+                <h1 id="course-title">Title</h1>
+                <h5 id="professor">Professor</h5>
+                <h5 id="start-year">Year</h5>
                 <h5>Course Description:</h5>
-                <p id="description">
-                </p>
+                <p id="description"></p>
                 <div>
                     <button id='edit' class="btn createButton">Edit</button>
                     <button id='track-course' class="btn createButton">Track</button>

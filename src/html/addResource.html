@@ -9,48 +9,44 @@
         <script type="module" src='/js/main.js'></script>
         <script type="module" src='/js/resources.js'></script>
     </head>
+
     <body>
-
-
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
-
         </div>
-
-
 
         <div class='container'>
             <nav id='sidebar' class='sidebar active'>
-                <div type='button' class='item'onclick='changeContent'>Information</div>
-                <div type='button' class='item'onclick='changeContent'>Resources</div>
-                <div type='button' class='item'onclick='changeContent'>Forum</div>
-                <div type='button' class='item'>Settings</div>
-                <div type='button' class='item'>Signout</div>
+                <button class='item'>Information</button>
+                <button class='item'>Resources</button>
+                <button class='item'>Forum</button>
+                <button class='item'>Settings</button>
+                <button class='item'>Signout</button>
             </nav>
             <div class='content'>
                 <div class="alert alert-success" role="alert">
-                    Resource Post Creation
+                	Resource Post Creation
                 </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Resource Title</span>
-                    </div>
-                    <input type="text" class="form-control" id="title" aria-describedby="basic-addon3" >
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Link to Resource</span>
+                <div class="input-group mb-3">
+                	<div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon">Resource Title</span>
+                </div>
+                	<input type="text" class="form-control" id="title" aria-describedby="basic-addon3" >
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon2">Link to Resource</span>
                     </div>
                     <input type="text" class="form-control" id="link" aria-describedby="basic-addon3" >
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Brief Description</span>
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon3">Brief Description</span>
                     </div>
                     <input type="text" class="form-control" id="description" aria-describedby="basic-addon3" placeholder="30 Character Limit!">
-                  </div>
-                  <button type="button" class="btn createButton" id="resource btn">Add Resource</button>
+				</div>
+				<button type="button" class="btn createButton" id="resource-btn">Add Resource</button>
             </div>
         </div>  
     </body>

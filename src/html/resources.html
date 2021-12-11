@@ -6,37 +6,31 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' href='/css/style.css'>
         <title>Course Resourses</title>
-        <script type='module'src='/js/main.js'></script>
-        <script type='module'src='/js/resources.js'></script>
-
+        <script type='module' src='/js/main.js'></script>
+        <script type='module' src='/js/resources.js'></script>
     </head>
+
     <body>
-
-
         <div class='header'>
             <button id='menu' type="button" class="btn chevron" aria-label="Left Align">Menu</button>
             <h2>Course Explorer</h2>
             <h4>Course: Web Programming</h4>
-
         </div>
-
-
 
         <div class='container'>
             <nav id='sidebar' class='sidebar active'>
-                <div type='button' class='item'>Courses</div>
-                <div type='button' class='item'>Information</div>
-                <div type='button' class='item selected'>Resources</div>
-                <div type='button' class='item'>Forum</div>
-                <div type='button' class='item'>Settings</div>
-                <div type='button' class='item'>Signout</div>
+                <button class='item'>Courses</button>
+                <button class='item'>Information</button>
+                <button class='item selected'>Resources</button>
+                <button class='item'>Forum</button>
+                <button class='item'>Settings</button>
+                <button class='item'>Signout</button>
             </nav>
 
             <div class='content'>
                 <div id='table-placement'></div>
-                <button class="btn createButton" id="resource btn">Create Listing </button>
+                <button class="btn createButton" id="resource-btn">Create Listing </button>
             </div>
         </div>
-
     </body>
 </html>
