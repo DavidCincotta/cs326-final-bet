@@ -6,7 +6,7 @@ const connectionString = {
   ssl: { rejectUnauthorized: false }
 };
 const db = pgp(connectionString);
-/// ////////////////////////////////////////////
+///////////////////////////////////////////////
 
 // Database none request
 export async function noneFunction (request) {
