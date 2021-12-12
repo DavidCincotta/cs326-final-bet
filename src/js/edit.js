@@ -1,7 +1,7 @@
 
 
 'use strict';
-import { postData } from './utilities.js';
+import { postData,authorization } from './utilities.js';
 
 let loc = '';
 
@@ -38,7 +38,7 @@ async function editpost () {
 
 
 function afterLoad(){
-    authorization()
+    authorization();
     loc = document.location.pathname.split('/')[2];
     editpull();
     document.getElementById('changeButton').addEventListener('click',editpost);

@@ -35,7 +35,7 @@ function afterLoad () {
         const id = window.location.pathname.split('/')[2] === 'longpost' ? window.location.pathname.split('/')[3] : window.location.pathname.split('/')[2];
         window.location.pathname = `${item.innerHTML.toLowerCase()}/${id}`;
       } else if (destination === 'signout') {
-        document.cookie = 'user_id:;expires=' + new Date(0).toUTCString();
+        document.cookie = "user_id:; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.pathname = '/login';
       } else {
         window.location.pathname = `${item.innerHTML.toLowerCase()}`;
